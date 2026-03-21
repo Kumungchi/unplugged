@@ -50,7 +50,7 @@ const Assessment: React.FC<AssessmentProps> = ({ onComplete, onCancel }) => {
   return (
     <div className="max-w-xl mx-auto py-12">
       <div className="mb-12 flex justify-between items-center text-xs text-stone-400 uppercase tracking-widest">
-        <span>Reality Check Tool</span>
+        <span>Usage Assessment</span>
         <span>Question {step + 1} of {questions.length}</span>
       </div>
 

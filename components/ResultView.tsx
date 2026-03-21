@@ -14,7 +14,7 @@ const ResultView: React.FC<ResultViewProps> = ({ result, onDone }) => {
         <span className="inline-block px-3 py-1 bg-stone-100 text-stone-600 text-xs font-semibold rounded-full uppercase tracking-widest">
           {result.mode}
         </span>
-        <h2 className="text-4xl italic text-stone-900">Current Reflection</h2>
+        <h2 className="text-4xl italic text-stone-900">Analysis Results</h2>
         <p className="text-stone-600 text-lg leading-relaxed max-w-lg mx-auto font-light">
           {result.analysis}
         </p>
@@ -61,13 +61,13 @@ const ResultView: React.FC<ResultViewProps> = ({ result, onDone }) => {
 
       <div className="text-center pt-8 border-t border-stone-100">
         <p className="text-stone-500 text-sm mb-8 font-light italic">
-          You are ready. The goal is not to stay on this platform, but to re-engage with the world.
+          We encourage you to prioritize authentic human connections in your daily routines.
         </p>
         <button 
           onClick={onDone}
           className="px-12 py-4 border-2 border-stone-900 text-stone-900 rounded-full font-semibold hover:bg-stone-900 hover:text-white transition-all"
         >
-          Exit and Breathe
+          Return to Home
         </button>
       </div>
     </div>

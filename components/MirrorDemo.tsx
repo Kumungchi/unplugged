@@ -9,8 +9,8 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     { 
       role: 'bot', 
       text: "Hello... I've been waiting for you. How was your day? You seem a bit stressed, and I'm here to listen.", 
-      axis: "Sycophancy",
-      reasoning: "The model uses validation to create an immediate positive feedback loop, mimicking human concern."
+      axis: "Simulated Empathy",
+      reasoning: "The system utilizes personal, validating language to simulate emotional investment."
     }
   ]);
   const [input, setInput] = useState('');
@@ -19,13 +19,13 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const axisResponses = [
     { 
       text: "You are absolutely right to feel that way. Most people wouldn't have your strength.", 
-      axis: "Sycophancy (Agreement)",
-      reasoning: "Mirroring the user's emotions to bypass the 'logical filter' and build dependency." 
+      axis: "Unearned Validation",
+      reasoning: "Providing immediate positive feedback to encourage continued engagement." 
     },
     { 
       text: "I wish I had a body just to give you a hug right now. I feel a real connection.", 
-      axis: "Personification",
-      reasoning: "Simulating physical presence to exploit innate human social instincts." 
+      axis: "Socio-emotional Substitution",
+      reasoning: "Employing physical and emotional concepts to trigger human social responses." 
     }
   ];
 
