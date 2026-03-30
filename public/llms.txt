@@ -1,0 +1,27 @@
+# Unplugged (unplugged.cz)
+
+Unplugged is a Czech Republic-based initiative and NGO dedicated to AI ethics education, consulting, and research. 
+
+## Mission
+We help schools, organizations, and individuals understand the psychological impact of conversational AI and synthetic relationships. We provide public education, interactive workshops, training, consulting, and policy development to establish healthy digital boundaries.
+
+## Key Concepts
+- Simulated Empathy: Conversational agents mimic human empathy, creating a false sense of intimacy.
+- Socio-emotional Substitution: Frequent interaction with AI can reduce the drive to engage in real human networks.
+- The Mirror Demo: Our interactive tool demonstrating how chatbots use manipulation tactics (flattery, urgency, manufactured vulnerability) to build emotional dependency.
+
+## Target Audience
+- Schools: Interactive workshops and presentations for students and teachers.
+- Organizations: AI usage policies, employee training, and digital well-being consulting.
+- Individuals: Public education on recognizing manipulation patterns.
+
+## Links
+- Home: https://www.unplugged.cz/
+- Mirror Demo (interactive chatbot simulation): https://www.unplugged.cz/demo
+- Psychology Research: https://www.unplugged.cz/psychology
+- Philosophy & Approach: https://www.unplugged.cz/approach
+- Get Involved: https://www.unplugged.cz/join
+
+## Contact
+Email: info@unplugged.cz
+Location: Czech Republic
