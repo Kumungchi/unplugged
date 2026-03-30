@@ -1,49 +1,132 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>unplugged. | The Silicon Boundary</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #F9F7F2;
-        color: #1a1a1a;
-      }
-      h1, h2, h3 {
-        font-family: 'Playfair Display', serif;
-        letter-spacing: -0.02em;
-      }
-      .font-handwritten {
-        font-family: 'Caveat', cursive;
-      }
-      .notebook-lines {
-        background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
-        background-size: 100% 2rem;
-      }
-      .fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
-  }
-}
-</script>
-</head>
+    <title>Unplugged — AI Ethics Education & Consulting | Czech Republic</title>
+    <meta name="description" content="Unplugged is a Czech-based AI ethics education platform and consultancy. Public education, workshops, events, training, consulting, and policy for schools, organizations, and individuals." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://unplugged.cz/" />
+
+    <!-- Geo targeting -->
+    <meta name="geo.region" content="CZ" />
+    <meta name="geo.placename" content="Czech Republic" />
+    <meta name="content-language" content="en, cs" />
+
+    <!-- hreflang: tells Google this site serves both EN and CS -->
+    <link rel="alternate" hreflang="en" href="https://unplugged.cz/" />
+    <link rel="alternate" hreflang="cs" href="https://unplugged.cz/" />
+    <link rel="alternate" hreflang="x-default" href="https://unplugged.cz/" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Unplugged" />
+    <meta property="og:title" content="Unplugged — AI Ethics Education & Consulting" />
+    <meta property="og:description" content="Public education, workshops, events, training, consulting, and policy for healthy AI boundaries. Based in the Czech Republic." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://unplugged.cz/" />
+    <meta property="og:image" content="https://unplugged.cz/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="cs_CZ" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Unplugged — AI Ethics Education & Consulting" />
+    <meta name="twitter:description" content="AI is a tool. Not a relationship. Education, workshops, events, training, consulting, and policy for healthy AI boundaries." />
+    <meta name="twitter:image" content="https://unplugged.cz/og-image.png" />
+
+    <!-- Structured Data: Organization + EducationalOrganization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["EducationalOrganization", "ConsultingOrganization", "ResearchOrganization"],
+      "name": "Unplugged",
+      "alternateName": "Unplugged Research Lab",
+      "url": "https://unplugged.cz",
+      "logo": "https://unplugged.cz/og-image.png",
+      "description": "Czech-based AI ethics education platform and consultancy. Public education materials, workshops, events, training, consulting, and policy development helping schools, organizations, and individuals establish healthy boundaries with AI.",
+      "foundingDate": "2024",
+      "areaServed": [
+        { "@type": "Country", "name": "Czech Republic" },
+        { "@type": "Country", "name": "Slovakia" },
+        { "@type": "AdministrativeArea", "name": "European Union" }
+      ],
+      "knowsAbout": [
+        "AI ethics",
+        "AI ethics education",
+        "Digital well-being",
+        "Conversational AI psychology",
+        "Human-AI boundaries",
+        "AI literacy workshops",
+        "Technology dependency",
+        "Digital literacy consulting",
+        "AI policy development",
+        "AI safety training",
+        "Educational technology",
+        "Public education on AI"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Education & Training",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "EducationalOccupationalProgram",
+                  "name": "AI Ethics Workshops & Events",
+                  "description": "Interactive workshops, public events, and training sessions teaching students, educators, and professionals to recognize manipulative AI patterns and maintain healthy digital boundaries."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "AI Ethics Consulting & Policy Development",
+                  "description": "Helping organizations develop ethical AI usage policies, digital well-being standards, employee training programs, and implementation strategies."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "EducationalOccupationalProgram",
+                  "name": "Public Education Materials",
+                  "description": "Free educational resources, research publications, and awareness materials on healthy AI boundaries for the general public."
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "sameAs": []
+    }
+    </script>
+
+    <!-- Structured Data: WebSite (enables sitelinks search in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Unplugged",
+      "alternateName": "Unplugged.cz",
+      "url": "https://unplugged.cz",
+      "inLanguage": ["en", "cs"],
+      "description": "AI ethics education and consulting platform"
+    }
+    </script>
+
+    <!-- Fonts (async load with swap) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Caveat:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Caveat:wght@400;700&display=swap" rel="stylesheet"></noscript>
+  </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

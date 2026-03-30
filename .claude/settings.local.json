@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(timeout 8 npm run dev)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)"
+    ]
+  },
+  "enabledPlugins": {
+    "web-asset-generator@web-asset-generator-marketplace": true
+  }
+}
