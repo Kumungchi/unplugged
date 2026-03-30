@@ -15,6 +15,12 @@ const App: React.FC = () => {
   const [lang, setLang] = useState<Language>(() => {
     const saved = localStorage.getItem('unplugged_lang');
     if (saved === 'en' || saved === 'cs') return saved;
+    
+    // Force Czech default if accessed via .cz domain
+    if (window.location.hostname.endsWith('.cz')) {
+      return 'cs';
+    }
+    
     // Auto-detect from browser, default to Czech
     const browserLang = navigator.language.toLowerCase();
     return browserLang.startsWith('en') ? 'en' : 'cs';
