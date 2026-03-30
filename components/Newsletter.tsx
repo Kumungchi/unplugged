@@ -21,28 +21,15 @@ const Newsletter: React.FC<NewsletterProps> = ({ lang }) => {
     if (!email.trim()) return;
     setStatus('loading');
 
+    // 1. Save to Convex database so you have a backup of the email
     try {
       await subscribe({ email, lang: prefLang });
     } catch {
       // Non-blocking
     }
 
-    try {
-      const res = await fetch(BEEHIIV_SUBSCRIBE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      if (res.ok || res.redirected) {
-        setStatus('success');
-      } else {
-        window.open(`${BEEHIIV_SUBSCRIBE_URL}?email=${encodeURIComponent(email)}`, '_blank');
-        setStatus('success');
-      }
-    } catch {
-      window.open(`${BEEHIIV_SUBSCRIBE_URL}?email=${encodeURIComponent(email)}`, '_blank');
-      setStatus('success');
-    }
+    // 2. Redirect to Beehiiv's Magic Link to officially subscribe them and trigger the Automation Email
+    window.location.href = `${BEEHIIV_SUBSCRIBE_URL}?email=${encodeURIComponent(email)}`;
   };
 
   if (status === 'success') {
