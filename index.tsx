@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
+import { Analytics } from '@vercel/analytics/react';
 import App from './App';
 import './styles/global.css';
 
@@ -20,5 +21,6 @@ root.render(
         <App />
       </BrowserRouter>
     </ConvexProvider>
+    <Analytics />
   </React.StrictMode>
 );
