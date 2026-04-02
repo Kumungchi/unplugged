@@ -48,15 +48,11 @@ const Newsletter: React.FC<NewsletterProps> = ({ lang }) => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="bg-stone-900 rounded-3xl md:rounded-[3rem] p-10 md:p-16 text-center space-y-10">
+      <div className="bg-stone-900 rounded-xl md:rounded-2xl p-8 md:p-12 text-center space-y-8 relative overflow-hidden paper-texture">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
         {/* Header */}
-        <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full">
-            <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-            </svg>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-stone-300">Newsletter</span>
-          </div>
+        <div className="space-y-4 relative z-10">
+          <span className="font-handwritten text-2xl text-red-400">Newsletter</span>
           <h3 className="text-3xl md:text-4xl font-serif italic text-white font-bold leading-tight">
             {t.newsletter_title}
           </h3>
@@ -117,12 +113,12 @@ const Newsletter: React.FC<NewsletterProps> = ({ lang }) => {
               placeholder={t.newsletter_placeholder}
               required
               disabled={status === 'loading'}
-              className="flex-grow bg-white/10 border border-white/10 rounded-full px-5 py-3.5 text-sm text-white placeholder-stone-500 outline-none focus:border-white/30 transition-colors disabled:opacity-50"
+              className="flex-grow bg-white/10 border border-white/20 rounded-full px-5 py-3.5 text-sm text-white placeholder-stone-500 outline-none focus:border-white/30 transition-colors disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-8 py-3.5 bg-red-600 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-500 transition-colors shrink-0 disabled:opacity-50 shadow-lg shadow-red-600/20"
+              className="px-8 py-3.5 bg-red-600 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-500 transition-colors shrink-0 disabled:opacity-50"
             >
               {status === 'loading' ? '...' : t.newsletter_btn}
             </button>

@@ -111,7 +111,7 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
               }`}>
                 {stat.number}
               </div>
-              <p className={`text-[11px] md:text-sm font-light leading-relaxed ${
+              <p className={`text-sm leading-relaxed font-handwritten ${
                 i === 3 ? 'text-red-100' : 'text-stone-500'
               }`}>
                 {stat.label}
@@ -159,15 +159,15 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
 
       {/* Problem / Mission */}
       <section className="scroll-fade grid md:grid-cols-2 gap-8 md:gap-12 pt-12 md:pt-16 border-t border-stone-200">
-        <div className="space-y-6 bg-stone-50 p-8 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
-          <h3 className="text-xs font-black uppercase tracking-[0.4em] text-red-600">{t.problem_label}</h3>
+        <div className="space-y-6 bg-stone-50 p-8 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-stone-200">
+          <span className="font-handwritten text-xl text-red-600">{t.problem_label}</span>
           <p className="text-2xl md:text-3xl font-serif italic text-stone-900 font-bold leading-tight">
-            {t.problem_title}
+            <span className="marker-underline">{t.problem_title}</span>
           </p>
           <p className="text-stone-600 font-normal leading-relaxed text-lg">{t.problem_desc}</p>
         </div>
-        <div className="space-y-6 bg-white p-8 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-md transition-shadow">
-          <h3 className="text-xs font-black uppercase tracking-[0.4em] text-stone-500">{t.mission_label}</h3>
+        <div className="space-y-6 bg-white p-8 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-stone-200">
+          <span className="font-handwritten text-xl text-stone-400">{t.mission_label}</span>
           <p className="text-2xl md:text-3xl font-serif italic text-stone-900 font-bold leading-tight">
             {t.mission_title}
           </p>
@@ -176,10 +176,11 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
       </section>
 
       {/* Who We Are & What We Do */}
-      <section className="scroll-fade bg-stone-900 text-white rounded-3xl md:rounded-[3rem] p-6 sm:p-8 md:p-16 my-8 md:my-16 shadow-2xl">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20">
+      <section className="scroll-fade bg-stone-900 text-white rounded-3xl md:rounded-[3rem] p-6 sm:p-8 md:p-16 my-8 md:my-16 relative overflow-hidden paper-texture">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 relative z-10">
           <div className="space-y-6">
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-red-500">{t.who_we_are_label}</h3>
+            <span className="font-handwritten text-2xl text-red-400">{t.who_we_are_label}</span>
             <p className="text-3xl md:text-4xl font-serif italic font-bold leading-tight">
               {t.who_we_are_title}
             </p>
@@ -187,9 +188,9 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
               {t.who_we_are_desc}
             </p>
           </div>
-          <div className="space-y-6 lg:border-l border-stone-700 lg:pl-16 flex flex-col justify-between">
+          <div className="space-y-6 lg:border-l lg:border-dashed border-stone-700 lg:pl-16 flex flex-col justify-between">
             <div className="space-y-6">
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-red-500">{t.what_we_do_label}</h3>
+              <span className="font-handwritten text-2xl text-red-400">{t.what_we_do_label}</span>
               <p className="text-2xl md:text-3xl font-serif italic font-bold leading-tight">
                 {t.what_we_do_title}
               </p>
@@ -213,8 +214,13 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
       </section>
 
       {/* Quote */}
-      <section className="scroll-fade text-center py-12 md:py-16 border-y border-stone-100 italic font-serif text-xl md:text-2xl text-stone-500 max-w-3xl mx-auto leading-relaxed">
-        "{t.quote_text}"
+      <section className="scroll-fade py-12 md:py-16 max-w-3xl mx-auto">
+        <blockquote className="margin-line">
+          <p className="italic font-serif text-xl md:text-2xl text-stone-600 leading-relaxed">
+            "{t.quote_text}"
+          </p>
+          <footer className="mt-4 font-handwritten text-lg text-red-600">— Unplugged</footer>
+        </blockquote>
       </section>
 
       {/* Newsletter */}
