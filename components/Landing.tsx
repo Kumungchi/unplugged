@@ -111,7 +111,7 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
               }`}>
                 {stat.number}
               </div>
-              <p className={`text-sm leading-relaxed font-handwritten ${
+              <p className={`text-[11px] md:text-sm font-light leading-relaxed ${
                 i === 3 ? 'text-red-100' : 'text-stone-500'
               }`}>
                 {stat.label}
