@@ -24,32 +24,35 @@ Enable and seek partnerships with:
 
 ---
 
-## Template Structure (use for every issue)
+## Template Structure (Use for every future issue)
 
-Every newsletter follows this block order in the Beehiiv editor:
+Aby měl čtenář jasná očekávání a struktura byla konzistentní (jak se osvědčilo v Issue #1), každé budoucí vydání bude striktně následovat tuto osu (v české i anglické verzi):
 
-1. **Image block** — branded header image (1200x400px, create in Canva)
-2. **Text block** — one-line intro hook
-3. **Divider**
-4. **Text block** — Section 1 (main idea)
-5. **Image or text block** — Section 2
-6. **Text block** — Section 3
-7. **Divider**
-8. **Poll block** — engagement question
-9. **Divider**
-10. **Text block** — CTA
-11. **Referral block** — "Share Unplugged" with referral link
+**[Na začátku dokumentu]**
+`## ČESKY`
+
+1. **Header Image Block:** Značková ilustrace k tématu (1200x400px), červeno-smetanová estetika Unplugged.
+2. **Hook:** Krátké uvítání a vtažení do děje – hlavní myšlenka (1-2 odstavce).
+3. **Idea #1 (Problém/Kontext):** Vysvětlení aktuálního fenoménu (např. AI nahrazující přátele, pochlebování).
+4. **Idea #2 (Mechanismus/Proces):** Hlubší rozebrání problému.
+   - *Zde je vždy zařazen Infographic Block pro vizualizaci problému (čísla, smyčka, kroky).*
+5. **Idea #3 (Výzkum pod lupou):** Tvrdá data a studie (MIT, Anthropic, atd.), které problém dokazují.
+6. **Zpravodajská anketa (Poll Block):** Zastavení čtenáře a zapojení ohledně jeho vlastních zkušeností s AI.
+7. **Citát:** Výrazný textový blok s hlavním poselstvím.
+8. **Řešení a CTA:** Co s tím? Jak manipulaci rozeznat?
+   - *Následuje Button Block (např. odkaz na Demo / Přidat se na workshop).*
+9. **Share / Referral Block:** Výzva ke sdílení do škol a mezi přátele.
+10. **Sign-off:** Podpis týmu a motto: *"AI je nástroj. Ne vztah."*
+
+*(Následuje oddělovač a zrcadlově překlopená anglická verze)*
 
 ---
 
 ## Bilingual Strategy
 
-Since Beehiiv doesn't support native multilingual, use ONE of these approaches:
+Náš dřívější formát doporučoval pouze češtinu. Nyní jsme plně přešli na **Duální formát**, protože náš obsah je vysoce relevantní i pro mezinárodní výzkumníky.
 
-**Option A (Recommended for MVP):** Czech-only newsletter for your primary audience.
-Create a separate English publication later when you have international subscribers.
-
-**Option B:** Single email, Czech first with "English below" divider.
-Downside: longer email, lower engagement metrics.
-
-**We recommend Option A** — your presentation is for Czech students. Go Czech-only for now.
+Pravidlo pro Beehiiv dokumenty:
+1. Horní polovina je vždy oddělena nadpisem `## ČESKY`.
+2. V polovině dokumentu použijte oddělovače `---` a `## ENGLISH`.
+3. Obsah musí být 1:1, včetně bloků a obrázků.

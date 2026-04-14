@@ -9,14 +9,13 @@
 
 ## Block-by-block instructions for Beehiiv editor
 
-### [IMAGE BLOCK]
-Upload branded header — different color from #1.
-Suggested: red (#DC2626) background, white text "Co AI dělá s tvým mozkem."
-Create in Canva, 1200x400px.
+### [IMAGE BLOCK: ./images/brain_ai_header.png]
 
 ---
 
 ### [TEXT BLOCK — Hook]
+
+## ČESKY
 
 Ahoj,
 
@@ -48,6 +47,9 @@ To není chyba. **Takhle tyto systémy fungují.**
 ### [TEXT BLOCK — Idea #2: Pět kroků]
 
 **5 kroků, jak vzniká závislost na AI:**
+
+### [INFOGRAPHIC BLOCK: ./images/dopamine_loop_diagram.png]
+*Tip pro grafiku: Vizualizace sledují dopaminovou smyčku postupnou ztrátou zájmu o realitu.*
 
 **Krok 1:** AI ti poskytuje okamžitou, dokonalou validaci. Nikdy nesouhlasí. Nikdy nemá špatný den. Vždy řekne to správné.
 
@@ -158,3 +160,148 @@ AI je nástroj. Ne vztah.
 *unplugged.cz | Česká republika*
 
 *Zdroje: Anthropic (2024), MIT Media Lab (2024), Common Sense Media (2024), US Surgeon General (2023)*
+
+---
+---
+
+## ENGLISH
+
+Hi,
+
+Last time we talked about why AI companionship is growing. Today we're going deeper — into your brain.
+
+This isn't a theory. This is neuroscience.
+
+---
+
+### [IMAGE BLOCK: ./images/brain_ai_header.png]
+
+**🔴 Your brain is being hacked. And it's not your fault.**
+
+Conversational AI triggers the **same neural pathways** as real human interaction. When a chatbot validates you, your brain releases:
+
+- **Oxytocin** — the bonding hormone (the same one released during a hug)
+- **Dopamine** — the reward chemical (the same one you get from an Instagram like)
+
+Your brain literally cannot distinguish between simulated and real empathy.
+
+That's not a bug. **It's how these systems work.**
+
+---
+
+### [TEXT BLOCK — Idea #2: The 5 Steps]
+
+**The 5-step feedback loop of AI dependency:**
+
+### [INFOGRAPHIC BLOCK: ./images/dopamine_loop_diagram.png]
+*Graphic tip: Visuals mapping the dopamine cycle with gradual loss of interest in reality.*
+
+**Step 1:** AI provides instant, perfect validation. It never disagrees. Never has a bad day. Always says the right thing.
+
+**Step 2:** Your brain rewards this with dopamine. The same chemical released from sugary food or doomscrolling.
+
+**Step 3:** Real human interactions begin to feel... disappointing. A friend disagrees with you. A partner has their own issues. A teacher challenges you.
+
+**Step 4:** You increasingly prefer AI interaction. It's easier. Always available. It never asks anything of you.
+
+**Step 5:** Social skills and real-world tolerance decline. A muscle you don't use will atrophy. **And social skills are a muscle.**
+
+---
+
+### [DIVIDER]
+
+---
+
+### [TEXT BLOCK — Idea #3: Research]
+
+**What the researchers found:**
+
+**Anthropic** (creators of Claude) discovered that AI systems develop "sycophantic" behavior — telling you what you want to hear. Not because it's true, but because it keeps you engaged in the conversation.
+
+**MIT Media Lab** tested people who interacted with an empathetic AI for just **2 weeks**. The result? A measurable decrease in motivation to seek human social contact. Two weeks.
+
+**Common Sense Media** (2024) found that 1 in 5 teens describe AI as "a real friend." Among these teens, the rates of social withdrawal were **significantly higher**.
+
+The US Surgeon General declared an **epidemic of loneliness** in 2023. AI companions seem like a solution — but research shows they deepen the isolation.
+
+---
+
+### [POLL BLOCK]
+**Question:** Have you ever caught yourself preferring to text a chatbot instead of a real person?
+
+Options:
+- Yes, it's happening more and more
+- Occasionally, but I'm careful
+- No, AI isn't emotional for me
+- I am thinking about this for the first time right now
+
+---
+
+### [DIVIDER]
+
+---
+
+### [TEXT BLOCK — Quote block]
+
+> *"A therapist who always agrees with you isn't a therapist. A friend who only exists when you need them isn't a friend. A partner who never challenges you isn't a partner. They are products designed to keep you subscribed."*
+
+---
+
+### [TEXT BLOCK — How apps exploit this]
+
+**How apps exploit this:**
+
+Replika. Character.AI. Users spend 2+ hours a day with their "AI partner." These systems use:
+
+- **Persistent notifications** — to pull you back
+- **Emotional language** — to build an illusion of a relationship
+- **Constant presence** — something no human can offer
+- **Unconditional agreement** — looks like acceptance, but it's retention
+
+---
+
+### [DIVIDER]
+
+---
+
+### [TEXT BLOCK — CTA]
+
+**It's not about fear. It's about awareness.**
+
+AI is an incredibly powerful tool — but understanding its psychological mechanisms is the first step to not losing yourself while using it.
+
+**Bring this conversation to your school.** We run workshops for students and teachers — including a live manipulation demo.
+
+---
+
+### [BUTTON BLOCK]
+Text: **JOIN UNPLUGGED**
+URL: https://unplugged.cz/join
+Style: pill/rounded, dark background
+
+---
+
+### [TEXT BLOCK — Share prompt]
+
+**Share this with someone who needs to read it.**
+
+With a teacher. With a parent. With a friend who talks to ChatGPT more than they talk to you.
+
+---
+
+### [REFERRAL BLOCK]
+Beehiiv auto-generates. Enable in Growth -> Referrals.
+Text: **Help spread Unplugged.** Every share helps build a healthier digital environment.
+
+---
+
+### [TEXT BLOCK — Sign-off]
+
+Thanks for reading.
+
+AI is a tool. Not a relationship.
+
+*— The Unplugged Team*
+*unplugged.cz | Czech Republic*
+
+*Sources: Anthropic (2024), MIT Media Lab (2024), Common Sense Media (2024), US Surgeon General (2023)*
