@@ -39,10 +39,11 @@ Aby měl čtenář jasná očekávání a struktura byla konzistentní (jak se o
 5. **Idea #3 (Výzkum pod lupou):** Tvrdá data a studie (MIT, Anthropic, atd.), které problém dokazují.
 6. **Zpravodajská anketa (Poll Block):** Zastavení čtenáře a zapojení ohledně jeho vlastních zkušeností s AI.
 7. **Citát:** Výrazný textový blok s hlavním poselstvím.
-8. **Řešení a CTA:** Co s tím? Jak manipulaci rozeznat?
+8. **Číslo vydání (Number of the Issue) – VOLITELNÉ:** "Callout block" s jediným šokujícím číslem/statistikou pro dané vydání (např. "70 %" nebo "40 %") a krátkým popiskem. Netradiční a velmi silný prvek.
+9. **Řešení a CTA:** Co s tím? Jak manipulaci rozeznat?
    - *Následuje Button Block (např. odkaz na Demo / Přidat se na workshop).*
-9. **Share / Referral Block:** Výzva ke sdílení do škol a mezi přátele.
-10. **Sign-off:** Podpis týmu a motto: *"AI je nástroj. Ne vztah."*
+10. **Share / Referral Block:** Výzva ke sdílení do škol a mezi přátele.
+11. **Sign-off:** Podpis týmu a motto: *"AI je nástroj. Ne vztah."*
 
 *(Následuje oddělovač a zrcadlově překlopená anglická verze)*
 
