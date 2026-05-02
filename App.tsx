@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router';
 import Landing from './components/Landing';
 import Movement from './components/Movement';
 import Boundaries from './components/Boundaries';
-import MirrorDemo from './components/MirrorDemo';
 import Psychology from './components/Psychology';
 import JoinForm from './components/JoinForm';
 import JoinInitiative from './components/JoinInitiative';
@@ -14,6 +13,8 @@ import About from './components/About';
 import Assessment from './components/Assessment';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
+
+const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>(() => {
@@ -133,7 +134,27 @@ const App: React.FC = () => {
           <Route path="/initiative" element={<JoinInitiative lang={lang} />} />
           <Route path="/approach" element={<Movement lang={lang} />} />
           <Route path="/research" element={<Boundaries lang={lang} />} />
-          <Route path="/demo" element={<MirrorDemo lang={lang} />} />
+          <Route
+            path="/demo"
+            element={
+              <Suspense
+                fallback={
+                  <div className="py-24 text-center space-y-3">
+                    <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">
+                      {lang === 'en' ? 'Loading demo' : 'Načítání dema'}
+                    </p>
+                    <p className="text-stone-500">
+                      {lang === 'en'
+                        ? 'Preparing the simulation engine...'
+                        : 'Připravuji simulační engine...'}
+                    </p>
+                  </div>
+                }
+              >
+                <MirrorDemo lang={lang} />
+              </Suspense>
+            }
+          />
           <Route path="/psychology" element={<Psychology lang={lang} />} />
           <Route path="/join" element={<JoinForm lang={lang} />} />
           <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />
