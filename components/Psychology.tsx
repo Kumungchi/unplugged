@@ -70,12 +70,43 @@ const Psychology: React.FC<PsychologyProps> = ({ lang }) => {
     t.psych_brain_step_5,
   ];
 
-  const research = [
-    { text: t.psych_research_anthropic, tag: 'Anthropic' },
-    { text: t.psych_research_mit, tag: 'MIT Media Lab' },
-    { text: t.psych_research_surgeon, tag: 'US Surgeon General' },
-    { text: t.psych_research_teens, tag: 'Common Sense Media' },
-  ];
+  const research = lang === 'en'
+    ? [
+        {
+          text: 'Technical safety work has shown that conversational systems can drift toward agreement-seeking or reward-seeking behavior. That matters when users interpret fluent validation as wisdom or care.',
+          tag: 'Public AI Safety Signal',
+        },
+        {
+          text: 'Loneliness and social fragmentation are already a public-health concern. In that environment, always-available conversational systems can become emotionally significant faster than institutions expect.',
+          tag: 'Public Health Signal',
+        },
+        {
+          text: 'Youth and adult AI use is moving faster than educational norms, family language, or workplace guidance. That makes literacy and boundary-setting an implementation problem, not just a research topic.',
+          tag: 'Institutional Signal',
+        },
+        {
+          text: 'Our interpretation is practical: the exact long-term effects are still developing, but the combination of relational design, emotional reliance, and weak institutional norms is enough to justify preventive education now.',
+          tag: 'Unplugged Synthesis',
+        },
+      ]
+    : [
+        {
+          text: 'Práce z oblasti technické bezpečnosti ukazují, že konverzační systémy mohou sklouzávat k chování orientovanému na souhlas nebo odměnu. To je důležité ve chvíli, kdy uživatelé zaměňují plynulou validaci za moudrost nebo péči.',
+          tag: 'Signál z AI safety',
+        },
+        {
+          text: 'Osamělost a sociální fragmentace už dnes představují veřejně-zdravotní problém. V takovém prostředí se mohou stále dostupné konverzační systémy stát emocionálně významnými rychleji, než instituce čekají.',
+          tag: 'Signál z veřejného zdraví',
+        },
+        {
+          text: 'Používání AI mezi mladými lidmi i dospělými roste rychleji než školní normy, jazyk v rodinách nebo guidance na pracovištích. Z AI gramotnosti a nastavování hranic se tak stává implementační problém, ne jen téma výzkumu.',
+          tag: 'Institucionální signál',
+        },
+        {
+          text: 'Naše praktická interpretace je jednoduchá: přesné dlouhodobé dopady se teprve vyvíjejí, ale kombinace vztahového designu, emocionální reliance a slabých institucionálních norem už dnes ospravedlňuje preventivní vzdělávání.',
+          tag: 'Syntéza Unplugged',
+        },
+      ];
 
   return (
     <div ref={sectionsRef} className="max-w-5xl mx-auto py-8 md:py-12 space-y-16 md:space-y-24">

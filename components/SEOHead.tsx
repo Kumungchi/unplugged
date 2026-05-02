@@ -13,6 +13,30 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       title: 'Unplugged — AI Ethics Education & Consulting | Czech Republic',
       description: 'Public education, workshops, events, training, consulting, and policy for healthy AI boundaries. Helping schools, organizations, and individuals across the Czech Republic and Europe.',
     },
+    '/schools': {
+      title: 'AI Workshops for Schools | Unplugged',
+      description: 'School workshops, staff briefings, and policy starter packs for healthy AI boundaries, student wellbeing, and practical AI literacy.',
+    },
+    '/organizations': {
+      title: 'Responsible AI Training for Organizations | Unplugged',
+      description: 'Training, policy workshops, and leadership briefings for organizations that want practical, human-centered AI usage norms.',
+    },
+    '/government': {
+      title: 'AI Briefings for Government and Public Institutions | Unplugged',
+      description: 'Public-interest AI literacy briefings, advisory memos, and institutional guidance for government and public-sector teams.',
+    },
+    '/assessment': {
+      title: 'AI Boundary Readiness Assessment | Unplugged',
+      description: 'A lightweight readiness assessment for schools, organizations, and public institutions responding to emotionally significant AI use.',
+    },
+    '/about': {
+      title: 'About Unplugged | Public-Interest AI Literacy Initiative',
+      description: 'Learn how Unplugged frames its mission, evidence, and institution-building work across schools, organizations, and public institutions.',
+    },
+    '/initiative': {
+      title: 'Join the Initiative | Unplugged',
+      description: 'Volunteer, contribute expertise, facilitate workshops, advise, or stay close as Unplugged grows into a real institution.',
+    },
     '/demo': {
       title: 'AI Manipulation Demo — See How Chatbots Create Emotional Dependency | Unplugged',
       description: 'Interactive demonstration exposing the psychological mechanisms chatbots use to simulate empathy, create urgency, and build emotional dependency. Educational tool for schools and organizations.',
@@ -42,6 +66,30 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
     '/': {
       title: 'Unplugged — Vzdělávání a poradenství v etice AI | Česká republika',
       description: 'Veřejné vzdělávání, workshopy, akce, školení, poradenství a tvorba politik pro zdravé hranice s AI. Pro školy, organizace a jednotlivce v České republice a Evropě.',
+    },
+    '/schools': {
+      title: 'AI workshopy pro školy | Unplugged',
+      description: 'Workshopy pro školy, briefingy pro pedagogy a policy starter packy pro zdravé hranice s AI, wellbeing studentů a praktickou AI gramotnost.',
+    },
+    '/organizations': {
+      title: 'Responsible AI školení pro organizace | Unplugged',
+      description: 'Školení, policy workshopy a briefingy pro vedení organizací, které chtějí praktické a lidsky orientované normy používání AI.',
+    },
+    '/government': {
+      title: 'AI briefingy pro veřejný sektor | Unplugged',
+      description: 'Public-interest briefingy, advisory mema a institucionální guidance pro vládu, samosprávy a veřejné instituce.',
+    },
+    '/assessment': {
+      title: 'AI Boundary Readiness Assessment | Unplugged',
+      description: 'Lehký readiness assessment pro školy, organizace a veřejné instituce, které reagují na emocionálně významné používání AI.',
+    },
+    '/about': {
+      title: 'O projektu Unplugged | Iniciativa pro AI gramotnost ve veřejném zájmu',
+      description: 'Zjistěte, jak Unplugged rámuje svou misi, práci s důkazy a budování instituce pro školy, organizace a veřejné instituce.',
+    },
+    '/initiative': {
+      title: 'Přidejte se k iniciativě | Unplugged',
+      description: 'Dobrovolničte, přineste expertizu, facilitujte workshopy, radte nebo zůstaňte blízko, jak se Unplugged rozrůstá ve skutečnou instituci.',
     },
     '/demo': {
       title: 'Demo manipulace AI — Jak chatboti vytvářejí emocionální závislost | Unplugged',

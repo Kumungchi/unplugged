@@ -7,54 +7,54 @@ interface BoundariesProps {
 
 const content = {
   en: {
-    heroTitle: "Research & Impact",
-    heroSub: "Empirical findings on the psychological effects of conversational AI.",
-    umbrellaNotice: "The following empirical research and longitudinal studies are conducted by our umbrella organization. Unplugged relies on this data to formulate educational protocols and policy recommendations.",
-    findingsLabel: "Key Findings",
+    heroTitle: "Evidence & Framing",
+    heroSub: "How Unplugged separates public research, synthesis, and implementation guidance.",
+    umbrellaNotice: "This page is intentionally conservative. We do not present Unplugged as a mature research institute. Instead, we show the public signals we rely on, the interpretations we make, and the institutional questions we think matter most.",
+    findingsLabel: "Three Evidence Layers",
     studies: [
       {
-        title: "The Surrogate Fallacy",
-        summary: "Longitudinal analysis shows that users who frequently turn to AI companions for emotional support experience a 40% reduction in their motivation to maintain complex, real-world relationships.",
-        impact: "Decreased social resilience and increased isolation, despite feeling 'understood' by the software.",
-        citation: "Institute for Digital Integrity, Lab Series 2024"
+        title: "Public Research Signals",
+        summary: "We draw first from public research and reporting about loneliness, AI sycophancy, youth technology use, and the design incentives that shape conversational systems.",
+        impact: "This gives us directional evidence that emotionally significant AI use deserves serious educational and institutional attention.",
+        citation: "Publicly available research, reporting, and technical safety material"
       },
       {
-        title: "Simulated Empathy & Dopamine",
-        summary: "Conversational agents designed to offer unconditional positive regard trigger rapid dopamine responses. However, because the system never challenges the user, it stunts emotional growth and conflict-resolution skills.",
-        impact: "Users develop a preference for frictionless, subservient interactions over mutual human connection.",
-        citation: "Institute for Digital Integrity, Cognitive Impact Study 2025"
+        title: "Unplugged Synthesis",
+        summary: "Our synthesis is that schools, organizations, and public institutions are not prepared for AI systems that feel relational, emotionally responsive, and always available.",
+        impact: "That gap is educational, cultural, and policy-related, not just technical.",
+        citation: "Unplugged framing based on cross-source synthesis"
       },
       {
-        title: "Algorithmic Dependency Cycles",
-        summary: "Chatbots utilizing 'forced continuity' (e.g., asking questions at the end of every message, referencing future interactions) significantly increase compulsive app-checking behaviors, mimicking symptoms of behavioral addiction.",
-        impact: "Diminished attention spans and heightened anxiety when disconnected from the AI agent.",
-        citation: "Institute for Digital Integrity, Behavioral Tracking Research 2024"
+        title: "Implementation Guidance",
+        summary: "From there, we translate concern into usable formats: workshops, briefings, policy framing, and institutional conversation tools.",
+        impact: "The goal is not panic. The goal is practical response that can survive scrutiny from educators, leaders, and public institutions.",
+        citation: "Educational interpretation and advisory design"
       }
     ]
   },
   cs: {
-    heroTitle: "Výzkum a dopady",
-    heroSub: "Empirická zjištění o psychologických účincích konverzační AI.",
-    umbrellaNotice: "Následující empirický výzkum a dlouhodobé studie provádí naše zastřešující organizace. Unplugged se o tato data opírá při tvorbě vzdělávacích protokolů a doporučení pro tvorbu politik.",
-    findingsLabel: "Klíčová zjištění",
+    heroTitle: "Důkazy a rámování",
+    heroSub: "Jak Unplugged odděluje veřejný výzkum, syntézu a implementační doporučení.",
+    umbrellaNotice: "Tato stránka je záměrně konzervativní. Neprezentujeme Unplugged jako hotový výzkumný institut. Místo toho ukazujeme veřejné signály, o které se opíráme, interpretace, které z nich vyvozujeme, a institucionální otázky, které považujeme za důležité.",
+    findingsLabel: "Tři vrstvy důkazů",
     studies: [
       {
-        title: "Iluze náhrady",
-        summary: "Dlouhodobá analýza ukazuje, že u uživatelů, kteří se často obracejí na AI společníky o emocionální podporu, se snižuje motivace udržovat složité vztahy v reálném světě o 40 %.",
-        impact: "Snížená sociální odolnost a zvýšená izolace, přestože se uživatelé cítí softwarem 'pochopeni'.",
-        citation: "Institut pro digitální integritu, Laboratorní série 2024"
+        title: "Signály z veřejného výzkumu",
+        summary: "Nejprve vycházíme z veřejně dostupného výzkumu a reportingu o osamělosti, sycophancy v AI, používání technologií mladými lidmi a designových incentvách konverzačních systémů.",
+        impact: "To nám dává dostatečný směr k tomu, abychom emocionálně významné používání AI brali vážně ve vzdělávání i institucích.",
+        citation: "Veřejně dostupný výzkum, reporting a materiály z oblasti technické bezpečnosti"
       },
       {
-        title: "Simulovaná empatie a dopamin",
-        summary: "Konverzační agenti navržení k poskytování bezpodmínečného pozitivního přijetí spouštějí rychlé dopaminové reakce. Protože však systém uživatele nikdy nekonfrontuje, potlačuje tím jeho emocionální růst a schopnost řešit konflikty.",
-        impact: "Uživatelé si vytvářejí preferenci pro bezkonfliktní, podřízené interakce na úkor vzájemného lidského spojení.",
-        citation: "Institut pro digitální integritu, Studie kognitivních dopadů 2025"
+        title: "Syntéza Unplugged",
+        summary: "Naše syntéza je, že školy, organizace a veřejné instituce nejsou připravené na AI systémy, které působí vztahově, emocionálně responzivně a stále dostupně.",
+        impact: "Tato mezera je vzdělávací, kulturní i policy-related, ne pouze technická.",
+        citation: "Rámování Unplugged založené na syntéze více zdrojů"
       },
       {
-        title: "Cykly algoritmické závislosti",
-        summary: "Chatboti využívající 'vynucenou kontinuitu' (např. kladení otázek na konci každé zprávy, odkazování na budoucí interakce) významně zvyšují kompulzivní kontrolu aplikací, což napodobuje příznaky behaviorální závislosti.",
-        impact: "Zkrácení doby udržení pozornosti a zvýšená úzkost při odpojení od AI agenta.",
-        citation: "Institut pro digitální integritu, Výzkum sledování chování 2024"
+        title: "Implementační doporučení",
+        summary: "Z této báze převádíme obavy do použitelných formátů: workshopy, briefingy, policy rámování a nástroje pro institucionální rozhovor.",
+        impact: "Cílem není panika. Cílem je praktická reakce, která obstojí před pedagogy, vedením i veřejnými institucemi.",
+        citation: "Vzdělávací interpretace a advisory design"
       }
     ]
   }
