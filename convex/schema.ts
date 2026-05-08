@@ -29,10 +29,24 @@ export default defineSchema({
     urgency: v.optional(v.string()),
     message: v.optional(v.string()),
     sourcePage: v.string(),
+    attributionSource: v.optional(v.string()),
+    attributionScenario: v.optional(v.string()),
+    attributionAudience: v.optional(v.string()),
+    attributionOutcome: v.optional(v.string()),
     consent: v.boolean(),
     status: v.string(),
     createdAt: v.number(),
   }).index("by_email", ["email"]).index("by_segment_and_status", ["segment", "status"]),
+
+  staffAccess: defineTable({
+    email: v.string(),
+    role: v.string(),
+    active: v.boolean(),
+    notes: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_email_and_active", ["email", "active"])
+    .index("by_role_and_active", ["role", "active"]),
 
   assessmentRuns: defineTable({
     segment: v.string(),
@@ -47,6 +61,22 @@ export default defineSchema({
     recommendedOffer: v.string(),
     createdAt: v.number(),
   }).index("by_segment", ["segment"]),
+
+  demoEvents: defineTable({
+    sessionId: v.string(),
+    eventType: v.string(),
+    scenario: v.string(),
+    audience: v.string(),
+    lang: v.string(),
+    branch: v.optional(v.string()),
+    step: v.optional(v.number()),
+    outcome: v.optional(v.string()),
+    ctaTarget: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_eventType", ["eventType"])
+    .index("by_scenario_and_eventType", ["scenario", "eventType"])
+    .index("by_audience_and_eventType", ["audience", "eventType"]),
 
   contentDownloads: defineTable({
     email: v.optional(v.string()),

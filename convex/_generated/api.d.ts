@@ -10,6 +10,7 @@
 
 import type * as contacts from "../contacts.js";
 import type * as newsletter from "../newsletter.js";
+import type * as staff from "../staff.js";
 import type * as submissions from "../submissions.js";
 
 import type {
@@ -21,6 +22,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   contacts: typeof contacts;
   newsletter: typeof newsletter;
+  staff: typeof staff;
   submissions: typeof submissions;
 }>;
 

@@ -24,6 +24,13 @@ type FormState = {
   consent: boolean;
 };
 
+type Attribution = {
+  source?: string;
+  scenario?: string;
+  audience?: string;
+  outcome?: string;
+};
+
 const content = {
   en: {
     title: 'Contact Unplugged',
@@ -128,6 +135,27 @@ const JoinForm: React.FC<JoinFormProps> = ({ lang }) => {
   });
 
   const segmentHint = useMemo(() => c.hints[form.segment], [c.hints, form.segment]);
+  const attribution = useMemo<Attribution>(() => ({
+    source: searchParams.get('source') ?? undefined,
+    scenario: searchParams.get('scenario') ?? undefined,
+    audience: searchParams.get('audience') ?? undefined,
+    outcome: searchParams.get('outcome') ?? undefined,
+  }), [searchParams]);
+  const sourcePage = useMemo(() => {
+    const params = new URLSearchParams();
+    const source = searchParams.get('source');
+    const scenario = searchParams.get('scenario');
+    const audience = searchParams.get('audience');
+    const outcome = searchParams.get('outcome');
+
+    if (source) params.set('source', source);
+    if (scenario) params.set('scenario', scenario);
+    if (audience) params.set('audience', audience);
+    if (outcome) params.set('outcome', outcome);
+
+    const suffix = params.toString();
+    return suffix ? `/join?${suffix}` : '/join';
+  }, [searchParams]);
 
   const update = (field: keyof FormState, value: string | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value as never }));
@@ -149,7 +177,11 @@ const JoinForm: React.FC<JoinFormProps> = ({ lang }) => {
         need: form.need || undefined,
         urgency: form.urgency || undefined,
         message: form.message || undefined,
-        sourcePage: '/join',
+        sourcePage,
+        attributionSource: attribution.source,
+        attributionScenario: attribution.scenario,
+        attributionAudience: attribution.audience,
+        attributionOutcome: attribution.outcome,
         consent: form.consent,
       });
       setSubmitted(true);

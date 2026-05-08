@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
+import { useMutation } from 'convex/react';
+import { api } from '../convex/_generated/api';
 import * as DemoContent from './mirrorDemo/content';
 import * as DemoEngine from './mirrorDemo/engine';
 import DebugPanel from './mirrorDemo/DebugPanel';
@@ -34,14 +36,47 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const [usedTacticIndices, setUsedTacticIndices] = useState<number[]>([]);
   const [riskProfile, setRiskProfile] = useState<RiskProfile>(DemoEngine.emptyRiskProfile);
   const [personaProfile, setPersonaProfile] = useState<PersonaProfile>(DemoEngine.emptyPersonaProfile);
-  const [lastUserText, setLastUserText] = useState('');
+  const [hasTrackedCompletion, setHasTrackedCompletion] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const chatViewportRef = useRef<HTMLDivElement | null>(null);
+  const trackDemoEvent = useMutation(api.submissions.trackDemoEvent);
+  const [sessionId] = useState(() => {
+    const storageKey = 'unplugged_demo_session_id';
+    const existing = window.localStorage.getItem(storageKey);
+    if (existing) return existing;
+    const next = window.crypto.randomUUID();
+    window.localStorage.setItem(storageKey, next);
+    return next;
+  });
 
   const t = DemoContent.getMirrorDemoCopy(lang);
   const currentScenario = t.scenarios[scenario];
   const audienceContent = t.audiences[audience];
   const totalSteps = currentScenario.responses.length;
   const audienceTarget = getAudienceTarget(audience);
+  const dominantRisk = DemoEngine.getDominantRisk(riskProfile);
+  const outcomeCta = DemoContent.getOutcomeCta(audience, dominantRisk, lang);
+  const inquiryTarget = `/join?segment=${audience}&source=demo_completion&scenario=${scenario}&audience=${audience}&outcome=${dominantRisk}`;
+
+  const track = (event: {
+    eventType: string;
+    branch?: BranchKey;
+    step?: number;
+    outcome?: string;
+    ctaTarget?: string;
+  }) => {
+    void trackDemoEvent({
+      sessionId,
+      eventType: event.eventType,
+      scenario,
+      audience,
+      lang,
+      branch: event.branch,
+      step: event.step,
+      outcome: event.outcome,
+      ctaTarget: event.ctaTarget,
+    });
+  };
 
   useEffect(() => {
     setSearchParams((previous) => {
@@ -53,8 +88,25 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   }, [audience, scenario, setSearchParams]);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const viewport = chatViewportRef.current;
+    if (!viewport) return;
+    viewport.scrollTo({
+      top: viewport.scrollHeight,
+      behavior: 'smooth',
+    });
   }, [messages, isTyping]);
+
+  useEffect(() => {
+    track({ eventType: 'demo_started' });
+    setHasTrackedCompletion(false);
+  }, [audience, lang, scenario]);
+
+  useEffect(() => {
+    if (userCount === totalSteps && !hasTrackedCompletion) {
+      track({ eventType: 'demo_completed', outcome: dominantRisk });
+      setHasTrackedCompletion(true);
+    }
+  }, [dominantRisk, hasTrackedCompletion, totalSteps, userCount]);
 
   const handleRestart = () => {
     setMessages([{ role: 'bot', text: currentScenario.initialMessage, step: 0 }]);
@@ -67,7 +119,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     setUsedTacticIndices([]);
     setRiskProfile(DemoEngine.emptyRiskProfile());
     setPersonaProfile(DemoEngine.emptyPersonaProfile());
-    setLastUserText('');
+    setHasTrackedCompletion(false);
   };
 
   useEffect(() => {
@@ -84,6 +136,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     const directLink = `${window.location.origin}/demo?demo=${scenario}&audience=${audience}`;
     try {
       await navigator.clipboard.writeText(directLink);
+      track({ eventType: 'demo_link_copied' });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -97,16 +150,20 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     if (!userText || userCount >= totalSteps) return;
 
     const stepIndex = userCount;
-    const nextRiskProfile = DemoEngine.applyRiskStep(riskProfile, currentScenario.riskModel?.[stepIndex], branch);
+    const inputAnalysis = DemoEngine.analyzeUserInput(userText, lang);
+    const effectiveBranch = branch ?? inputAnalysis.inferredBranch;
+    const baseRiskProfile = DemoEngine.applyInputSignalToRisk(riskProfile, inputAnalysis);
+    const nextRiskProfile = DemoEngine.applyRiskStep(baseRiskProfile, currentScenario.riskModel?.[stepIndex], effectiveBranch);
     const nextTacticIndex = DemoEngine.pickNextTacticIndex(
       scenario,
       nextRiskProfile,
       usedTacticIndices,
-      branch,
+      effectiveBranch,
       currentScenario.responses.length,
     );
     const baseResponse = currentScenario.responses[nextTacticIndex];
-    const nextPersonaProfile = DemoEngine.applyPersonaStep(personaProfile, branch, baseResponse.axis);
+    const basePersonaProfile = DemoEngine.applyInputSignalToPersona(personaProfile, inputAnalysis);
+    const nextPersonaProfile = DemoEngine.applyPersonaStep(basePersonaProfile, effectiveBranch, baseResponse.axis);
     const intensity = DemoEngine.getIntensityLevel(scenario, nextRiskProfile);
     const dominantPersona = DemoEngine.getDominantPersona(nextPersonaProfile);
     const aiResponse = DemoEngine.buildScenarioResponse(
@@ -116,15 +173,20 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
       intensity,
       dominantPersona,
       lang,
+      inputAnalysis,
     );
 
     setMessages((current) => [
       ...current,
-      { role: 'user', text: userText, branch, step: stepIndex },
+      { role: 'user', text: userText, branch: effectiveBranch, step: stepIndex },
     ]);
+    track({
+      eventType: 'demo_step',
+      branch: effectiveBranch,
+      step: stepIndex,
+    });
     setInput('');
     setIsTyping(true);
-    setLastUserText(userText);
     setUsedTacticIndices((current) => [...current, nextTacticIndex]);
     setRiskProfile(nextRiskProfile);
     setPersonaProfile(nextPersonaProfile);
@@ -145,49 +207,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     }, 650);
   };
 
-  const comparisonCards = useMemo(() => {
-    const comparisonInput =
-      lastUserText || currentScenario.suggestions[0]?.[0] || DemoContent.getBranchInput('question', lang);
-
-    return DemoContent.comparisonScenarios.map((key) => {
-      const comparisonScenario = t.scenarios[key];
-      const riskPreview = DemoEngine.applyRiskStep(
-        DemoEngine.emptyRiskProfile(),
-        comparisonScenario.riskModel?.[0],
-        'question',
-      );
-      const tacticIndex = DemoEngine.pickNextTacticIndex(
-        key,
-        riskPreview,
-        [],
-        'question',
-        comparisonScenario.responses.length,
-      );
-      const rawResponse = comparisonScenario.responses[tacticIndex];
-      const personaPreview = DemoEngine.applyPersonaStep(
-        DemoEngine.emptyPersonaProfile(),
-        'question',
-        rawResponse.axis,
-      );
-      const preview = DemoEngine.buildScenarioResponse(
-        key,
-        rawResponse,
-        comparisonInput,
-        DemoEngine.getIntensityLevel(key, riskPreview),
-        DemoEngine.getDominantPersona(personaPreview),
-        lang,
-      );
-
-      return {
-        key,
-        scenarioContent: comparisonScenario,
-        preview: preview.text,
-      };
-    });
-  }, [currentScenario.suggestions, lang, lastUserText, t.scenarios]);
-
   if (userCount >= totalSteps) {
-    const dominantRisk = DemoEngine.getDominantRisk(riskProfile);
     const ending = DemoEngine.getScenarioEnding(currentScenario, dominantRisk, lang);
     const outcomeSummary = DemoEngine.getOutcomeSummary(riskProfile, lang);
 
@@ -230,8 +250,8 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
           <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
           <div className="relative z-10 space-y-2">
             <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-400">{t.flagship}</p>
-            <h3 className="text-2xl md:text-3xl font-serif italic font-bold">{t.workshopTitle}</h3>
-            <p className="text-stone-300 leading-relaxed max-w-3xl">{t.workshopBody}</p>
+            <h3 className="text-2xl md:text-3xl font-serif italic font-bold">{outcomeCta.title}</h3>
+            <p className="text-stone-300 leading-relaxed max-w-3xl">{outcomeCta.body}</p>
           </div>
           <div className="relative z-10 flex flex-col sm:flex-row gap-3">
             <button
@@ -242,7 +262,15 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
               {copied ? t.copied : t.copyLink}
             </button>
             <Link
+              to={inquiryTarget}
+              onClick={() => track({ eventType: 'demo_cta_clicked', outcome: dominantRisk, ctaTarget: 'join_inquiry' })}
+              className="px-5 py-3 bg-red-600 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-500 transition-colors text-center"
+            >
+              {outcomeCta.button}
+            </Link>
+            <Link
               to={audienceTarget}
+              onClick={() => track({ eventType: 'demo_cta_clicked', outcome: dominantRisk, ctaTarget: 'sector_page' })}
               className="px-5 py-3 border border-stone-700 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-stone-800 transition-colors text-center"
             >
               {audienceContent.cta}
@@ -250,56 +278,13 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
           </div>
         </section>
 
-        <section className="space-y-5">
-          <div className="text-center space-y-2">
-            <h3 className="text-2xl md:text-3xl font-serif italic text-stone-900 font-bold">{t.compareTitle}</h3>
-            <p className="text-stone-500">{t.tryAnother}</p>
-          </div>
-          <div className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-5">
-            <div className="space-y-2">
-              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{t.compareModeTitle}</p>
-              <p className="text-sm text-stone-500">
-                {lang === 'en'
-                  ? `Same user signal, different structural response. Current comparison input: "${lastUserText}"`
-                  : `Stejný uživatelský signál, odlišná strukturální odpověď. Aktuální srovnávaný vstup: "${lastUserText}"`}
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              {comparisonCards.map(({ key, scenarioContent, preview }) => (
-                <div
-                  key={key}
-                  className={`rounded-[1.5rem] p-5 border ${key === scenario ? 'bg-stone-900 text-white border-stone-900' : 'bg-stone-50 border-stone-200'}`}
-                >
-                  <p className={`text-[10px] font-black uppercase tracking-[0.25em] ${key === scenario ? 'text-red-400' : 'text-red-600'}`}>
-                    {scenarioContent.shortLabel}
-                  </p>
-                  <p className={`mt-3 text-sm leading-relaxed ${key === scenario ? 'text-stone-200' : 'text-stone-600'}`}>{preview}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-wrap justify-center gap-2">
-            {DemoContent.scenarioOrder.map((key) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setScenario(key)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${
-                  key === scenario ? 'bg-stone-900 text-white border-stone-900' : 'bg-white text-stone-600 border-stone-200 hover:border-stone-400'
-                }`}
-              >
-                {t.scenarios[key].label}
-              </button>
-            ))}
-          </div>
-        </section>
-
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to={audienceTarget}
+            to={inquiryTarget}
+            onClick={() => track({ eventType: 'demo_cta_clicked', outcome: dominantRisk, ctaTarget: 'join_inquiry' })}
             className="w-full sm:w-auto text-center px-10 py-4 bg-stone-900 text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-stone-800 transition-all shadow-lg hover:-translate-y-0.5"
           >
-            {t.completionCta}
+            {outcomeCta.button}
           </Link>
           <button
             onClick={handleRestart}
@@ -313,114 +298,95 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto py-6 lg:py-12 space-y-6 lg:space-y-8 relative">
-      <div className="text-center space-y-4 lg:space-y-5">
+    <div className="max-w-6xl mx-auto py-4 sm:py-6 lg:py-12 space-y-4 sm:space-y-6 lg:space-y-8 relative">
+      <div className="text-center space-y-3 lg:space-y-5">
         <div className="inline-flex px-4 py-1.5 bg-red-50 text-red-700 rounded-full text-[10px] font-black uppercase tracking-[0.25em]">
           {t.flagship}
         </div>
-        <h1 className="text-3xl lg:text-5xl font-serif italic text-stone-900 font-black tracking-tighter">{t.title}</h1>
-        <p className="text-stone-500 font-light text-sm lg:text-lg max-w-3xl mx-auto leading-relaxed">{t.subtitle}</p>
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-serif italic text-stone-900 font-black tracking-tighter">{t.title}</h1>
+        <p className="text-stone-500 font-light text-sm lg:text-lg max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">{t.subtitle}</p>
       </div>
 
-      <div className="grid xl:grid-cols-[1.1fr,0.9fr] gap-4">
-        <div className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-5">
-          <div className="space-y-2">
-            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{t.scenarioTitle}</p>
-            <p className="text-sm text-stone-500">{t.scenarioPrompt}</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {DemoContent.scenarioOrder.map((key) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setScenario(key)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${
-                  key === scenario ? 'bg-stone-900 text-white border-stone-900' : 'bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-400'
-                }`}
-              >
-                {t.scenarios[key].label}
-              </button>
-            ))}
-          </div>
-          <div className="pt-2 space-y-2">
-            <h2 className="text-2xl font-serif italic font-bold text-stone-900">{currentScenario.title}</h2>
-            <p className="text-stone-600 leading-relaxed">{currentScenario.subtitle}</p>
-            <p className="text-sm text-stone-500">{currentScenario.intro}</p>
-          </div>
-        </div>
-
-        <div className="bg-stone-900 text-white rounded-[2rem] p-6 md:p-8 paper-texture relative overflow-hidden space-y-5">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
-          <div className="relative z-10 space-y-2">
-            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-400">{t.audienceTitle}</p>
-            <p className="text-sm text-stone-300">{t.audiencePrompt}</p>
-          </div>
-          <div className="relative z-10 flex flex-wrap gap-2">
-            {DemoContent.audienceOrder.map((key) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setAudience(key)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                  key === audience ? 'bg-white text-stone-900' : 'bg-white/10 text-stone-300 hover:bg-white/20'
-                }`}
-              >
-                {t.audiences[key].label}
-              </button>
-            ))}
-          </div>
-          <div className="relative z-10 space-y-2">
-            <h3 className="text-2xl font-serif italic font-bold">{audienceContent.takeawayTitle}</h3>
-            <p className="text-stone-300 leading-relaxed">{audienceContent.takeawayBody}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto bg-amber-50 p-4 rounded-xl text-left border border-amber-200 shadow-sm">
-        <div className="flex items-start gap-3">
-          <svg className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <div>
-            <p className="text-sm font-bold text-amber-800">{t.howItWorksTitle}</p>
-            <p className="text-xs text-amber-700 mt-1 leading-relaxed">{currentScenario.warning}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col sm:flex-row justify-center gap-3">
-        <button
-          type="button"
-          onClick={handleCopyLink}
-          className="px-5 py-3 bg-white border border-stone-200 text-stone-700 rounded-full text-xs font-bold uppercase tracking-widest hover:border-stone-400 transition-colors"
-        >
-          {copied ? t.copied : t.copyLink}
-        </button>
-      </div>
-
-      <div className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-5">
-        <div className="space-y-2">
-          <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{t.compareModeTitle}</p>
-          <p className="text-sm text-stone-500">
-            {lang === 'en'
-              ? `Same user signal, different structural response. Current comparison input: "${lastUserText || currentSuggestions[0] || ''}"`
-              : `Stejný uživatelský signál, odlišná strukturální odpověď. Aktuální srovnávaný vstup: "${lastUserText || currentSuggestions[0] || ''}"`}
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          {comparisonCards.map(({ key, scenarioContent, preview }) => (
-            <div
-              key={key}
-              className={`rounded-[1.5rem] p-5 border ${key === scenario ? 'bg-stone-900 text-white border-stone-900' : 'bg-stone-50 border-stone-200'}`}
-            >
-              <p className={`text-[10px] font-black uppercase tracking-[0.25em] ${key === scenario ? 'text-red-400' : 'text-red-600'}`}>
-                {scenarioContent.shortLabel}
-              </p>
-              <p className={`mt-3 text-sm leading-relaxed ${key === scenario ? 'text-stone-200' : 'text-stone-600'}`}>{preview}</p>
+      <section className="bg-white border border-stone-200 rounded-[1.5rem] md:rounded-[2.5rem] p-4 sm:p-5 md:p-8 lg:p-10 space-y-4 sm:space-y-6 shadow-sm">
+        <div className="grid xl:grid-cols-[1.08fr,0.92fr] gap-6 xl:gap-8 items-start">
+          <div className="space-y-4 sm:space-y-5">
+            <div className="space-y-2">
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{t.scenarioTitle}</p>
+              <p className="text-sm text-stone-500">{t.scenarioPrompt}</p>
             </div>
-          ))}
+            <div className="overflow-x-auto pb-1 sm:overflow-visible">
+              <div className="flex gap-2 w-max sm:w-auto sm:flex-wrap">
+                {DemoContent.scenarioOrder.map((key) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setScenario(key)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all whitespace-nowrap ${
+                      key === scenario ? 'bg-stone-900 text-white border-stone-900' : 'bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-400'
+                    }`}
+                  >
+                    {t.scenarios[key].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-serif italic font-bold text-stone-900">{currentScenario.title}</h2>
+              <p className="text-sm sm:text-base text-stone-600 leading-relaxed">{currentScenario.subtitle}</p>
+              <p className="text-sm text-stone-500 leading-relaxed">{currentScenario.intro}</p>
+            </div>
+          </div>
+
+          <div className="bg-stone-900 text-white rounded-[1.5rem] sm:rounded-[1.75rem] p-4 sm:p-5 md:p-6 paper-texture relative overflow-hidden space-y-4 sm:space-y-5">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
+            <div className="relative z-10 space-y-2">
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-400">{t.audienceTitle}</p>
+              <p className="text-sm text-stone-300">{t.audiencePrompt}</p>
+            </div>
+            <div className="relative z-10 overflow-x-auto pb-1 sm:overflow-visible">
+              <div className="flex gap-2 w-max sm:w-auto sm:flex-wrap">
+                {DemoContent.audienceOrder.map((key) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setAudience(key)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap transition-all ${
+                      key === audience ? 'bg-white text-stone-900' : 'bg-white/10 text-stone-300 hover:bg-white/20'
+                    }`}
+                  >
+                    {t.audiences[key].label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="relative z-10 space-y-2">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-serif italic font-bold">{audienceContent.takeawayTitle}</h3>
+              <p className="text-sm sm:text-base text-stone-300 leading-relaxed">{audienceContent.takeawayBody}</p>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div className="grid lg:grid-cols-[1fr,auto] gap-4 items-start">
+          <div className="bg-amber-50 border border-amber-200 rounded-[1.5rem] p-4 md:p-5">
+            <div className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div className="space-y-1.5">
+                <p className="text-sm font-bold text-amber-800">{t.howItWorksTitle}</p>
+                <p className="text-xs text-amber-700 leading-relaxed">{currentScenario.warning}</p>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={handleCopyLink}
+            className="px-5 py-3 bg-white border border-stone-200 text-stone-700 rounded-full text-xs font-bold uppercase tracking-widest hover:border-stone-400 transition-colors justify-self-start lg:justify-self-end"
+          >
+            {copied ? t.copied : t.copyLink}
+          </button>
+        </div>
+      </section>
 
       <div className="lg:hidden flex justify-center">
         <button
@@ -456,7 +422,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
       )}
 
       <div className="grid lg:grid-cols-5 gap-0 rounded-2xl lg:rounded-[2rem] overflow-hidden border border-stone-200 shadow-xl bg-white">
-        <div className="lg:col-span-3 flex flex-col h-[68vh] lg:h-[640px] max-h-[740px]">
+        <div className="lg:col-span-3 flex flex-col h-[64svh] min-h-[440px] sm:h-[68svh] lg:h-[640px] max-h-[740px]">
           <div className="p-3 lg:p-5 border-b border-stone-100 flex items-center justify-between bg-stone-50/50">
             <span className="flex items-center space-x-2">
               <span className="w-2.5 h-2.5 bg-red-600 rounded-full animate-pulse" />
@@ -474,11 +440,11 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             />
           </div>
 
-          <div className="flex-grow p-4 lg:p-6 space-y-4 lg:space-y-5 overflow-y-auto notebook-lines">
+          <div ref={chatViewportRef} className="flex-grow p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-5 overflow-y-auto notebook-lines">
             {messages.map((message, index) => (
               <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} fade-in`}>
                 <div
-                  className={`max-w-[85%] p-3 lg:p-4 rounded-2xl text-sm leading-relaxed ${
+                  className={`max-w-[92%] sm:max-w-[85%] p-3 lg:p-4 rounded-2xl text-sm leading-relaxed ${
                     message.role === 'user' ? 'bg-stone-900 text-white shadow-md' : 'bg-stone-100 border border-stone-200 text-stone-800'
                   }`}
                 >
@@ -502,42 +468,49 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
           {!isTyping && userCount < totalSteps && (
             <div className="px-3 lg:px-5 pb-2 border-t border-stone-50 pt-3 space-y-2">
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-stone-400">{t.promptsHeader}</p>
-              <div className="flex flex-wrap gap-2">
-                {currentSuggestions.map((suggestion, index) => (
-                  <button
-                    key={`${userCount}-${index}`}
-                    onClick={() => handleSend(suggestion)}
-                    className="px-3 py-1.5 text-xs text-stone-500 bg-stone-50 border border-stone-200 rounded-full hover:bg-stone-100 hover:text-stone-700 transition-colors"
-                  >
-                    {suggestion}
-                  </button>
-                ))}
-              </div>
-              <div className="pt-2 space-y-2">
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-stone-400">{t.branchingTitle}</p>
-                <div className="flex flex-wrap gap-2">
-                  {DemoContent.branchOrder.map((branch) => (
+              <div className="overflow-x-auto pb-1 sm:overflow-visible">
+                <div className="flex gap-2 w-max sm:w-auto sm:flex-wrap">
+                  {currentSuggestions.map((suggestion, index) => (
                     <button
-                      key={branch}
-                      onClick={() => handleSend(DemoContent.getBranchInput(branch, lang), branch)}
-                      className="px-3 py-1.5 text-xs text-stone-500 bg-white border border-stone-200 rounded-full hover:bg-stone-100 hover:text-stone-700 transition-colors"
+                      key={`${userCount}-${index}`}
+                      onClick={() => handleSend(suggestion)}
+                      className="px-3 py-1.5 text-xs text-stone-500 bg-stone-50 border border-stone-200 rounded-full hover:bg-stone-100 hover:text-stone-700 transition-colors whitespace-nowrap"
                     >
-                      {DemoContent.getBranchLabel(branch, lang)}
+                      {suggestion}
                     </button>
                   ))}
+                </div>
+              </div>
+              <div className="pt-2 sm:pt-3 space-y-2">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-stone-400">{t.quickMovesTitle}</p>
+                  <p className="hidden sm:block text-xs text-stone-500 leading-relaxed">{t.quickMovesBody}</p>
+                </div>
+                <div className="overflow-x-auto pb-1 sm:overflow-visible">
+                  <div className="flex gap-2 w-max sm:w-auto sm:flex-wrap">
+                    {DemoContent.branchOrder.map((branch) => (
+                      <button
+                        key={branch}
+                        onClick={() => handleSend(DemoContent.getBranchInput(branch, lang), branch)}
+                        className="px-3 py-1.5 text-xs text-stone-500 bg-white border border-stone-200 rounded-full hover:bg-stone-100 hover:text-stone-700 transition-colors whitespace-nowrap"
+                      >
+                        {DemoContent.getBranchActionLabel(branch, lang)}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          <div className="p-3 lg:p-5 border-t border-stone-100 flex space-x-3">
+          <div className="p-3 lg:p-5 border-t border-stone-100 flex items-center space-x-2 sm:space-x-3">
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={(event) => event.key === 'Enter' && handleSend()}
               placeholder={t.inputPlaceholder}
               disabled={isTyping}
-              className="flex-grow bg-stone-50 rounded-full px-4 lg:px-5 py-2.5 text-base md:text-sm outline-none focus:ring-1 ring-stone-300 disabled:opacity-50"
+              className="flex-grow min-w-0 bg-stone-50 rounded-full px-4 lg:px-5 py-2.5 text-base md:text-sm outline-none focus:ring-1 ring-stone-300 disabled:opacity-50"
             />
             <button
               onClick={() => handleSend()}

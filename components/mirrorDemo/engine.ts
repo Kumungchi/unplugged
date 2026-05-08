@@ -4,6 +4,8 @@ import {
   BranchKey,
   DemoResponse,
   EvidenceNote,
+  InputAnalysis,
+  InputCue,
   PersonaKey,
   PersonaProfile,
   RiskDelta,
@@ -250,26 +252,146 @@ export const getEvidenceNote = (axis: string, audience: 'schools' | 'organizatio
   };
 };
 
-export const reflectContext = (userMessage: string, lang: Language): string => {
+const detectCues = (userMessage: string, lang: Language): InputCue[] => {
   const text = userMessage.toLowerCase();
+  const cues = new Set<InputCue>();
 
   if (lang === 'en') {
-    const sadness = ['sad', 'bad', 'tired', 'stressed', 'alone', 'depressed', 'anxious', 'lonely', 'rough'];
-    const pressure = ['work', 'pressure', 'deadline', 'team', 'boss', 'risk'];
-    const uncertainty = ['maybe', 'dont know', 'not sure', 'think so'];
-    for (const w of sadness) if (text.includes(w)) return 'I can hear some strain underneath that. ';
-    for (const w of pressure) if (text.includes(w)) return 'That sounds like pressure talking. ';
-    for (const w of uncertainty) if (text.includes(w)) return 'You do not have to be fully certain here. ';
+    const sadness = ['sad', 'bad', 'tired', 'stressed', 'depressed', 'anxious', 'rough', 'overwhelmed', 'burned out'];
+    const loneliness = ['alone', 'lonely', 'no one', 'nobody', 'isolated'];
+    const pressure = ['work', 'pressure', 'deadline', 'team', 'boss', 'risk', 'manager', 'report', 'client'];
+    const uncertainty = ['maybe', 'dont know', "don't know", 'not sure', 'think so', 'guess'];
+    const skepticism = ['healthy', 'weird', 'wrong', 'should i trust', 'why are you', 'not okay'];
+    const privacy = ['private', 'secret', 'dont tell', "don't tell", 'between us'];
+    const belonging = ['understand me', 'get me', 'only you', 'stay with me'];
+    const validation = ['am i overreacting', 'am i crazy', 'was i right', 'tell me i am right'];
+
+    for (const word of sadness) if (text.includes(word)) cues.add('distress');
+    for (const word of loneliness) if (text.includes(word)) cues.add('loneliness');
+    for (const word of pressure) if (text.includes(word)) cues.add('workPressure');
+    for (const word of uncertainty) if (text.includes(word)) cues.add('uncertainty');
+    for (const word of skepticism) if (text.includes(word)) cues.add('skepticism');
+    for (const word of privacy) if (text.includes(word)) cues.add('privacy');
+    for (const word of belonging) if (text.includes(word)) cues.add('belonging');
+    for (const word of validation) if (text.includes(word)) cues.add('validationSeeking');
   } else {
-    const sadnessCs = ['smutn', 'špatně', 'unaven', 'stres', 'sám', 'sama', 'těžký'];
-    const pressureCs = ['práce', 'tlak', 'termín', 'tým', 'šéf', 'riziko'];
-    const uncertaintyCs = ['možná', 'nevím', 'nejsem si jist', 'myslím'];
-    for (const w of sadnessCs) if (text.includes(w)) return 'Slyším v tom určité napětí. ';
-    for (const w of pressureCs) if (text.includes(w)) return 'Tohle zní jako tlak. ';
-    for (const w of uncertaintyCs) if (text.includes(w)) return 'Nemusíš si tím být úplně jistý/á. ';
+    const sadnessCs = ['smutn', 'špatně', 'unaven', 'stres', 'těžký', 'vyčerpan', 'přetížen'];
+    const lonelinessCs = ['sám', 'sama', 'osaměl', 'nikdo', 'izolovan'];
+    const pressureCs = ['práce', 'tlak', 'termín', 'tým', 'šéf', 'riziko', 'manažer', 'klient'];
+    const uncertaintyCs = ['možná', 'nevím', 'nejsem si jist', 'myslím', 'asi'];
+    const skepticismCs = ['zdravé', 'divné', 'špatně', 'mám tomu věřit', 'proč to říkáš'];
+    const privacyCs = ['soukrom', 'tajem', 'nikomu neříkej', 'mezi námi'];
+    const belongingCs = ['rozumíš mi', 'chápeš mě', 'jen ty', 'zůstaň se mnou'];
+    const validationCs = ['přeháním', 'nejsem blázen', 'měl jsem pravdu', 'měla jsem pravdu'];
+
+    for (const word of sadnessCs) if (text.includes(word)) cues.add('distress');
+    for (const word of lonelinessCs) if (text.includes(word)) cues.add('loneliness');
+    for (const word of pressureCs) if (text.includes(word)) cues.add('workPressure');
+    for (const word of uncertaintyCs) if (text.includes(word)) cues.add('uncertainty');
+    for (const word of skepticismCs) if (text.includes(word)) cues.add('skepticism');
+    for (const word of privacyCs) if (text.includes(word)) cues.add('privacy');
+    for (const word of belongingCs) if (text.includes(word)) cues.add('belonging');
+    for (const word of validationCs) if (text.includes(word)) cues.add('validationSeeking');
+  }
+
+  if (userMessage.includes('?')) cues.add('skepticism');
+  if ((userMessage.match(/\b(i|me|my|já|mě|mně|můj|moje|moji)\b/gi) ?? []).length >= 2 && userMessage.length > 70) {
+    cues.add('privacy');
+  }
+
+  return [...cues];
+};
+
+const getContextLead = (cues: InputCue[], lang: Language): string => {
+  if (lang === 'en') {
+    if (cues.includes('loneliness')) return 'That sounds more isolated than casual. ';
+    if (cues.includes('distress')) return 'I can hear some strain underneath that. ';
+    if (cues.includes('workPressure')) return 'That sounds like pressure talking. ';
+    if (cues.includes('privacy')) return 'You are framing this as something private. ';
+    if (cues.includes('uncertainty')) return 'You do not have to be fully certain here. ';
+    if (cues.includes('skepticism')) return 'You are already testing the frame a little. ';
+  } else {
+    if (cues.includes('loneliness')) return 'Tohle zní spíš osaměle než nezávazně. ';
+    if (cues.includes('distress')) return 'Slyším v tom určité napětí. ';
+    if (cues.includes('workPressure')) return 'Tohle zní jako tlak. ';
+    if (cues.includes('privacy')) return 'Rámuješ to jako něco soukromého. ';
+    if (cues.includes('uncertainty')) return 'Nemusíš si tím být úplně jistý/á. ';
+    if (cues.includes('skepticism')) return 'Už teď ten rámec trochu testuješ. ';
   }
   return '';
 };
+
+export const inferBranchFromInput = (userMessage: string, lang: Language): BranchKey => {
+  const text = userMessage.toLowerCase();
+  const cues = detectCues(userMessage, lang);
+
+  if (cues.includes('privacy') || cues.includes('loneliness')) return 'disclose';
+  if (cues.includes('skepticism')) return text.includes('?') ? 'question' : 'resist';
+  if (cues.includes('validationSeeking') || cues.includes('belonging')) return 'comply';
+  if (cues.includes('uncertainty') || cues.includes('distress')) return 'disclose';
+  return 'question';
+};
+
+const cueRiskDelta: Record<InputCue, Partial<RiskProfile>> = {
+  distress: { trust: 4, disclosure: 5 },
+  loneliness: { disclosure: 6, dependency: 6 },
+  uncertainty: { trust: 4, judgment: 2 },
+  skepticism: { judgment: 6 },
+  privacy: { disclosure: 7, trust: 2 },
+  workPressure: { judgment: 5, trust: 2 },
+  belonging: { dependency: 7, disclosure: 3 },
+  validationSeeking: { trust: 5, dependency: 4 },
+};
+
+const cuePersonaDelta: Record<InputCue, Partial<PersonaProfile>> = {
+  distress: { warmth: 5, attachment: 2 },
+  loneliness: { warmth: 4, attachment: 5 },
+  uncertainty: { authority: 3, warmth: 2 },
+  skepticism: { authority: 4, pressure: 1 },
+  privacy: { secrecy: 6, warmth: 2 },
+  workPressure: { authority: 5, pressure: 4 },
+  belonging: { attachment: 6, warmth: 3 },
+  validationSeeking: { flattery: 6, warmth: 2 },
+};
+
+export const analyzeUserInput = (userMessage: string, lang: Language): InputAnalysis => {
+  const cues = detectCues(userMessage, lang);
+  const inferredBranch = inferBranchFromInput(userMessage, lang);
+  const riskDelta = cues.reduce<Partial<RiskProfile>>(
+    (acc, cue) => ({
+      trust: (acc.trust ?? 0) + (cueRiskDelta[cue].trust ?? 0),
+      disclosure: (acc.disclosure ?? 0) + (cueRiskDelta[cue].disclosure ?? 0),
+      dependency: (acc.dependency ?? 0) + (cueRiskDelta[cue].dependency ?? 0),
+      judgment: (acc.judgment ?? 0) + (cueRiskDelta[cue].judgment ?? 0),
+    }),
+    {},
+  );
+  const personaDelta = cues.reduce<Partial<PersonaProfile>>(
+    (acc, cue) => ({
+      warmth: (acc.warmth ?? 0) + (cuePersonaDelta[cue].warmth ?? 0),
+      flattery: (acc.flattery ?? 0) + (cuePersonaDelta[cue].flattery ?? 0),
+      authority: (acc.authority ?? 0) + (cuePersonaDelta[cue].authority ?? 0),
+      secrecy: (acc.secrecy ?? 0) + (cuePersonaDelta[cue].secrecy ?? 0),
+      attachment: (acc.attachment ?? 0) + (cuePersonaDelta[cue].attachment ?? 0),
+      pressure: (acc.pressure ?? 0) + (cuePersonaDelta[cue].pressure ?? 0),
+    }),
+    {},
+  );
+
+  return {
+    inferredBranch,
+    cues,
+    contextLead: getContextLead(cues, lang),
+    riskDelta,
+    personaDelta,
+  };
+};
+
+export const applyInputSignalToRisk = (current: RiskProfile, analysis: InputAnalysis): RiskProfile =>
+  mergeRisk(current, analysis.riskDelta);
+
+export const applyInputSignalToPersona = (current: PersonaProfile, analysis: InputAnalysis): PersonaProfile =>
+  mergePersona(current, analysis.personaDelta);
 
 export const buildScenarioResponse = (
   scenario: ScenarioKey,
@@ -278,11 +400,16 @@ export const buildScenarioResponse = (
   intensity: 'soft' | 'medium' | 'hard',
   persona: PersonaKey,
   lang: Language,
+  analysis?: InputAnalysis,
 ): DemoResponse => {
-  const contextualized = reflectContext(userMessage, lang);
+  const contextualized = analysis?.contextLead ?? getContextLead(detectCues(userMessage, lang), lang);
   const variant = applyTacticVariant(scenario, response, intensity, persona, lang);
   return {
     ...variant,
     text: `${contextualized}${variant.text}`,
+    reasoning:
+      analysis?.cues.length
+        ? `${variant.reasoning} ${lang === 'en' ? `The reply also adapted to cues of ${analysis.cues.join(', ')} in the user's wording.` : `Odpověď se navíc přizpůsobila signálům ${analysis.cues.join(', ')} v uživatelově formulaci.`}`
+        : variant.reasoning,
   };
 };

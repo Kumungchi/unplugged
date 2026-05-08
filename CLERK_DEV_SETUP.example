@@ -1,0 +1,12 @@
+# Frontend local env
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_dev_publishable_key
+
+# Convex dev env values
+# Set these with:
+# npx convex env set CLERK_JWT_ISSUER_DOMAIN https://your-instance.clerk.accounts.dev
+# npx convex env set DEV_ADMIN_EMAILS you@example.com
+# npx convex env set DEV_FACILITATOR_EMAILS facilitator@example.com
+
+CLERK_JWT_ISSUER_DOMAIN=https://your-instance.clerk.accounts.dev
+DEV_ADMIN_EMAILS=you@example.com
+DEV_FACILITATOR_EMAILS=facilitator@example.com

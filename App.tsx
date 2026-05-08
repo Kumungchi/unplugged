@@ -11,6 +11,10 @@ import CookieConsent from './components/CookieConsent';
 import SectorPage from './components/SectorPage';
 import About from './components/About';
 import Assessment from './components/Assessment';
+import DemoInsights from './components/DemoInsights';
+import Facilitator from './components/Facilitator';
+import SubmissionsOverview from './components/SubmissionsOverview';
+import StaffAccess from './components/StaffAccess';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
 
@@ -47,14 +51,24 @@ const App: React.FC = () => {
   const labels = {
     schools: lang === 'en' ? 'Schools' : 'Školy',
     organizations: lang === 'en' ? 'Organizations' : 'Organizace',
-    government: lang === 'en' ? 'Government' : 'Veřejný sektor',
+    government: lang === 'en' ? 'Government' : 'Veřejný',
     assessment: lang === 'en' ? 'Assessment' : 'Assessment',
-    about: lang === 'en' ? 'About' : 'O projektu',
+    about: lang === 'en' ? 'About' : 'O nás',
     contact: lang === 'en' ? 'Work With Us' : 'Spolupráce',
     initiative: lang === 'en' ? 'Join the Initiative' : 'Přidejte se',
   };
 
-  const navClasses = "px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors hover:text-stone-900 text-stone-500";
+  const mobileLabels = {
+    schools: labels.schools,
+    organizations: labels.organizations,
+    government: lang === 'en' ? 'Government' : 'Veřejný sektor',
+    assessment: labels.assessment,
+    about: lang === 'en' ? 'About' : 'O projektu',
+    contact: labels.contact,
+    initiative: labels.initiative,
+  };
+
+  const navClasses = `px-2.5 xl:px-3.5 py-2 text-[10px] ${lang === 'cs' ? 'xl:text-[11px]' : 'xl:text-xs'} leading-none whitespace-nowrap font-bold uppercase ${lang === 'cs' ? 'tracking-[0.1em] xl:tracking-[0.12em]' : 'tracking-[0.14em] xl:tracking-[0.16em]'} transition-colors hover:text-stone-900 text-stone-500`;
 
   const navLinks = (
     <>
@@ -69,17 +83,17 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col max-w-6xl mx-auto px-4 sm:px-6 lg:px-12">
-      <header className="py-6 md:py-10 flex justify-between items-center border-b border-stone-200 mb-6 md:mb-8">
-        <Link to="/" className="text-2xl md:text-3xl font-black tracking-tighter text-stone-900 uppercase font-serif">
+    <div className="min-h-screen flex flex-col max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
+      <header className="py-6 md:py-9 xl:py-10 flex justify-between items-center border-b border-stone-200 mb-6 md:mb-8">
+        <Link to="/" className="text-[2rem] md:text-[2.35rem] xl:text-[2.6rem] font-black tracking-[-0.04em] text-stone-900 uppercase font-serif leading-none shrink-0">
           {t.brand}<span className="text-red-600">.</span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-4">
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 2xl:gap-4">
           {navLinks}
           <button
             onClick={() => setLang(lang === 'en' ? 'cs' : 'en')}
-            className="ml-4 w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-[10px] font-bold hover:bg-stone-900 hover:text-white transition-all shadow-sm"
+            className="ml-3 xl:ml-5 w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-[10px] font-bold hover:bg-stone-900 hover:text-white transition-all shadow-sm shrink-0"
             aria-label={lang === 'en' ? 'Switch to Czech' : 'Přepnout na angličtinu'}
           >
             {t.lang_toggle}
@@ -88,7 +102,7 @@ const App: React.FC = () => {
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5"
+          className="lg:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5"
           aria-label="Toggle menu"
         >
           <span className={`block w-6 h-0.5 bg-stone-900 transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -98,7 +112,7 @@ const App: React.FC = () => {
       </header>
 
       {menuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-[#F9F7F2] flex flex-col items-center justify-center space-y-8">
+        <div className="lg:hidden fixed inset-0 z-50 bg-[#F9F7F2] flex flex-col items-center justify-center space-y-8">
           <button
             onClick={() => setMenuOpen(false)}
             className="absolute top-10 right-6 w-10 h-10 flex items-center justify-center text-2xl text-stone-900"
@@ -106,13 +120,13 @@ const App: React.FC = () => {
           >
             ✕
           </button>
-          <Link to="/schools" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{labels.schools}</Link>
-          <Link to="/organizations" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{labels.organizations}</Link>
-          <Link to="/government" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{labels.government}</Link>
-          <Link to="/assessment" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{labels.assessment}</Link>
-          <Link to="/about" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{labels.about}</Link>
-          <Link to="/join" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{labels.contact}</Link>
-          <Link to="/initiative" className="text-2xl font-bold uppercase tracking-widest text-red-600">{labels.initiative}</Link>
+          <Link to="/schools" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.schools}</Link>
+          <Link to="/organizations" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.organizations}</Link>
+          <Link to="/government" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.government}</Link>
+          <Link to="/assessment" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.assessment}</Link>
+          <Link to="/about" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.about}</Link>
+          <Link to="/join" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.contact}</Link>
+          <Link to="/initiative" className="text-2xl font-bold uppercase tracking-widest text-red-600">{mobileLabels.initiative}</Link>
           <button
             onClick={() => { setLang(lang === 'en' ? 'cs' : 'en'); setMenuOpen(false); }}
             className="w-14 h-14 rounded-full border-2 border-stone-300 flex items-center justify-center text-sm font-bold hover:bg-stone-900 hover:text-white transition-all"
@@ -130,6 +144,10 @@ const App: React.FC = () => {
           <Route path="/organizations" element={<SectorPage lang={lang} sector="organizations" />} />
           <Route path="/government" element={<SectorPage lang={lang} sector="government" />} />
           <Route path="/assessment" element={<Assessment lang={lang} />} />
+          <Route path="/admin/demo-insights" element={<DemoInsights lang={lang} />} />
+          <Route path="/admin/submissions" element={<SubmissionsOverview lang={lang} />} />
+          <Route path="/facilitator" element={<Facilitator lang={lang} />} />
+          <Route path="/staff-access" element={<StaffAccess lang={lang} />} />
           <Route path="/about" element={<About lang={lang} />} />
           <Route path="/initiative" element={<JoinInitiative lang={lang} />} />
           <Route path="/approach" element={<Movement lang={lang} />} />
@@ -167,9 +185,9 @@ const App: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
           <Link to="/schools" className="hover:text-stone-900">{labels.schools}</Link>
           <Link to="/organizations" className="hover:text-stone-900">{labels.organizations}</Link>
-          <Link to="/government" className="hover:text-stone-900">{labels.government}</Link>
+          <Link to="/government" className="hover:text-stone-900">{mobileLabels.government}</Link>
           <Link to="/assessment" className="hover:text-stone-900">{labels.assessment}</Link>
-          <Link to="/about" className="hover:text-stone-900">{labels.about}</Link>
+          <Link to="/about" className="hover:text-stone-900">{mobileLabels.about}</Link>
           <Link to="/join" className="hover:text-stone-900">{labels.contact}</Link>
           <Link to="/initiative" className="hover:text-stone-900">{labels.initiative}</Link>
           <Link to="/privacy" className="hover:text-stone-900">{t.nav_privacy}</Link>

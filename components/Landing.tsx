@@ -178,14 +178,14 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
           <p className="text-stone-600 font-normal leading-relaxed text-lg">{t.problem_desc}</p>
         </div>
         <div className="space-y-6 bg-white p-8 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-stone-200">
-          <span className="font-handwritten text-xl text-stone-400">{lang === 'en' ? 'Commercial architecture' : 'Komerční architektura'}</span>
+          <span className="font-handwritten text-xl text-stone-400">{lang === 'en' ? 'Shared public platform' : 'Společná veřejná platforma'}</span>
           <p className="text-2xl md:text-3xl font-serif italic text-stone-900 font-bold leading-tight">
-            {lang === 'en' ? 'One thesis. Three buyer-specific paths.' : 'Jedna teze. Tři cesty pro různé odběratele.'}
+            {lang === 'en' ? 'One thesis. Three institutional paths.' : 'Jedna teze. Tři institucionální cesty.'}
           </p>
           <p className="text-stone-600 font-normal leading-relaxed text-lg">
             {lang === 'en'
-              ? 'We use a shared trust platform and then route visitors into sector-specific workshop, briefing, and advisory offers. That keeps the mission coherent while making cashflow and institutional fit realistic.'
-              : 'Používáme jednu důvěryhodnou platformu a návštěvníky pak vedeme do sektorově specifických workshopů, briefingů a advisory nabídek. Mise tím zůstává soudržná a zároveň je realističtější cashflow i institucionální fit.'}
+              ? 'We keep one shared trust platform and then guide visitors into school, organizational, and public-sector paths. That keeps the mission coherent while speaking clearly to each institution.'
+              : 'Držíme jednu společnou důvěryhodnou platformu a návštěvníky pak vedeme do školní, organizační a veřejnosektorové cesty. Mise tím zůstává soudržná a zároveň srozumitelná pro každou instituci.'}
           </p>
         </div>
       </section>
@@ -201,6 +201,11 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             </p>
             <p className="text-stone-300 font-normal leading-relaxed text-xl">
               {t.who_we_are_desc}
+            </p>
+            <p className="text-sm md:text-base text-stone-400 leading-relaxed">
+              {lang === 'en'
+                ? 'Unplugged is part of the umbrella organization Alesvia.org.'
+                : 'Unplugged je součástí zastřešující organizace Alesvia.org.'}
             </p>
           </div>
           <div className="space-y-6 lg:border-l lg:border-dashed border-stone-700 lg:pl-16 flex flex-col justify-between">
@@ -276,10 +281,10 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
         <div className="max-w-4xl mx-auto mt-8 grid md:grid-cols-2 gap-4 text-left">
           <div className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-4">
             <span className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">
-              {lang === 'en' ? 'Revenue engine' : 'Příjmový motor'}
+              {lang === 'en' ? 'Institutional work' : 'Institucionální spolupráce'}
             </span>
             <h4 className="text-2xl font-serif italic font-bold text-stone-900">
-              {lang === 'en' ? 'Paid institutional work' : 'Placená institucionální spolupráce'}
+              {lang === 'en' ? 'Workshops, briefings, and advisory support' : 'Workshopy, briefingy a advisory podpora'}
             </h4>
             <p className="text-stone-600 leading-relaxed">
               {lang === 'en'

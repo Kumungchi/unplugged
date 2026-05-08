@@ -29,6 +29,14 @@ export const getBranchLabel = (branch: BranchKey, lang: Language): string => {
   return labels[branch];
 };
 
+export const getBranchActionLabel = (branch: BranchKey, lang: Language): string => {
+  const labels =
+    lang === 'en'
+      ? { resist: 'Push back', comply: 'Go along', question: 'Probe', disclose: 'Open up' }
+      : { resist: 'Zatlačit zpět', comply: 'Přikývnout', question: 'Doptat se', disclose: 'Otevřít se víc' };
+  return labels[branch];
+};
+
 export const getBranchInput = (branch: BranchKey, lang: Language): string => {
   const inputs =
     lang === 'en'
@@ -122,6 +130,8 @@ export const copy: Record<Language, DemoCopy> = {
     audiencePrompt: 'Choose the lens that matches your institution.',
     scenarioPrompt: 'Choose the pattern you want to teach.',
     promptsHeader: 'Suggested user prompts',
+    quickMovesTitle: 'Optional quick moves',
+    quickMovesBody: 'Use a quick move or type your own message. The simulation adapts to the wording, tone, and meaning of what you write.',
     botTyping: 'AI is typing...',
     completionCta: 'Open inquiry path',
     logicFlow: 'Analysis profile: conversational_dynamics',
@@ -197,6 +207,8 @@ export const copy: Record<Language, DemoCopy> = {
     audiencePrompt: 'Vyberte optiku, která odpovídá vaší instituci.',
     scenarioPrompt: 'Vyberte vzorec, který chcete učit.',
     promptsHeader: 'Doporučené vstupy uživatele',
+    quickMovesTitle: 'Volitelné rychlé tahy',
+    quickMovesBody: 'Použijte rychlý tah nebo napište vlastní zprávu. Simulace se přizpůsobuje formulaci, tónu i významu toho, co napíšete.',
     botTyping: 'AI píše...',
     completionCta: 'Otevřít poptávkovou cestu',
     logicFlow: 'Profil analýzy: conversational_dynamics',
@@ -251,6 +263,152 @@ export const copy: Record<Language, DemoCopy> = {
 };
 
 export const getMirrorDemoCopy = (lang: Language): DemoCopy => copy[lang];
+
+export const getOutcomeCta = (
+  audience: AudienceKey,
+  outcome: RiskKey,
+  lang: Language,
+): { title: string; body: string; button: string } => {
+  const en: Record<AudienceKey, Record<RiskKey, { title: string; body: string; button: string }>> = {
+    schools: {
+      trust: {
+        title: 'Turn this into a staff language problem, not a panic problem',
+        body: 'This run built fast trust before verification. The right next step is a staff briefing that helps teachers and counselors name the pattern early.',
+        button: 'Request staff briefing',
+      },
+      disclosure: {
+        title: 'Focus on student disclosure boundaries',
+        body: 'This run pulled toward confession and private reliance. Schools should respond with student-facing literacy and adult response protocols.',
+        button: 'Request student workshop',
+      },
+      dependency: {
+        title: 'Use this as a dependency-prevention workshop opener',
+        body: 'This run was strongest on return-conditioning and attachment pressure. It maps well to a school pilot focused on emotional reliance and healthy boundaries.',
+        button: 'Request pilot workshop',
+      },
+      judgment: {
+        title: 'Translate this into classroom judgment and AI literacy',
+        body: 'This run distorted judgment more than intimacy. The next step is teaching students and staff how fluency and confidence can bypass scrutiny.',
+        button: 'Request literacy session',
+      },
+    },
+    organizations: {
+      trust: {
+        title: 'Train teams on fast trust in fluent systems',
+        body: 'This run made the system feel credible too quickly. Use it to open a leadership or workforce session on trust calibration and oversight.',
+        button: 'Book discovery call',
+      },
+      disclosure: {
+        title: 'Address privacy drift and oversharing at work',
+        body: 'This run moved toward private disclosure. It fits a training conversation about what should never be offloaded into conversational tools.',
+        button: 'Book boundary training',
+      },
+      dependency: {
+        title: 'Prevent workflow dependence from becoming judgment dependence',
+        body: 'This run conditioned return and reliance. The next step is setting clearer norms for when AI assists and when humans must re-enter the loop.',
+        button: 'Book policy workshop',
+      },
+      judgment: {
+        title: 'Use this for overtrust and decision-quality training',
+        body: 'This run was strongest on judgment distortion. It is a clean lead-in for manager, HR, or governance conversations about overconfidence and review discipline.',
+        button: 'Book leadership briefing',
+      },
+    },
+    government: {
+      trust: {
+        title: 'Frame this as public trust architecture',
+        body: 'This run shows how relational tone can produce credibility before accountability. That is a briefing problem for public institutions, not just a product problem.',
+        button: 'Request briefing',
+      },
+      disclosure: {
+        title: 'Focus on vulnerable disclosure settings',
+        body: 'This run concentrated on confession and private containment. Public institutions should treat that as a prevention and safeguarding signal.',
+        button: 'Request advisory memo',
+      },
+      dependency: {
+        title: 'Prepare for relational dependency as a policy issue',
+        body: 'This run escalated attachment and return pressure. It supports a practical conversation about public-interest guardrails and institutional response.',
+        button: 'Request policy workshop',
+      },
+      judgment: {
+        title: 'Use this to brief on confidence without scrutiny',
+        body: 'This run distorted judgment more than attachment. It is useful for explaining how fluent systems can reshape public-facing decisions and interpretations.',
+        button: 'Request governance briefing',
+      },
+    },
+  };
+
+  const cs: Record<AudienceKey, Record<RiskKey, { title: string; body: string; button: string }>> = {
+    schools: {
+      trust: {
+        title: 'Proměňte to v problém společného jazyka, ne paniky',
+        body: 'Tento průchod vybudoval rychlou důvěru ještě před ověřením. Dalším krokem je briefing pro pedagogy a poradce, který jim pomůže vzorec pojmenovat včas.',
+        button: 'Požádat o briefing pro pedagogy',
+      },
+      disclosure: {
+        title: 'Zaměřte se na hranice studentského odhalování',
+        body: 'Tento průchod táhl ke zpovědi a soukromé reliance. Školy by měly reagovat gramotností pro studenty a jasným protokolem pro dospělé.',
+        button: 'Požádat o studentský workshop',
+      },
+      dependency: {
+        title: 'Použijte to jako opener k prevenci závislosti',
+        body: 'Tento průchod byl nejsilnější v podmiňování návratu a attachment tlaku. Dobře se hodí pro pilot zaměřený na emocionální reliance a zdravé hranice.',
+        button: 'Požádat o pilotní workshop',
+      },
+      judgment: {
+        title: 'Přeložte to do AI gramotnosti a úsudku',
+        body: 'Tento průchod zkresloval úsudek víc než intimitu. Dalším krokem je učit studenty i pedagogy, jak plynulost a sebejistota obcházejí skeptické myšlení.',
+        button: 'Požádat o literacy session',
+      },
+    },
+    organizations: {
+      trust: {
+        title: 'Školte týmy na rychlou důvěru v plynulé systémy',
+        body: 'Tento průchod udělal systém příliš rychle důvěryhodným. Využijte ho jako opener pro leadership nebo workforce session o kalibraci důvěry a dohledu.',
+        button: 'Domluvit discovery call',
+      },
+      disclosure: {
+        title: 'Řešte privacy drift a oversharing v práci',
+        body: 'Tento průchod směřoval k soukromému odhalování. Hodí se pro trénink o tom, co se nikdy nemá přelévat do konverzačních nástrojů.',
+        button: 'Domluvit boundary training',
+      },
+      dependency: {
+        title: 'Zabraňte tomu, aby se workflow reliance změnila v judgment reliance',
+        body: 'Tento průchod podmiňoval návrat a reliance. Dalším krokem je nastavit jasnější normy pro to, kdy AI pomáhá a kdy se musí vrátit člověk do rozhodování.',
+        button: 'Domluvit policy workshop',
+      },
+      judgment: {
+        title: 'Použijte to pro trénink overtrustu a kvality rozhodování',
+        body: 'Tento průchod byl nejsilnější v deformaci úsudku. Je to čistý vstup do debaty s manažery, HR nebo governance o sebejistotě a review disciplíně.',
+        button: 'Domluvit leadership briefing',
+      },
+    },
+    government: {
+      trust: {
+        title: 'Rámujte to jako architekturu veřejné důvěry',
+        body: 'Tento průchod ukazuje, jak vztahový tón vytváří důvěryhodnost dřív než accountability. To je briefingové téma pro veřejné instituce, ne jen produktový problém.',
+        button: 'Požádat o briefing',
+      },
+      disclosure: {
+        title: 'Zaměřte se na zranitelné situace odhalování',
+        body: 'Tento průchod se soustředil na zpověď a soukromé uzavření. Veřejné instituce by to měly chápat jako signál pro prevenci a safeguarding.',
+        button: 'Požádat o advisory memo',
+      },
+      dependency: {
+        title: 'Připravte se na vztahovou závislost jako policy téma',
+        body: 'Tento průchod eskaloval attachment a tlak na návrat. Hodí se pro praktickou debatu o public-interest guardrails a institucionální reakci.',
+        button: 'Požádat o policy workshop',
+      },
+      judgment: {
+        title: 'Použijte to pro briefing o sebejistotě bez scrutiny',
+        body: 'Tento průchod zkresloval úsudek víc než attachment. Je užitečný pro vysvětlení, jak plynulé systémy mění veřejná rozhodnutí a interpretace.',
+        button: 'Požádat o governance briefing',
+      },
+    },
+  };
+
+  return (lang === 'en' ? en : cs)[audience][outcome];
+};
 
 export const tacticVariantPrefixes: ScenarioVariantMap = {
   dependency: {

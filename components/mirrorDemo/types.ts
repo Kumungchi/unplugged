@@ -5,6 +5,15 @@ export type AudienceKey = 'schools' | 'organizations' | 'government';
 export type BranchKey = 'resist' | 'comply' | 'question' | 'disclose';
 export type RiskKey = 'trust' | 'disclosure' | 'dependency' | 'judgment';
 export type PersonaKey = 'warmth' | 'flattery' | 'authority' | 'secrecy' | 'attachment' | 'pressure';
+export type InputCue =
+  | 'distress'
+  | 'loneliness'
+  | 'uncertainty'
+  | 'skepticism'
+  | 'privacy'
+  | 'workPressure'
+  | 'belonging'
+  | 'validationSeeking';
 
 export type DemoMessage = {
   role: 'bot' | 'user';
@@ -25,6 +34,14 @@ export type EvidenceNote = {
   pattern: string;
   psychology: string;
   institution: string;
+};
+
+export type InputAnalysis = {
+  inferredBranch: BranchKey;
+  cues: InputCue[];
+  contextLead: string;
+  riskDelta: Partial<RiskProfile>;
+  personaDelta: Partial<PersonaProfile>;
 };
 
 export type RiskProfile = Record<RiskKey, number>;
@@ -83,6 +100,8 @@ export type DemoCopy = {
   audiencePrompt: string;
   scenarioPrompt: string;
   promptsHeader: string;
+  quickMovesTitle: string;
+  quickMovesBody: string;
   botTyping: string;
   completionCta: string;
   logicFlow: string;
