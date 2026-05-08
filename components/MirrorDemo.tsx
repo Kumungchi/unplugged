@@ -37,6 +37,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const [riskProfile, setRiskProfile] = useState<RiskProfile>(DemoEngine.emptyRiskProfile);
   const [personaProfile, setPersonaProfile] = useState<PersonaProfile>(DemoEngine.emptyPersonaProfile);
   const [hasTrackedCompletion, setHasTrackedCompletion] = useState(false);
+  const [showMobileSetup, setShowMobileSetup] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const chatViewportRef = useRef<HTMLDivElement | null>(null);
   const trackDemoEvent = useMutation(api.submissions.trackDemoEvent);
@@ -120,6 +121,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     setRiskProfile(DemoEngine.emptyRiskProfile());
     setPersonaProfile(DemoEngine.emptyPersonaProfile());
     setHasTrackedCompletion(false);
+    setShowMobileSetup(false);
   };
 
   useEffect(() => {
@@ -307,7 +309,25 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
         <p className="text-stone-500 font-light text-sm lg:text-lg max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">{t.subtitle}</p>
       </div>
 
-      <section className="bg-white border border-stone-200 rounded-[1.5rem] md:rounded-[2.5rem] p-4 sm:p-5 md:p-8 lg:p-10 space-y-4 sm:space-y-6 shadow-sm">
+      <section className="lg:hidden bg-white border border-stone-200 rounded-[1.5rem] p-4 shadow-sm space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="space-y-1 min-w-0">
+            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{currentScenario.shortLabel}</p>
+            <h2 className="text-lg font-serif italic font-bold text-stone-900 truncate">{currentScenario.title}</h2>
+            <p className="text-xs text-stone-500">{t.audiences[audience].label}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowMobileSetup((current) => !current)}
+            className="shrink-0 px-3 py-2 border border-stone-200 rounded-full text-[10px] font-black uppercase tracking-[0.18em] text-stone-600"
+          >
+            {showMobileSetup ? (lang === 'en' ? 'Hide setup' : 'Skrýt nastavení') : (lang === 'en' ? 'Setup' : 'Nastavení')}
+          </button>
+        </div>
+        <p className="text-xs text-stone-500 leading-relaxed">{currentScenario.warning}</p>
+      </section>
+
+      <section className={`${showMobileSetup ? 'block' : 'hidden'} lg:block bg-white border border-stone-200 rounded-[1.5rem] md:rounded-[2.5rem] p-4 sm:p-5 md:p-8 lg:p-10 space-y-4 sm:space-y-6 shadow-sm`}>
         <div className="grid xl:grid-cols-[1.08fr,0.92fr] gap-6 xl:gap-8 items-start">
           <div className="space-y-4 sm:space-y-5">
             <div className="space-y-2">
@@ -333,7 +353,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             <div className="space-y-2">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-serif italic font-bold text-stone-900">{currentScenario.title}</h2>
               <p className="text-sm sm:text-base text-stone-600 leading-relaxed">{currentScenario.subtitle}</p>
-              <p className="text-sm text-stone-500 leading-relaxed">{currentScenario.intro}</p>
+              <p className="hidden sm:block text-sm text-stone-500 leading-relaxed">{currentScenario.intro}</p>
             </div>
           </div>
 
@@ -361,13 +381,13 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             </div>
             <div className="relative z-10 space-y-2">
               <h3 className="text-lg sm:text-xl md:text-2xl font-serif italic font-bold">{audienceContent.takeawayTitle}</h3>
-              <p className="text-sm sm:text-base text-stone-300 leading-relaxed">{audienceContent.takeawayBody}</p>
+              <p className="hidden sm:block text-sm sm:text-base text-stone-300 leading-relaxed">{audienceContent.takeawayBody}</p>
             </div>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-[1fr,auto] gap-4 items-start">
-          <div className="bg-amber-50 border border-amber-200 rounded-[1.5rem] p-4 md:p-5">
+          <div className="hidden sm:block bg-amber-50 border border-amber-200 rounded-[1.5rem] p-4 md:p-5">
             <div className="flex items-start gap-3">
               <svg className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
