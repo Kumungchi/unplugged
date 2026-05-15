@@ -248,7 +248,7 @@ export const translations = {
     privacy_what_title: "What data we collect",
     privacy_what_newsletter: "Newsletter: email address and language preference, processed via Beehiiv.",
     privacy_what_form: "Join/contact form: name, email, organization (optional), role, interest area, and optional message — stored to respond to your inquiry and manage participation in our programs.",
-    privacy_what_analytics: "Cookies: we use only two essential cookies — your language preference and cookie consent choice. No analytics, tracking, or third-party cookies are used.",
+    privacy_what_analytics: "Cookies: we use essential cookies for language preference and cookie consent. Optional analytics are loaded only after consent and remain disabled when browser privacy signals such as Do Not Track are enabled.",
     privacy_why_title: "Purpose of processing",
     privacy_why_desc: "We process personal data solely to: (1) deliver educational newsletters you opted into, (2) respond to contact and join-form inquiries, (3) coordinate participation in workshops and programs, and (4) remember your language and consent preferences.",
     privacy_legal_title: "Legal basis",
@@ -266,7 +266,7 @@ export const translations = {
     privacy_last_updated: "Last updated: March 2026",
 
     // Cookie consent
-    cookie_message: "This site uses only essential cookies required for basic functionality (language preference, cookie consent). We do not use any tracking, analytics, or third-party cookies.",
+    cookie_message: "This site uses essential cookies for basic functionality (language preference, cookie consent). Optional analytics load only after consent, and browser privacy signals such as Do Not Track are respected.",
     cookie_accept: "Got it",
     cookie_decline: "Decline",
     cookie_privacy: "Privacy Policy",
@@ -521,7 +521,7 @@ export const translations = {
     privacy_what_title: "Jaké údaje shromažďujeme",
     privacy_what_newsletter: "Newsletter: emailová adresa a jazyková preference, zpracovávané přes platformu Beehiiv.",
     privacy_what_form: "Formulář pro zapojení/kontakt: jméno, email, organizace (nepovinné), role, oblast zájmu a volitelná zpráva — uloženo za účelem odpovědi na váš dotaz a správy účasti v programech.",
-    privacy_what_analytics: "Cookies: používáme pouze dvě nezbytné cookies — vaši jazykovou preferenci a volbu souhlasu s cookies. Žádné analytické, sledovací ani cookies třetích stran nepoužíváme.",
+    privacy_what_analytics: "Cookies: používáme nezbytné cookies pro jazykovou preferenci a volbu souhlasu s cookies. Volitelná analytika se načítá pouze po souhlasu a zůstává vypnutá, pokud je aktivní signál soukromí prohlížeče, například Do Not Track.",
     privacy_why_title: "Účel zpracování",
     privacy_why_desc: "Osobní údaje zpracováváme výhradně pro: (1) doručování vzdělávacích newsletterů, k jejichž odběru jste se přihlásili, (2) odpovídání na dotazy z kontaktních a přihlašovacích formulářů, (3) koordinaci účasti na workshopech a programech a (4) zapamatování jazykových a souhlasových preferencí.",
     privacy_legal_title: "Právní základ",
@@ -539,7 +539,7 @@ export const translations = {
     privacy_last_updated: "Poslední aktualizace: březen 2026",
 
     // Cookie consent
-    cookie_message: "Tento web používá pouze nezbytné cookies pro základní funkčnost (jazykové preference, souhlas s cookies). Nepoužíváme žádné sledovací, analytické ani cookies třetích stran.",
+    cookie_message: "Tento web používá nezbytné cookies pro základní funkčnost (jazykové preference, souhlas s cookies). Volitelná analytika se načte jen po souhlasu a respektujeme signály soukromí prohlížeče, například Do Not Track.",
     cookie_accept: "Rozumím",
     cookie_decline: "Odmítnout",
     cookie_privacy: "Ochrana osobních údajů",

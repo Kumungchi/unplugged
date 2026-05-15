@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Language, translations } from '../translations';
+import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  getStoredCookieConsent,
+  hasPrivacyOptOutSignal,
+  setStoredCookieConsent,
+} from '../privacy';
 
 interface CookieConsentProps {
   lang: Language;
 }
-
-const STORAGE_KEY = 'unplugged_cookie_consent';
 
 const CookieConsent: React.FC<CookieConsentProps> = ({ lang }) => {
   const t = translations[lang];
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem(STORAGE_KEY);
+    if (hasPrivacyOptOutSignal()) {
+      if (!getStoredCookieConsent()) {
+        setStoredCookieConsent('declined');
+      }
+      setVisible(false);
+      return;
+    }
+
+    const consent = localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
     if (!consent) {
       setVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem(STORAGE_KEY, 'accepted');
+    setStoredCookieConsent('accepted');
     setVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem(STORAGE_KEY, 'declined');
+    setStoredCookieConsent('declined');
     setVisible(false);
   };
 
