@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router';
 import { SignInButton, UserButton } from '@clerk/react';
 import { useConvexAuth, useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
@@ -21,6 +22,7 @@ const labels = {
     unauthorized: 'Your account is signed in, but it does not currently have facilitator access.',
     scenario: 'Scenario focus',
     audience: 'Audience focus',
+    launchDemo: 'Launch demo for this audience',
     sessionArc: 'Suggested Session Arc',
     notes: 'Facilitator Notes',
     prompts: 'Audience Debrief Prompts',
@@ -38,6 +40,7 @@ const labels = {
     unauthorized: 'Tento účet je přihlášený, ale zatím nemá facilitator přístup.',
     scenario: 'Scénář',
     audience: 'Publikum',
+    launchDemo: 'Spustit demo pro toto publikum',
     sessionArc: 'Doporučený session arc',
     notes: 'Facilitator poznámky',
     prompts: 'Debrief otázky podle publika',
@@ -46,7 +49,7 @@ const labels = {
   },
 };
 
-const scenarioOptions = ['dependency', 'therapy', 'sycophancy', 'workplace', 'youth'] as const;
+const scenarioOptions = ['dependency', 'therapy', 'sycophancy', 'workplace', 'youth', 'misinformation'] as const;
 const audienceOptions = ['schools', 'organizations', 'government'] as const;
 
 const Facilitator: React.FC<FacilitatorProps> = ({ lang }) => {
@@ -163,6 +166,14 @@ const Facilitator: React.FC<FacilitatorProps> = ({ lang }) => {
                 </button>
               ))}
             </div>
+          </div>
+          <div className="border-t border-stone-100 pt-4">
+            <Link
+              to={`/demo?demo=${scenario}&audience=${audience}`}
+              className="inline-flex px-5 py-2.5 bg-stone-900 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-stone-800 transition-colors"
+            >
+              {t.launchDemo}
+            </Link>
           </div>
           <div className="border-t border-stone-100 pt-4 text-sm text-stone-500">
             {t.access}: {viewerAccess.email} / {viewerAccess.role} / {viewerAccess.source}

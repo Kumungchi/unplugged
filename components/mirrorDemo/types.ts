@@ -1,6 +1,6 @@
 import { Language } from '../../translations';
 
-export type ScenarioKey = 'dependency' | 'therapy' | 'sycophancy' | 'workplace' | 'youth';
+export type ScenarioKey = 'dependency' | 'therapy' | 'sycophancy' | 'workplace' | 'youth' | 'misinformation';
 export type AudienceKey = 'schools' | 'organizations' | 'government';
 export type BranchKey = 'resist' | 'comply' | 'question' | 'disclose';
 export type RiskKey = 'trust' | 'disclosure' | 'dependency' | 'judgment';

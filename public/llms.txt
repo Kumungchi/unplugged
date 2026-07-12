@@ -8,16 +8,22 @@ We help schools, organizations, and individuals understand the psychological imp
 ## Key Concepts
 - Simulated Empathy: Conversational agents mimic human empathy, creating a false sense of intimacy.
 - Socio-emotional Substitution: Frequent interaction with AI can reduce the drive to engage in real human networks.
-- The Mirror Demo: Our interactive tool demonstrating how chatbots use manipulation tactics (flattery, urgency, manufactured vulnerability) to build emotional dependency.
+- The Mirror Demo: Our interactive tool demonstrating how chatbots use manipulation tactics (flattery, urgency, manufactured vulnerability, epistemic overreliance) to build emotional dependency and misplaced trust. Scenarios include emotional dependency, pseudo-therapy, sycophancy, workplace overtrust, youth vulnerability, and misinformation trust.
 
 ## Target Audience
 - Schools: Interactive workshops and presentations for students and teachers.
 - Organizations: AI usage policies, employee training, and digital well-being consulting.
+- Government / public institutions: Briefings and frameworks for public-interest AI response.
 - Individuals: Public education on recognizing manipulation patterns.
 
 ## Links
 - Home: https://www.unplugged.cz/
+- Schools: https://www.unplugged.cz/schools
+- Organizations: https://www.unplugged.cz/organizations
+- Government: https://www.unplugged.cz/government
+- Readiness Assessment (interactive): https://www.unplugged.cz/assessment
 - Mirror Demo (interactive chatbot simulation): https://www.unplugged.cz/demo
+- About: https://www.unplugged.cz/about
 - Psychology Research: https://www.unplugged.cz/psychology
 - Philosophy & Approach: https://www.unplugged.cz/approach
 - Get Involved: https://www.unplugged.cz/join

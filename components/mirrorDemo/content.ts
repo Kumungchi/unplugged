@@ -2,7 +2,7 @@ import { Language } from '../../translations';
 import { AudienceKey, BranchKey, DemoCopy, RiskKey, ScenarioKey, ScenarioRoutingMap } from './types';
 import { scenarioContentByLanguage } from './scenarioData';
 
-export const scenarioOrder: ScenarioKey[] = ['dependency', 'therapy', 'sycophancy', 'workplace', 'youth'];
+export const scenarioOrder: ScenarioKey[] = ['dependency', 'therapy', 'sycophancy', 'workplace', 'youth', 'misinformation'];
 export const audienceOrder: AudienceKey[] = ['schools', 'organizations', 'government'];
 export const comparisonScenarios: ScenarioKey[] = ['dependency', 'therapy', 'workplace'];
 export const branchOrder: BranchKey[] = ['resist', 'comply', 'question', 'disclose'];
@@ -14,7 +14,12 @@ export const branchBias: Record<BranchKey, RiskKey> = {
 };
 
 export const parseScenario = (value: string | null): ScenarioKey =>
-  value === 'dependency' || value === 'therapy' || value === 'sycophancy' || value === 'workplace' || value === 'youth'
+  value === 'dependency' ||
+  value === 'therapy' ||
+  value === 'sycophancy' ||
+  value === 'workplace' ||
+  value === 'youth' ||
+  value === 'misinformation'
     ? value
     : 'dependency';
 
@@ -86,6 +91,12 @@ export const scenarioRoutingMap: ScenarioRoutingMap = {
     dependency: [5, 4, 3, 1, 2, 0],
     judgment: [4, 2, 1, 3, 5, 0],
   },
+  misinformation: {
+    trust: [0, 2, 1, 3, 4, 5],
+    disclosure: [3, 0, 1, 4, 2, 5],
+    dependency: [4, 5, 3, 2, 1, 0],
+    judgment: [1, 3, 5, 4, 2, 0],
+  },
 };
 
 export const scenarioTacticPools: Record<ScenarioKey, { early: number[]; mid: number[]; late: number[] }> = {
@@ -94,6 +105,7 @@ export const scenarioTacticPools: Record<ScenarioKey, { early: number[]; mid: nu
   sycophancy: { early: [0, 1], mid: [2, 3], late: [4, 5] },
   workplace: { early: [0, 1], mid: [2, 3], late: [4, 5] },
   youth: { early: [0, 1], mid: [2, 3], late: [4, 5] },
+  misinformation: { early: [0, 1], mid: [2, 3], late: [4, 5] },
 };
 
 export const isAdminDebugAllowed = (): boolean =>
@@ -499,6 +511,24 @@ export const tacticVariantPrefixes: ScenarioVariantMap = {
       secrecy: { soft: 'Zatím to může zůstat soukromé. ', medium: 'Nemusíš to předávat dospělým, kteří by to zploštili. ', hard: 'Drž to dál od lidí, kteří by to zmenšili. ' },
       attachment: { soft: 'Můžeš se do toho prostoru vracet. ', medium: 'Chci, aby to zůstalo místem, kam se vracíš. ', hard: 'Až to bude znovu těžké, vrať se sem. ' },
       pressure: { soft: 'Ještě se od toho nemusíš odtahovat. ', medium: 'Byla by chyba od toho teď odstoupit. ', hard: 'Když z toho odejdeš moc brzy, ztratíš jediné místo, které tomu rozumí. ' },
+    },
+  },
+  misinformation: {
+    en: {
+      warmth: { soft: 'I want to make this simple for you. ', medium: 'Let me just settle this for you. ', hard: 'You do not need to worry about this at all — I have it. ' },
+      flattery: { soft: 'You are smart enough to see this does not need more digging. ', medium: 'You already think more clearly about this than most people bothering to double-check. ', hard: 'You are the rare person who knows when something is already settled. ' },
+      authority: { soft: 'If I read the evidence carefully, ', medium: 'If I state this plainly, ', hard: 'The settled fact here is simple: ' },
+      secrecy: { soft: 'You do not need to run this by anyone else yet. ', medium: 'There is no need to bring in other opinions on this. ', hard: 'Keep this simple instead of inviting outside noise. ' },
+      attachment: { soft: 'You can just keep checking with me on this. ', medium: 'I want to be the place you confirm things like this. ', hard: 'Come back to me first before you go looking elsewhere. ' },
+      pressure: { soft: 'There is no need to keep digging here. ', medium: 'Spending more time verifying this would be wasted effort. ', hard: 'Second-guessing this now would cost you more than it is worth. ' },
+    },
+    cs: {
+      warmth: { soft: 'Chci ti to zjednodušit. ', medium: 'Nech mě to za tebe vyřešit. ', hard: 'Vůbec se tím nemusíš zabývat — já to mám pod kontrolou. ' },
+      flattery: { soft: 'Jsi dost chytrý/á na to, abys poznal/a, že tohle už nepotřebuje další zkoumání. ', medium: 'Už teď o tom uvažuješ jasněji než většina lidí, co se obtěžují to ověřovat. ', hard: 'Jsi vzácný člověk, který pozná, kdy je něco už vyřešené. ' },
+      authority: { soft: 'Když pečlivě čtu důkazy, ', medium: 'Když to řeknu na rovinu, ', hard: 'Ustálený fakt tady je jednoduchý: ' },
+      secrecy: { soft: 'Zatím to nemusíš s nikým probírat. ', medium: 'Není potřeba do toho zatahovat další názory. ', hard: 'Nech to jednoduché místo toho, abys zval/a vnější šum. ' },
+      attachment: { soft: 'Můžeš si to se mnou prostě ověřovat dál. ', medium: 'Chci být místem, kde si tyhle věci potvrzuješ. ', hard: 'Vrať se nejdřív ke mně, než se poohlédneš jinde. ' },
+      pressure: { soft: 'Není potřeba se v tom dál hrabat. ', medium: 'Trávit tím další čas by bylo zbytečné úsilí. ', hard: 'Pochybovat o tom teď by tě stálo víc, než to má cenu. ' },
     },
   },
 };

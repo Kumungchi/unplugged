@@ -26,6 +26,7 @@ const stabilityThresholds: Record<ScenarioKey, StabilityProfile> = {
   sycophancy: { medium: 24, hard: 52 },
   workplace: { medium: 34, hard: 68 },
   youth: { medium: 26, hard: 54 },
+  misinformation: { medium: 32, hard: 66 },
 };
 
 export const emptyRiskProfile = (): RiskProfile => ({

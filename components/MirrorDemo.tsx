@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
-import { useMutation } from 'convex/react';
+import { useMutation, useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import * as DemoContent from './mirrorDemo/content';
 import * as DemoEngine from './mirrorDemo/engine';
@@ -58,6 +58,8 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const dominantRisk = DemoEngine.getDominantRisk(riskProfile);
   const outcomeCta = DemoContent.getOutcomeCta(audience, dominantRisk, lang);
   const inquiryTarget = `/join?segment=${audience}&source=demo_completion&scenario=${scenario}&audience=${audience}&outcome=${dominantRisk}`;
+  const isComplete = userCount >= totalSteps;
+  const scenarioStats = useQuery(api.submissions.getPublicScenarioStats, isComplete ? { scenario } : 'skip');
 
   const track = (event: {
     eventType: string;
@@ -209,7 +211,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     }, 650);
   };
 
-  if (userCount >= totalSteps) {
+  if (isComplete) {
     const ending = DemoEngine.getScenarioEnding(currentScenario, dominantRisk, lang);
     const outcomeSummary = DemoEngine.getOutcomeSummary(riskProfile, lang);
 
@@ -230,6 +232,13 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             <p className="text-stone-600 leading-relaxed">{outcomeSummary}</p>
             <p className="text-sm text-stone-500 leading-relaxed">{ending.note}</p>
           </div>
+          {!!scenarioStats?.topBranch && scenarioStats.totalCompletions > 0 && (
+            <div className="border-t border-stone-100 pt-4 text-sm text-stone-500">
+              {lang === 'en'
+                ? `Across ${scenarioStats.totalCompletions} completed ${scenarioStats.totalCompletions === 1 ? 'run' : 'runs'} of this scenario, the most common response pattern was to ${DemoContent.getBranchActionLabel(scenarioStats.topBranch as BranchKey, lang).toLowerCase()}.`
+                : `Napříč ${scenarioStats.totalCompletions} dokončenými průchody tohoto scénáře byl nejčastější vzorec odpovědi: ${DemoContent.getBranchActionLabel(scenarioStats.topBranch as BranchKey, lang).toLowerCase()}.`}
+            </div>
+          )}
         </section>
 
         <section className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-5">

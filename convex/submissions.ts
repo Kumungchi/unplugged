@@ -77,6 +77,44 @@ const bump = (bucket: Record<string, number>, key: string | undefined) => {
   bucket[normalized] = (bucket[normalized] ?? 0) + 1;
 };
 
+// Public, non-PII aggregate for the demo's own completion screen — unlike
+// getDemoInsights below, this is intentionally not staff-gated: it only
+// returns counts, never lead/contact data.
+export const getPublicScenarioStats = query({
+  args: {
+    scenario: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const steps = await ctx.db
+      .query("demoEvents")
+      .withIndex("by_scenario_and_eventType", (q) => q.eq("scenario", args.scenario).eq("eventType", "demo_step"))
+      .take(2000);
+    const completions = await ctx.db
+      .query("demoEvents")
+      .withIndex("by_scenario_and_eventType", (q) => q.eq("scenario", args.scenario).eq("eventType", "demo_completed"))
+      .take(2000);
+
+    const branchCounts: Record<string, number> = {};
+    for (const step of steps) {
+      if (step.branch) bump(branchCounts, step.branch);
+    }
+
+    let topBranch: string | null = null;
+    let topCount = 0;
+    for (const [branch, count] of Object.entries(branchCounts)) {
+      if (count > topCount) {
+        topBranch = branch;
+        topCount = count;
+      }
+    }
+
+    return {
+      totalCompletions: completions.length,
+      topBranch,
+    };
+  },
+});
+
 export const getDemoInsights = query({
   args: {
     eventLimit: v.optional(v.number()),
