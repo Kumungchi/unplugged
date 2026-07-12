@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && npx puppeteer browsers install chrome && node scripts/prerender.mjs",
     "build:client-only": "vite build",
     "preview": "vite preview"
   },
