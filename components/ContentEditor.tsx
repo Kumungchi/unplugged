@@ -25,6 +25,13 @@ type FieldGroup = {
 const toFieldDefault = (value: unknown): string =>
   Array.isArray(value) ? value.join('\n') : String(value ?? '');
 
+// "problemBody" -> "Problem Body", so field labels are readable next to
+// each textarea instead of showing the raw camelCase object key.
+const formatFieldLabel = (field: string): string =>
+  field
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/^./, (char) => char.toUpperCase());
+
 const buildSectorGroup = (pageLabel: string, prefix: string, sector: 'schools' | 'organizations' | 'government'): FieldGroup => {
   const fieldNames = Object.keys(defaultSectorContent.en[sector]);
   return {
@@ -32,7 +39,7 @@ const buildSectorGroup = (pageLabel: string, prefix: string, sector: 'schools' |
     prefix,
     fields: fieldNames.map((field) => ({
       key: field,
-      label: field,
+      label: formatFieldLabel(field),
       defaults: {
         en: toFieldDefault((defaultSectorContent.en[sector] as Record<string, unknown>)[field]),
         cs: toFieldDefault((defaultSectorContent.cs[sector] as Record<string, unknown>)[field]),
@@ -48,7 +55,7 @@ const buildAboutGroup = (): FieldGroup => {
     prefix: 'about',
     fields: fieldNames.map((field) => ({
       key: field,
-      label: field,
+      label: formatFieldLabel(field),
       defaults: {
         en: toFieldDefault((defaultAboutContent.en as Record<string, unknown>)[field]),
         cs: toFieldDefault((defaultAboutContent.cs as Record<string, unknown>)[field]),
@@ -104,15 +111,15 @@ const FieldEditor: React.FC<{
   label: string;
   lang: Language;
   defaultValue: string;
-  rows: RowMap;
+  existingRows: RowMap;
+  isArrayField: boolean;
   t: (typeof labels)['en'];
-}> = ({ fieldKey, label, lang, defaultValue, rows, t }) => {
-  const row = rows[fieldKey];
+}> = ({ fieldKey, label, lang, defaultValue, existingRows, isArrayField, t }) => {
+  const row = existingRows[fieldKey];
   const [value, setValue] = useState(row?.value ?? defaultValue);
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'publishing' | 'published' | 'error'>('idle');
   const upsertContent = useMutation(api.siteContent.upsertContent);
   const publishContent = useMutation(api.siteContent.publishContent);
-  const isArrayField = ARRAY_FIELDS.has(fieldKey);
 
   const handleSave = async () => {
     setStatus('saving');
@@ -272,7 +279,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ lang }) => {
                     label={field.label}
                     lang={editorLang}
                     defaultValue={field.defaults[editorLang]}
-                    rows={rowsByLang[editorLang]}
+                    existingRows={rowsByLang[editorLang]}
+                    isArrayField={ARRAY_FIELDS.has(field.key)}
                     t={t}
                   />
                 ))}
