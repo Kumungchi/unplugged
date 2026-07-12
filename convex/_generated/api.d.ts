@@ -10,6 +10,8 @@
 
 import type * as contacts from "../contacts.js";
 import type * as newsletter from "../newsletter.js";
+import type * as siteContent from "../siteContent.js";
+import type * as siteContentActions from "../siteContentActions.js";
 import type * as staff from "../staff.js";
 import type * as submissions from "../submissions.js";
 
@@ -22,6 +24,8 @@ import type {
 declare const fullApi: ApiFromModules<{
   contacts: typeof contacts;
   newsletter: typeof newsletter;
+  siteContent: typeof siteContent;
+  siteContentActions: typeof siteContentActions;
   staff: typeof staff;
   submissions: typeof submissions;
 }>;

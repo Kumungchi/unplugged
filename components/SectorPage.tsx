@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router';
+import { useQuery } from 'convex/react';
+import { api } from '../convex/_generated/api';
 import { Language } from '../translations';
+import { contentKeysFor, mergeContentOverrides } from './siteContentHelpers';
 
 type SectorKey = 'schools' | 'organizations' | 'government';
 
@@ -9,7 +12,7 @@ interface SectorPageProps {
   sector: SectorKey;
 }
 
-type SectorContent = {
+export type SectorContent = {
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -30,7 +33,7 @@ type SectorContent = {
   cta: string;
 };
 
-const content: Record<Language, Record<SectorKey, SectorContent>> = {
+export const defaultSectorContent: Record<Language, Record<SectorKey, SectorContent>> = {
   en: {
     schools: {
       eyebrow: 'For Schools',
@@ -259,8 +262,17 @@ const content: Record<Language, Record<SectorKey, SectorContent>> = {
   },
 };
 
+const SECTOR_FIELDS = Object.keys(defaultSectorContent.en.schools) as (keyof SectorContent)[];
+const SECTOR_ARRAY_FIELDS = new Set(['buyers', 'outcomes', 'formats', 'deliverables']);
+
 const SectorPage: React.FC<SectorPageProps> = ({ lang, sector }) => {
-  const c = content[lang][sector];
+  const contentPrefix = `sector.${sector}`;
+  const overrideKeys = useMemo(() => contentKeysFor(contentPrefix, SECTOR_FIELDS), [contentPrefix]);
+  const overrides = useQuery(api.siteContent.getPublishedContentBulk, { keys: overrideKeys, lang });
+  const c = useMemo(
+    () => mergeContentOverrides(defaultSectorContent[lang][sector], overrides, contentPrefix, SECTOR_ARRAY_FIELDS),
+    [lang, sector, overrides, contentPrefix],
+  );
 
   return (
     <div className="max-w-5xl mx-auto py-8 md:py-12 space-y-12 md:space-y-20">

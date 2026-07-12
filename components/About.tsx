@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router';
+import { useQuery } from 'convex/react';
+import { api } from '../convex/_generated/api';
 import { Language } from '../translations';
+import { contentKeysFor, mergeContentOverrides } from './siteContentHelpers';
 
 interface AboutProps {
   lang: Language;
 }
 
-const content = {
+export const defaultAboutContent = {
   en: {
     title: 'A public-interest initiative in formation.',
     subtitle:
@@ -59,8 +62,17 @@ const content = {
   },
 };
 
+const ABOUT_PREFIX = 'about';
+const ABOUT_FIELDS = Object.keys(defaultAboutContent.en) as (keyof (typeof defaultAboutContent)['en'])[];
+const ABOUT_ARRAY_FIELDS = new Set(['whatItems', 'principles']);
+
 const About: React.FC<AboutProps> = ({ lang }) => {
-  const c = content[lang];
+  const overrideKeys = useMemo(() => contentKeysFor(ABOUT_PREFIX, ABOUT_FIELDS), []);
+  const overrides = useQuery(api.siteContent.getPublishedContentBulk, { keys: overrideKeys, lang });
+  const c = useMemo(
+    () => mergeContentOverrides(defaultAboutContent[lang], overrides, ABOUT_PREFIX, ABOUT_ARRAY_FIELDS),
+    [lang, overrides],
+  );
 
   return (
     <div className="max-w-5xl mx-auto py-8 md:py-12 space-y-12 md:space-y-20">

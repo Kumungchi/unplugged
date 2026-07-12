@@ -98,4 +98,16 @@ export default defineSchema({
     lang: v.string(),
     createdAt: v.number(),
   }).index("by_email", ["email"]),
+
+  // Editable marketing copy (sector pages, About) managed from /admin/content.
+  // publishedAt unset = draft, only visible in the admin editor; set = live on
+  // the public site and baked into the prerendered static HTML on next build.
+  siteContent: defineTable({
+    key: v.string(),
+    lang: v.union(v.literal("en"), v.literal("cs")),
+    value: v.string(),
+    updatedBy: v.string(),
+    updatedAt: v.number(),
+    publishedAt: v.optional(v.number()),
+  }).index("by_key_and_lang", ["key", "lang"]),
 });
