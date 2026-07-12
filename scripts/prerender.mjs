@@ -15,9 +15,45 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import net from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import puppeteer from 'puppeteer';
 
 const viteBin = fileURLToPath(new URL('../node_modules/vite/bin/vite.js', import.meta.url));
+
+// Vercel's build container is a minimal Linux image missing the shared
+// libraries (libnspr4.so etc.) real desktop Chrome needs, so `puppeteer`'s
+// bundled Chrome can't launch there. On Vercel (VERCEL=1 during builds) use
+// @sparticuz/chromium's build made for serverless/build containers via
+// puppeteer-core instead. Locally, use the full `puppeteer` package, which
+// downloads a normal Chrome build and Just Works on a dev machine.
+async function launchBrowser() {
+  if (process.env.VERCEL) {
+    const [{ default: chromium }, { default: puppeteerCore }] = await Promise.all([
+      import('@sparticuz/chromium'),
+      import('puppeteer-core'),
+    ]);
+    return puppeteerCore.launch({
+      args: await puppeteerCore.defaultArgs({ args: chromium.args, headless: 'shell' }),
+      executablePath: await chromium.executablePath(),
+      headless: 'shell',
+    });
+  }
+
+  const { default: puppeteer } = await import('puppeteer');
+  try {
+    return await puppeteer.launch({ headless: true });
+  } catch (err) {
+    if (!String(err).includes('Could not find Chrome')) throw err;
+    console.log('Local Chrome not found for `puppeteer` — installing it now...');
+    await new Promise((resolve, reject) => {
+      const install = spawn('npx', ['puppeteer', 'browsers', 'install', 'chrome'], {
+        stdio: 'inherit',
+        shell: true,
+      });
+      install.on('exit', (code) => (code === 0 ? resolve() : reject(new Error(`install exited with code ${code}`))));
+      install.on('error', reject);
+    });
+    return puppeteer.launch({ headless: true });
+  }
+}
 
 const OUT_DIR = 'dist';
 
@@ -125,7 +161,7 @@ async function main() {
     await waitForServer(base);
     if (previewFailed) throw previewFailed;
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await launchBrowser();
     try {
       for (const route of ROUTES) {
         await prerenderRoute(browser, base, route);
