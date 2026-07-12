@@ -18,7 +18,9 @@ No test framework is configured.
 
 ## Architecture
 
-Single-page React 19 app with Vite, TypeScript, Tailwind CSS v4 (via PostCSS), and React Router. Deployed as a static SPA on Cloudflare Pages.
+Single-page React 19 app with Vite, TypeScript, Tailwind CSS v4 (via PostCSS), and React Router. Deployed as a static SPA on Vercel (see `vercel.json`).
+
+`npm run build` runs `vite build` followed by `scripts/prerender.mjs`, which drives the built app in a headless browser and snapshots each public route's fully-rendered HTML into `dist/<route>/index.html`. This exists because the app itself is CSR-only (no SSR/hydration entry) — without this step, crawlers and AI tools that don't execute JavaScript only see an empty `<div id="root">`. Admin/staff routes (`/admin/*`, `/facilitator`, `/staff-access`) are deliberately excluded from prerendering and the sitemap. Use `npm run build:client-only` to skip the prerender step during local debugging.
 
 ### Routes (managed by React Router in App.tsx)
 
@@ -32,7 +34,7 @@ Single-page React 19 app with Vite, TypeScript, Tailwind CSS v4 (via PostCSS), a
 
 - **i18n**: All UI strings live in `translations.ts` with `en` and `cs` locales. Components receive `lang` prop and look up `translations[lang]`.
 - **Styling**: Tailwind v4 via PostCSS (`postcss.config.js`). Custom fonts (Inter, Playfair Display, Caveat) loaded from Google Fonts. Custom CSS classes (`notebook-lines`, `fade-in`, `scroll-fade`, `font-handwritten`) defined in `styles/global.css`. Uses a warm stone/cream color palette with red accents.
-- **Routing**: React Router with `<BrowserRouter>` in `index.tsx`. SPA routing handled by `public/_redirects` for Cloudflare Pages.
+- **Routing**: React Router with `<BrowserRouter>` in `index.tsx`. SPA fallback routing handled by `vercel.json`'s rewrite (`/(.*) → /index.html`) for any route not covered by a prerendered static file.
 - **Mobile**: Hamburger menu in `App.tsx` with full-screen overlay for mobile navigation.
 
 <!-- convex-ai-start -->
