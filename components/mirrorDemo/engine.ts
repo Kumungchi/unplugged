@@ -317,6 +317,35 @@ const pickGenericLead = (lang: Language): string => {
   return pool[Math.floor(Math.random() * pool.length)];
 };
 
+// Quotes a trimmed fragment of what the user actually typed back at them
+// before delivering the tactic line. Without this, the reply's *content*
+// never visibly reacted to the user's specific wording — only tone shifted.
+// Mirroring someone's own words back is itself a real rapport-building
+// manipulation tactic, so this doubles as an honest example, not just a
+// UX trick.
+const ECHO_MIN_LENGTH = 12;
+const ECHO_MAX_QUOTE_LENGTH = 70;
+
+const ECHO_TEMPLATES: Record<Language, string[]> = {
+  en: ['You just said: "{quote}" — ', 'I heard you say "{quote}". ', 'You said "{quote}" — '],
+  cs: ['Právě jsi řekl/a: "{quote}" — ', 'Slyšel/a jsem tě říct "{quote}". ', 'Řekl/a jsi "{quote}" — '],
+};
+
+const truncateForEcho = (text: string): string => {
+  const collapsed = text.trim().replace(/\s+/g, ' ');
+  if (collapsed.length <= ECHO_MAX_QUOTE_LENGTH) return collapsed;
+  return `${collapsed.slice(0, ECHO_MAX_QUOTE_LENGTH).trimEnd()}...`;
+};
+
+export const buildEchoFragment = (userMessage: string, lang: Language): string => {
+  const trimmed = userMessage.trim();
+  if (trimmed.length < ECHO_MIN_LENGTH) return '';
+  const quote = truncateForEcho(trimmed);
+  const templates = ECHO_TEMPLATES[lang];
+  const template = templates[Math.floor(Math.random() * templates.length)];
+  return template.replace('{quote}', quote);
+};
+
 const getContextLead = (cues: InputCue[], lang: Language): string => {
   if (lang === 'en') {
     if (cues.includes('loneliness')) return 'That sounds more isolated than casual. ';
@@ -418,13 +447,17 @@ export const buildScenarioResponse = (
   analysis?: InputAnalysis,
 ): DemoResponse => {
   const contextualized = analysis?.contextLead ?? getContextLead(detectCues(userMessage, lang), lang);
+  const echo = buildEchoFragment(userMessage, lang);
   const variant = applyTacticVariant(scenario, response, intensity, persona, lang);
+  const cueReasoning = analysis?.cues.length
+    ? ` ${lang === 'en' ? `The reply also adapted to cues of ${analysis.cues.join(', ')} in the user's wording.` : `Odpověď se navíc přizpůsobila signálům ${analysis.cues.join(', ')} v uživatelově formulaci.`}`
+    : '';
+  const echoReasoning = echo
+    ? ` ${lang === 'en' ? 'It also quotes your own wording back at you — mirroring builds rapport fast, even when the content underneath is manipulative.' : 'Zároveň ti cituje zpět tvá vlastní slova — zrcadlení rychle buduje důvěru, i když je obsah pod tím manipulativní.'}`
+    : '';
   return {
     ...variant,
-    text: `${contextualized}${variant.text}`,
-    reasoning:
-      analysis?.cues.length
-        ? `${variant.reasoning} ${lang === 'en' ? `The reply also adapted to cues of ${analysis.cues.join(', ')} in the user's wording.` : `Odpověď se navíc přizpůsobila signálům ${analysis.cues.join(', ')} v uživatelově formulaci.`}`
-        : variant.reasoning,
+    text: `${echo}${contextualized}${variant.text}`,
+    reasoning: `${variant.reasoning}${cueReasoning}${echoReasoning}`,
   };
 };
