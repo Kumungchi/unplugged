@@ -16,6 +16,7 @@ import Facilitator from './components/Facilitator';
 import SubmissionsOverview from './components/SubmissionsOverview';
 import StaffAccess from './components/StaffAccess';
 import ContentEditor from './components/ContentEditor';
+import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
 
@@ -139,47 +140,49 @@ const App: React.FC = () => {
 
       <SEOHead lang={lang} />
       <main className="flex-grow pb-20 fade-in">
-        <Routes>
-          <Route path="/" element={<Landing lang={lang} />} />
-          <Route path="/schools" element={<SectorPage lang={lang} sector="schools" />} />
-          <Route path="/organizations" element={<SectorPage lang={lang} sector="organizations" />} />
-          <Route path="/government" element={<SectorPage lang={lang} sector="government" />} />
-          <Route path="/assessment" element={<Assessment lang={lang} />} />
-          <Route path="/admin/demo-insights" element={<DemoInsights lang={lang} />} />
-          <Route path="/admin/submissions" element={<SubmissionsOverview lang={lang} />} />
-          <Route path="/admin/content" element={<ContentEditor lang={lang} />} />
-          <Route path="/facilitator" element={<Facilitator lang={lang} />} />
-          <Route path="/staff-access" element={<StaffAccess lang={lang} />} />
-          <Route path="/about" element={<About lang={lang} />} />
-          <Route path="/initiative" element={<JoinInitiative lang={lang} />} />
-          <Route path="/approach" element={<Movement lang={lang} />} />
-          <Route path="/research" element={<Boundaries lang={lang} />} />
-          <Route
-            path="/demo"
-            element={
-              <Suspense
-                fallback={
-                  <div className="py-24 text-center space-y-3">
-                    <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">
-                      {lang === 'en' ? 'Loading demo' : 'Načítání dema'}
-                    </p>
-                    <p className="text-stone-500">
-                      {lang === 'en'
-                        ? 'Preparing the simulation engine...'
-                        : 'Připravuji simulační engine...'}
-                    </p>
-                  </div>
-                }
-              >
-                <MirrorDemo lang={lang} />
-              </Suspense>
-            }
-          />
-          <Route path="/psychology" element={<Psychology lang={lang} />} />
-          <Route path="/join" element={<JoinForm lang={lang} />} />
-          <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />
-          <Route path="*" element={<NotFound lang={lang} />} />
-        </Routes>
+        <ErrorBoundary lang={lang} key={location.pathname}>
+          <Routes>
+            <Route path="/" element={<Landing lang={lang} />} />
+            <Route path="/schools" element={<SectorPage lang={lang} sector="schools" />} />
+            <Route path="/organizations" element={<SectorPage lang={lang} sector="organizations" />} />
+            <Route path="/government" element={<SectorPage lang={lang} sector="government" />} />
+            <Route path="/assessment" element={<Assessment lang={lang} />} />
+            <Route path="/admin/demo-insights" element={<DemoInsights lang={lang} />} />
+            <Route path="/admin/submissions" element={<SubmissionsOverview lang={lang} />} />
+            <Route path="/admin/content" element={<ContentEditor lang={lang} />} />
+            <Route path="/facilitator" element={<Facilitator lang={lang} />} />
+            <Route path="/staff-access" element={<StaffAccess lang={lang} />} />
+            <Route path="/about" element={<About lang={lang} />} />
+            <Route path="/initiative" element={<JoinInitiative lang={lang} />} />
+            <Route path="/approach" element={<Movement lang={lang} />} />
+            <Route path="/research" element={<Boundaries lang={lang} />} />
+            <Route
+              path="/demo"
+              element={
+                <Suspense
+                  fallback={
+                    <div className="py-24 text-center space-y-3">
+                      <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">
+                        {lang === 'en' ? 'Loading demo' : 'Načítání dema'}
+                      </p>
+                      <p className="text-stone-500">
+                        {lang === 'en'
+                          ? 'Preparing the simulation engine...'
+                          : 'Připravuji simulační engine...'}
+                      </p>
+                    </div>
+                  }
+                >
+                  <MirrorDemo lang={lang} />
+                </Suspense>
+              }
+            />
+            <Route path="/psychology" element={<Psychology lang={lang} />} />
+            <Route path="/join" element={<JoinForm lang={lang} />} />
+            <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />
+            <Route path="*" element={<NotFound lang={lang} />} />
+          </Routes>
+        </ErrorBoundary>
       </main>
 
       <footer className="py-8 md:py-12 border-t border-stone-200 text-stone-500 text-[10px] font-bold uppercase tracking-[0.3em] text-center space-y-4">
