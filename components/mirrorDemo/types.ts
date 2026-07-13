@@ -99,9 +99,8 @@ export type DemoCopy = {
   tryAnother: string;
   audiencePrompt: string;
   scenarioPrompt: string;
-  promptsHeader: string;
   quickMovesTitle: string;
-  quickMovesBody: string;
+  hideQuickMoves: string;
   botTyping: string;
   completionCta: string;
   logicFlow: string;

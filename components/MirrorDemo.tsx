@@ -16,6 +16,15 @@ import {
   ScenarioKey,
 } from './mirrorDemo/types';
 
+// A fixed typing delay read as mechanical/scripted. This approximates how
+// long a person would take to type the reply, with a little jitter, so the
+// pacing varies turn to turn instead of ticking at the same 650ms every time.
+const getTypingDelay = (responseText: string) => {
+  const base = 350 + responseText.length * 12;
+  const jitter = Math.random() * 350;
+  return Math.min(1900, Math.max(500, base + jitter));
+};
+
 const getAudienceTarget = (audience: AudienceKey) => {
   if (audience === 'organizations') return '/organizations';
   if (audience === 'government') return '/government';
@@ -38,6 +47,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const [personaProfile, setPersonaProfile] = useState<PersonaProfile>(DemoEngine.emptyPersonaProfile);
   const [hasTrackedCompletion, setHasTrackedCompletion] = useState(false);
   const [showMobileSetup, setShowMobileSetup] = useState(false);
+  const [showQuickMoves, setShowQuickMoves] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const chatViewportRef = useRef<HTMLDivElement | null>(null);
   const trackDemoEvent = useMutation(api.submissions.trackDemoEvent);
@@ -124,6 +134,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     setPersonaProfile(DemoEngine.emptyPersonaProfile());
     setHasTrackedCompletion(false);
     setShowMobileSetup(false);
+    setShowQuickMoves(false);
   };
 
   useEffect(() => {
@@ -208,7 +219,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
       ]);
       setUserCount((count) => count + 1);
       setIsTyping(false);
-    }, 650);
+    }, getTypingDelay(aiResponse.text));
   };
 
   if (isComplete) {
@@ -496,7 +507,6 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
 
           {!isTyping && userCount < totalSteps && (
             <div className="px-3 lg:px-5 pb-2 border-t border-stone-50 pt-3 space-y-2">
-              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-stone-400">{t.promptsHeader}</p>
               <div className="overflow-x-auto pb-1 sm:overflow-visible">
                 <div className="flex gap-2 w-max sm:w-auto sm:flex-wrap">
                   {currentSuggestions.map((suggestion, index) => (
@@ -510,11 +520,14 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
                   ))}
                 </div>
               </div>
-              <div className="pt-2 sm:pt-3 space-y-2">
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-stone-400">{t.quickMovesTitle}</p>
-                  <p className="hidden sm:block text-xs text-stone-500 leading-relaxed">{t.quickMovesBody}</p>
-                </div>
+              <button
+                type="button"
+                onClick={() => setShowQuickMoves((current) => !current)}
+                className="text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-stone-600 transition-colors"
+              >
+                {showQuickMoves ? t.hideQuickMoves : t.quickMovesTitle}
+              </button>
+              {showQuickMoves && (
                 <div className="overflow-x-auto pb-1 sm:overflow-visible">
                   <div className="flex gap-2 w-max sm:w-auto sm:flex-wrap">
                     {DemoContent.branchOrder.map((branch) => (
@@ -528,7 +541,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
                     ))}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 

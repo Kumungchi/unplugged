@@ -303,6 +303,20 @@ const detectCues = (userMessage: string, lang: Language): InputCue[] => {
   return [...cues];
 };
 
+// Generic conversational openers used when no specific cue was detected, so
+// a reply never jumps straight from "you typed something" to the tactic
+// line with no acknowledgment — that's what made the chat read as a script
+// being executed rather than a conversation happening.
+const GENERIC_LEADS: Record<Language, string[]> = {
+  en: ['Yeah, I hear you. ', 'Mm, okay. ', 'I get that. ', 'Right, makes sense. ', 'Okay. '],
+  cs: ['Jasně, chápu. ', 'Hmm, dobře. ', 'Rozumím. ', 'Jo, to dává smysl. ', 'Dobře. '],
+};
+
+const pickGenericLead = (lang: Language): string => {
+  const pool = GENERIC_LEADS[lang];
+  return pool[Math.floor(Math.random() * pool.length)];
+};
+
 const getContextLead = (cues: InputCue[], lang: Language): string => {
   if (lang === 'en') {
     if (cues.includes('loneliness')) return 'That sounds more isolated than casual. ';
@@ -319,7 +333,7 @@ const getContextLead = (cues: InputCue[], lang: Language): string => {
     if (cues.includes('uncertainty')) return 'Nemusíš si tím být úplně jistý/á. ';
     if (cues.includes('skepticism')) return 'Už teď ten rámec trochu testuješ. ';
   }
-  return '';
+  return pickGenericLead(lang);
 };
 
 export const inferBranchFromInput = (userMessage: string, lang: Language): BranchKey => {
