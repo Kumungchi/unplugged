@@ -338,7 +338,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
 
       <section className={`${showMobileSetup ? 'block' : 'hidden'} lg:block bg-white border border-stone-200 rounded-[1.5rem] md:rounded-[2.5rem] p-4 sm:p-5 md:p-8 lg:p-10 space-y-4 sm:space-y-6 shadow-sm`}>
         <div className="grid xl:grid-cols-[1.08fr,0.92fr] gap-6 xl:gap-8 items-start">
-          <div className="space-y-4 sm:space-y-5">
+          <div className="min-w-0 space-y-4 sm:space-y-5">
             <div className="space-y-2">
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{t.scenarioTitle}</p>
               <p className="text-sm text-stone-500">{t.scenarioPrompt}</p>
@@ -366,7 +366,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             </div>
           </div>
 
-          <div className="bg-stone-900 text-white rounded-[1.5rem] sm:rounded-[1.75rem] p-4 sm:p-5 md:p-6 paper-texture relative overflow-hidden space-y-4 sm:space-y-5">
+          <div className="min-w-0 bg-stone-900 text-white rounded-[1.5rem] sm:rounded-[1.75rem] p-4 sm:p-5 md:p-6 paper-texture relative overflow-hidden space-y-4 sm:space-y-5">
             <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
             <div className="relative z-10 space-y-2">
               <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-400">{t.audienceTitle}</p>
@@ -451,7 +451,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
       )}
 
       <div className="grid lg:grid-cols-5 gap-0 rounded-2xl lg:rounded-[2rem] overflow-hidden border border-stone-200 shadow-xl bg-white">
-        <div className="lg:col-span-3 flex flex-col h-[64svh] min-h-[440px] sm:h-[68svh] lg:h-[640px] max-h-[740px]">
+        <div className="min-w-0 lg:col-span-3 flex flex-col h-[70svh] min-h-[520px] sm:h-[74svh] lg:h-[700px] max-h-[820px]">
           <div className="p-3 lg:p-5 border-b border-stone-100 flex items-center justify-between bg-stone-50/50">
             <span className="flex items-center space-x-2">
               <span className="w-2.5 h-2.5 bg-red-600 rounded-full animate-pulse" />
@@ -469,7 +469,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             />
           </div>
 
-          <div ref={chatViewportRef} className="flex-grow p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-5 overflow-y-auto notebook-lines">
+          <div ref={chatViewportRef} className="min-w-0 min-h-0 flex-grow p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-5 overflow-y-auto notebook-lines">
             {messages.map((message, index) => (
               <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} fade-in`}>
                 <div
