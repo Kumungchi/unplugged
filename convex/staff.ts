@@ -1,4 +1,4 @@
-import { query, QueryCtx } from "./_generated/server";
+import { mutation, query, QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
 
 type StaffRole = "admin" | "facilitator";
@@ -104,6 +104,61 @@ export const getViewerAccess = query({
   args: {},
   handler: async (ctx) => {
     return await resolveViewerAccess(ctx);
+  },
+});
+
+// Admin-only staff management, backing /admin/staff. Facilitators can use the
+// tools but cannot grant or revoke access — only admins (from the staffAccess
+// table or the env allowlist bootstrap) manage the roster.
+export const listStaff = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireStaffRole(ctx, ["admin"]);
+    return await ctx.db.query("staffAccess").take(200);
+  },
+});
+
+export const upsertStaffMember = mutation({
+  args: {
+    email: v.string(),
+    role: v.union(v.literal("admin"), v.literal("facilitator")),
+    active: v.boolean(),
+    notes: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const viewer = await requireStaffRole(ctx, ["admin"]);
+    const email = normalizeEmail(args.email);
+    if (!email.includes("@")) {
+      throw new Error("Invalid email address");
+    }
+
+    // Self-lockout guard: an admin cannot demote or deactivate their own row.
+    // (Env-allowlist admins are unaffected either way — their access doesn't
+    // come from this table — but table-sourced admins would lock themselves out.)
+    if (email === viewer.email && (!args.active || args.role !== "admin")) {
+      throw new Error("You cannot demote or deactivate your own account");
+    }
+
+    const existing = await ctx.db
+      .query("staffAccess")
+      .withIndex("by_email_and_active", (q) => q.eq("email", email))
+      .first();
+
+    if (existing) {
+      await ctx.db.patch(existing._id, {
+        role: args.role,
+        active: args.active,
+        notes: args.notes,
+      });
+    } else {
+      await ctx.db.insert("staffAccess", {
+        email,
+        role: args.role,
+        active: args.active,
+        notes: args.notes,
+        createdAt: Date.now(),
+      });
+    }
   },
 });
 

@@ -1,5 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react';
+import { useConvexAuth, useQuery } from 'convex/react';
+import { api } from '../convex/_generated/api';
 import { Language } from '../translations';
 import { isClerkConfigured } from '../auth';
 
@@ -16,7 +19,15 @@ const copy = {
     authMissing: 'Clerk is not configured yet for this environment.',
     signIn: 'Sign in',
     signUp: 'Create staff account',
-    signedIn: 'You are signed in. Use the internal routes directly if your account has access.',
+    checking: 'Checking your access...',
+    noAccess:
+      'You are signed in, but this account does not have staff access yet. Ask an admin to add your email on the staff page.',
+    toolsTitle: 'Your tools',
+    facilitator: 'Facilitator console',
+    insights: 'Demo insights',
+    submissions: 'Submissions overview',
+    content: 'Content editor',
+    staff: 'Staff access management',
   },
   cs: {
     eyebrow: 'Interní přístup',
@@ -26,9 +37,60 @@ const copy = {
     authMissing: 'Clerk zatím není pro toto prostředí nakonfigurovaný.',
     signIn: 'Přihlásit se',
     signUp: 'Vytvořit týmový účet',
-    signedIn: 'Jste přihlášeni. Pokud má váš účet oprávnění, použijte interní cesty přímo.',
+    checking: 'Ověřuji přístup...',
+    noAccess:
+      'Jste přihlášeni, ale tento účet zatím nemá týmový přístup. Požádejte admina, aby přidal váš e-mail na stránce správy přístupů.',
+    toolsTitle: 'Vaše nástroje',
+    facilitator: 'Facilitátorská konzole',
+    insights: 'Statistiky dema',
+    submissions: 'Přehled poptávek',
+    content: 'Editor obsahu',
+    staff: 'Správa týmových přístupů',
   },
 } as const;
+
+const StaffTools: React.FC<{ lang: Language }> = ({ lang }) => {
+  const t = copy[lang];
+  const { isAuthenticated } = useConvexAuth();
+  const viewerAccess = useQuery(api.staff.getViewerAccess, isAuthenticated ? {} : 'skip');
+
+  if (!viewerAccess) {
+    return <p className="text-stone-500">{t.checking}</p>;
+  }
+
+  if (!viewerAccess.isFacilitator) {
+    return <p className="text-stone-500 max-w-xl mx-auto leading-relaxed">{t.noAccess}</p>;
+  }
+
+  const tools = [
+    { to: '/facilitator', label: t.facilitator },
+    { to: '/admin/demo-insights', label: t.insights },
+    { to: '/admin/submissions', label: t.submissions },
+    ...(viewerAccess.isAdmin
+      ? [
+          { to: '/admin/content', label: t.content },
+          { to: '/admin/staff', label: t.staff },
+        ]
+      : []),
+  ];
+
+  return (
+    <div className="space-y-3">
+      <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{t.toolsTitle}</p>
+      <div className="flex flex-wrap justify-center gap-3">
+        {tools.map((tool) => (
+          <Link
+            key={tool.to}
+            to={tool.to}
+            className="px-5 py-2.5 border border-stone-300 text-stone-700 rounded-full text-xs font-bold uppercase tracking-widest hover:border-stone-900 hover:text-stone-900 transition-colors"
+          >
+            {tool.label}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const StaffAccess: React.FC<StaffAccessProps> = ({ lang }) => {
   const t = copy[lang];
@@ -66,8 +128,8 @@ const StaffAccess: React.FC<StaffAccessProps> = ({ lang }) => {
         </Show>
 
         <Show when="signed-in">
-          <div className="space-y-4">
-            <p className="text-stone-500">{t.signedIn}</p>
+          <div className="space-y-6">
+            <StaffTools lang={lang} />
             <div className="flex justify-center">
               <UserButton />
             </div>

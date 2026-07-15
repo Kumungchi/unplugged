@@ -16,6 +16,7 @@ import Facilitator from './components/Facilitator';
 import SubmissionsOverview from './components/SubmissionsOverview';
 import StaffAccess from './components/StaffAccess';
 import ContentEditor from './components/ContentEditor';
+import StaffManager from './components/StaffManager';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
@@ -150,6 +151,7 @@ const App: React.FC = () => {
             <Route path="/admin/demo-insights" element={<DemoInsights lang={lang} />} />
             <Route path="/admin/submissions" element={<SubmissionsOverview lang={lang} />} />
             <Route path="/admin/content" element={<ContentEditor lang={lang} />} />
+            <Route path="/admin/staff" element={<StaffManager lang={lang} />} />
             <Route path="/facilitator" element={<Facilitator lang={lang} />} />
             <Route path="/staff-access" element={<StaffAccess lang={lang} />} />
             <Route path="/about" element={<About lang={lang} />} />
