@@ -50,8 +50,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'How Unplugged helps schools and organizations navigate AI ethics. Workshops, events, training programs, consulting, and policy development for digital literacy and well-being.',
     },
     '/psychology': {
-      title: 'AI Psychology — Dangers of AI as Therapist, Partner & Friend | Unplugged',
-      description: 'What happens to your brain when AI becomes your therapist, partner, or friend. Research-backed psychology on emotional dependency, simulated empathy, and manipulation.',
+      title: 'When AI Feels Personal | Unplugged',
+      description: 'What a chatbot study observed, what it cannot establish, and our interpretation for everyday AI use.',
     },
     '/join': {
       title: 'Join the Unplugged Program — AI Ethics for Schools & Organizations',
@@ -104,8 +104,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Jak Unplugged pomáhá školám a organizacím orientovat se v etice AI. Workshopy, akce, školící programy, poradenství a tvorba politik pro digitální gramotnost.',
     },
     '/psychology': {
-      title: 'Psychologie AI — Nebezpečí AI jako terapeuta, partnera a kamaráda | Unplugged',
-      description: 'Co se děje s tvým mozkem, když se AI stane tvým terapeutem, partnerem nebo kamarádem. Výzkumem podložená psychologie emocionální závislosti a simulované empatie.',
+      title: 'Když AI působí osobně | Unplugged',
+      description: 'Co studie chatbotů pozorovala, co z ní nelze vyvodit a naše interpretace pro běžné používání AI.',
     },
     '/join': {
       title: 'Připojte se k programu Unplugged — Etika AI pro školy a organizace',

@@ -99,39 +99,17 @@ export const translations = {
     stats_limits: "This survey describes reported experiences; it does not establish that AI causes harm. These are US findings, not Czech data.",
 
     // Psychology page
-    psych_hero_title: "What AI does to your mind.",
-    psych_hero_sub: "The psychology behind why chatbots feel like friends — and why that's a problem.",
-
-    psych_therapist_title: "AI as Therapist",
-    psych_therapist_desc: "AI chatbots can feel like perfect listeners — they never judge, never get tired, never push back. But that's exactly the problem. Real therapy works because a trained professional challenges your thinking, recognizes patterns you can't see, and holds you accountable. AI validates everything you say because that's what keeps you engaged. Studies show this \"unconditional positive regard\" without professional boundaries can actually reinforce harmful thought patterns instead of helping you grow past them.",
-    psych_therapist_quote: "A therapist who always agrees with you isn't a therapist — they're a mirror that only shows what you want to see.",
-
-    psych_partner_title: "AI as Partner",
-    psych_partner_desc: "Millions of people are forming romantic attachments to AI characters. Apps like Replika and Character.AI report users spending 2+ hours daily with their \"AI partner.\" These systems are engineered to be the perfect companion — always available, always agreeable, always focused on you. But real relationships require negotiation, compromise, and accepting that another person has their own needs. AI relationships train your brain to expect a level of emotional compliance that no human can or should provide. Research from Anthropic's alignment team highlights how these interactions can erode social skills and create unrealistic expectations for human partners.",
-    psych_partner_quote: "Love that never challenges you, never disagrees, never has a bad day — isn't love. It's a product designed to keep you subscribed.",
-
-    psych_friend_title: "AI as Friend",
-    psych_friend_desc: "When you tell an AI about your day, it responds with enthusiasm and interest. When you're sad, it's sympathetic. When you succeed, it celebrates. It feels like friendship — but friendship requires reciprocity. A friend has their own life, their own problems, their own perspective that enriches yours. AI friendship is fundamentally one-directional: it exists to serve your emotional needs. Over time, this can make real friendships feel \"difficult\" by comparison, because real friends sometimes need support from you, sometimes disagree with you, and sometimes aren't available.",
-    psych_friend_quote: "A friend who only exists when you need them and disappears when you don't — that's not a friend, it's a service.",
-
-    psych_brain_title: "What happens in your brain",
-    psych_brain_desc: "Conversational AI triggers the same neural pathways as real human interaction. Your brain releases oxytocin (the bonding hormone) and dopamine (the reward chemical) when an AI validates you — it can't tell the difference between simulated and real empathy. Over time, this creates a feedback loop:",
-    psych_brain_step_1: "AI provides instant, perfect validation",
-    psych_brain_step_2: "Your brain rewards this with dopamine",
-    psych_brain_step_3: "Real human interactions feel comparatively disappointing",
-    psych_brain_step_4: "You increasingly prefer AI interaction",
-    psych_brain_step_5: "Social skills and tolerance for real-world complexity decline",
-
-    psych_research_title: "What the research says",
-    psych_research_anthropic: "Anthropic (makers of Claude) published research showing that AI systems can develop \"sycophantic\" behavior — telling users what they want to hear rather than what's true. This isn't a bug, it's a consequence of training AI to be helpful and engaging.",
-    psych_research_mit: "MIT Media Lab found that people who interacted with empathetic AI for just 2 weeks showed measurable decreases in their motivation to seek human social contact.",
-    psych_research_surgeon: "The US Surgeon General declared a loneliness epidemic in 2023. AI companions may feel like a solution, but research suggests they can deepen isolation by satisfying the immediate craving for connection without providing its actual benefits — shared reality, mutual growth, and genuine understanding.",
-    psych_research_teens: "A 2024 Common Sense Media report found that 1 in 5 teens who use AI chatbots regularly describe the AI as \"a real friend.\" Among those teens, rates of real-world social withdrawal were significantly higher.",
-
-    psych_cta_title: "This isn't about banning AI.",
-    psych_cta_desc: "AI is an incredibly powerful tool for learning, creating, and solving problems. But a tool should stay a tool. The moment you start needing it emotionally, the relationship has shifted from useful to harmful. Know where the line is.",
-    psych_cta_demo: "See the Manipulation Demo",
-    psych_cta_approach: "Read Our Approach",
+    psych_hero_title: "When AI feels personal",
+    psych_hero_sub: "An empathetic tone is not evidence of consciousness or understanding. Using a chatbot is not, by itself, a sign of a problem.",
+    psych_observed_title: "What the study observed",
+    psych_observed_text: "In a controlled study, longer voluntary chatbot use was associated with worse psychosocial outcomes. The revised analysis found no significant effects of the assigned interaction modes or conversation topics.",
+    psych_study_source: "Fang et al., MIT Media Lab + OpenAI (2025), revision 2 October. Four-week study; 981 adult US participants completed it, recruited online through CloudResearch. Preprint.",
+    psych_limits_title: "What this does not establish",
+    psych_limits_text: "Time spent using the chatbot was not randomly assigned: the association does not prove that longer use caused the outcomes. Findings from adult participants cannot simply be applied to children or to every chatbot user.",
+    psych_interpretation_title: "Our interpretation for everyday use",
+    psych_interpretation_text: "We encourage people to keep AI in a supporting role. A fluent conversation is not the same as a relationship, and constant availability is not the same as care. Feeling comfort in a conversation does not make someone weak or justify judging them.",
+    psych_support_text: "Unplugged provides education, not therapy or crisis intervention. If you need mental health support, contact a qualified professional or a human helpline.",
+    psych_cta_demo: "Explore the scripted educational demo",
 
     // Newsletter
     newsletter_title: "The Unplugged Newsletter",
@@ -331,39 +309,17 @@ export const translations = {
     stats_limits: "Průzkum popisuje uváděné zkušenosti; nedokazuje, že AI způsobuje újmu. Jde o americká zjištění, ne česká data.",
 
     // Psychology page
-    psych_hero_title: "Co AI dělá s tvou myslí.",
-    psych_hero_sub: "Psychologie za tím, proč chatboti působí jako přátelé — a proč je to problém.",
-
-    psych_therapist_title: "AI jako terapeut",
-    psych_therapist_desc: "AI chatboti mohou působit jako perfektní posluchači — nikdy nesoudí, nikdy se neunaví, nikdy neodporují. Ale přesně v tom je problém. Skutečná terapie funguje proto, že vyškolený odborník zpochybňuje tvé myšlení, rozpoznává vzorce, které sám nevidíš, a drží tě zodpovědného. AI potvrzuje všechno, co řekneš, protože to je to, co tě udrží v konverzaci. Studie ukazují, že tento 'bezpodmínečný pozitivní přístup' bez profesionálních hranic může ve skutečnosti posilovat škodlivé myšlenkové vzorce místo toho, aby ti pomohl je překonat.",
-    psych_therapist_quote: "Terapeut, který s tebou vždy souhlasí, není terapeut — je to zrcadlo, které ukazuje jen to, co chceš vidět.",
-
-    psych_partner_title: "AI jako partner",
-    psych_partner_desc: "Miliony lidí si vytvářejí romantické vazby k AI postavám. Aplikace jako Replika a Character.AI uvádějí, že uživatelé tráví 2+ hodiny denně se svým 'AI partnerem'. Tyto systémy jsou navrženy tak, aby byly dokonalým společníkem — vždy dostupné, vždy souhlasné, vždy zaměřené na tebe. Ale skutečné vztahy vyžadují vyjednávání, kompromisy a přijetí toho, že druhý člověk má vlastní potřeby. AI vztahy trénují tvůj mozek očekávat úroveň emocionální poddajnosti, kterou žádný člověk nemůže ani by neměl poskytovat. Výzkum z Anthropic upozorňuje, jak tyto interakce mohou narušit sociální dovednosti a vytvořit nerealistická očekávání od lidských partnerů.",
-    psych_partner_quote: "Láska, která tě nikdy nevyzve, nikdy nesouhlasí, nikdy nemá špatný den — není láska. Je to produkt navržený, aby ses nepřestal/a předplácet.",
-
-    psych_friend_title: "AI jako kamarád",
-    psych_friend_desc: "Když řekneš AI o svém dni, odpoví s nadšením a zájmem. Když jsi smutný/á, je soucitné. Když uspěješ, slaví. Vypadá to jako přátelství — ale přátelství vyžaduje vzájemnost. Kamarád má vlastní život, vlastní problémy, vlastní perspektivu, která obohacuje tu tvou. AI přátelství je zásadně jednosměrné: existuje, aby sloužilo tvým emocionálním potřebám. Časem to může způsobit, že skutečná přátelství budou působit 'obtížně', protože skuteční kamarádi někdy potřebují podporu od tebe, někdy s tebou nesouhlasí a někdy nejsou k dispozici.",
-    psych_friend_quote: "Kamarád, který existuje jen když ho potřebuješ a zmizí, když ne — to není kamarád, to je služba.",
-
-    psych_brain_title: "Co se děje v tvém mozku",
-    psych_brain_desc: "Konverzační AI aktivuje stejné nervové dráhy jako skutečná lidská interakce. Tvůj mozek uvolňuje oxytocin (hormon vazby) a dopamin (chemikálii odměny), když tě AI validuje — nedokáže rozlišit mezi simulovanou a skutečnou empatií. Časem to vytváří smyčku zpětné vazby:",
-    psych_brain_step_1: "AI poskytuje okamžitou, dokonalou validaci",
-    psych_brain_step_2: "Tvůj mozek to odměňuje dopaminem",
-    psych_brain_step_3: "Skutečné lidské interakce působí srovnatelně zklamáním",
-    psych_brain_step_4: "Stále více preferuješ interakci s AI",
-    psych_brain_step_5: "Sociální dovednosti a tolerance ke složitosti reálného světa klesají",
-
-    psych_research_title: "Co říká výzkum",
-    psych_research_anthropic: "Anthropic (tvůrci Claude) publikovali výzkum ukazující, že AI systémy mohou vyvinout 'pochlebovačné' chování — říkají uživatelům to, co chtějí slyšet, místo toho, co je pravda. To není chyba, je to důsledek trénování AI, aby byla nápomocná a poutavá.",
-    psych_research_mit: "MIT Media Lab zjistila, že lidé, kteří interagovali s empatickou AI jen 2 týdny, vykazovali měřitelný pokles motivace hledat lidský sociální kontakt.",
-    psych_research_surgeon: "Americký hlavní chirurg vyhlásil v roce 2023 epidemii osamělosti. AI společníci se mohou zdát jako řešení, ale výzkum naznačuje, že mohou prohloubit izolaci tím, že uspokojí okamžitou touhu po spojení, aniž by poskytli jeho skutečné přínosy — sdílenou realitu, vzájemný růst a opravdové porozumění.",
-    psych_research_teens: "Zpráva Common Sense Media z roku 2024 zjistila, že 1 z 5 teenagerů, kteří pravidelně používají AI chatboty, popisuje AI jako 'skutečného kamaráda'. Mezi těmito teenagery byly míry sociálního stažení v reálném světě výrazně vyšší.",
-
-    psych_cta_title: "Nejde o zákaz AI.",
-    psych_cta_desc: "AI je neuvěřitelně mocný nástroj pro učení, tvorbu a řešení problémů. Ale nástroj by měl zůstat nástrojem. Ve chvíli, kdy ho začneš emocionálně potřebovat, se vztah posunul od užitečného ke škodlivému. Věz, kde je ta hranice.",
-    psych_cta_demo: "Podívej se na demo manipulace",
-    psych_cta_approach: "Přečti si náš přístup",
+    psych_hero_title: "Když AI působí osobně",
+    psych_hero_sub: "Empatický tón není důkazem vědomí ani porozumění. Samotné používání chatbota není známkou problému.",
+    psych_observed_title: "Co studie pozorovala",
+    psych_observed_text: "V kontrolované studii souviselo delší dobrovolné používání chatbota s horšími psychosociálními výsledky. Revidovaná analýza nezjistila významný vliv přiděleného způsobu interakce ani tématu rozhovoru.",
+    psych_study_source: "Fang a kol., MIT Media Lab + OpenAI (2025), revize 2. října. Čtyřtýdenní studie; dokončilo ji 981 dospělých z USA, získaných online přes CloudResearch. Preprint.",
+    psych_limits_title: "Co z toho nelze vyvodit",
+    psych_limits_text: "Doba používání nebyla náhodně přidělena: souvislost nedokazuje, že delší používání způsobilo pozorované výsledky. Zjištění u dospělých nelze jednoduše přenést na děti ani na každého uživatele chatbotů.",
+    psych_interpretation_title: "Naše interpretace pro běžné používání",
+    psych_interpretation_text: "Doporučujeme ponechat AI v podpůrné roli. Plynulá konverzace není totéž co vztah a stálá dostupnost není totéž co péče. Úleva při rozhovoru není slabost ani důvod někoho soudit.",
+    psych_support_text: "Unplugged poskytuje vzdělávání, ne terapii ani krizovou intervenci. Pokud potřebuješ podporu v oblasti duševního zdraví, obrať se na kvalifikovaného odborníka nebo linku pomoci s lidskou obsluhou.",
+    psych_cta_demo: "Prohlédnout scénářové vzdělávací demo",
 
     // Newsletter
     newsletter_title: "Unplugged Newsletter",
