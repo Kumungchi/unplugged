@@ -92,7 +92,7 @@ Message house (volně použitelné):
 
 ### Fáze 0 — pravdivost a právní minimum (před jakoukoli prezentací)
 
-- [ ] **U-01 🔁 Statistiky homepage** — `translations.ts`, `stat_1_*` až `stat_4_*`, `stats_source` (EN ~86–95, CS ~314–323). Nedoložená čísla 40 %, „1 z 5 preferuje AI“, 70 % „stejný vzorec jako závislost“, „0 emocí“ nahradit ověřenými ze sekce 7. Komponenta musí zobrazovat zdroj přímo u každého čísla. Místo „0 emocí“: „Empatický tón není důkazem vědomí ani porozumění.“ Hotovo: každé číslo má studii, rok, vzorek a funkční odkaz, žádná kauzalita z korelace.
+- [x] **U-01 🔁 Statistiky homepage** — `translations.ts`, `stat_1_*` až `stat_4_*`, `stats_source` (EN ~86–95, CS ~314–323). Nedoložená čísla 40 %, „1 z 5 preferuje AI“, 70 % „stejný vzorec jako závislost“, „0 emocí“ nahradit ověřenými ze sekce 7. Komponenta musí zobrazovat zdroj přímo u každého čísla. Místo „0 emocí“: „Empatický tón není důkazem vědomí ani porozumění.“ Hotovo: každé číslo má studii, rok, vzorek a funkční odkaz, žádná kauzalita z korelace.
 - [ ] **U-02 🔁 /psychology** — `components/Psychology.tsx`, `psych_*`. Odstranit nepodložené oxytocin/dopamin (`psych_brain_*`), zkreslené Rogersovo unconditional positive regard (`psych_therapist_desc`), nedoložený „alignment tým Anthropicu“ (`psych_partner_desc`, `psych_research_anthropic`), neexistující „MIT 2týdenní studii“ (`psych_research_mit`), „Common Sense 2024, 1 z 5 jako skutečný kamarád + sociální stažení“ (`psych_research_teens`), „2+ hodiny denně“ bez zdroje i tvrzení, že každé emoční potřebování AI je škodlivé. Krok 1 hned: skrýt z navigace/sitemap/prerenderu nebo nahradit stručnou poctivou verzí. Krok 2: přepsat s úrovněmi evidence (vzor /research), PR „čeká na kontrolu psychologem“.
 - [ ] **U-03 🔁 Placeholder [Organization Name]** — `privacy_intro`, `privacy_controller_desc` (EN ~200–202, CS ~428–430). ⚠️ Správce před zápisem musí být potvrzen (O-1). Do té doby návrh s jasně označeným místem a otázkou v PR. Sjednotit s alesvia.org.
 - [ ] **U-04 🔁 Zásady čl. 13 GDPR** — `components/PrivacyPolicy.tsx`, `privacy_*`. Zpracovatelé Vercel, Convex, Beehiiv, Clerk, Cloudflare; USA a právní základ předávání; uchování; assessment „Save my result“ (co/kam); demo analytika; stížnost ÚOOÚ. Zvážit u poptávky čl. 6 odst. 1 písm. b/f spíš než souhlas. PR: „Doporučeno nechat ověřit právníkem (Frank Bold / ANNO MSK). Agent není právník.“ Blokováno O-1/O-2.
@@ -197,3 +197,7 @@ Kritická cesta: rada (min. 3 lidé + Matias ředitel, ideálně licencovaný kl
 Další krok mimo kód: kontakt z Psychologické sítě pro radu/garanta. Impact Hub Ostrava lze oslovit před registrací. Interní nástroje ClickUp, Google Apps Script, Wedos .cz, Namecheap, Hostinger.
 
 alesvia.org řeší jiný agent v jiném repu; tady jen konzistence správce a odkazů. Pokud Matias otevírá velké nové nápady místo webu, lze jemně připomenout riziko rozšiřování záběru a blokátor registrace.
+
+## Průběžný stav implementace
+
+- U-01: opraveno CS i EN, primární report Common Sense Media (2025), grafy A/E/G/I. Ověřeno 25. 10. 2026. Graf E používá celý vzorek n=1 060; G/I podskupinu n=758. Psychologická kontrola před mergem stále nutná. Plný build včetně 13 rout prošel.
