@@ -203,9 +203,10 @@ export const translations = {
     privacy_last_updated: "Last updated: March 2026",
 
     // Cookie consent
-    cookie_message: "This site uses essential cookies for basic functionality (language preference, cookie consent). Optional analytics load only after consent, and browser privacy signals such as Do Not Track are respected.",
-    cookie_accept: "Got it",
-    cookie_decline: "Decline",
+    cookie_message: "We store your language and privacy choices in this browser. Website and demo analytics require your consent. You can change your choice using Cookie settings in the footer. Do Not Track and Global Privacy Control take precedence over consent.",
+    cookie_accept: "Allow analytics",
+    cookie_decline: "Decline analytics",
+    cookie_settings: "Cookie settings",
     cookie_privacy: "Privacy Policy",
     cookie_essential_label: "Essential only",
   },
@@ -413,9 +414,10 @@ export const translations = {
     privacy_last_updated: "Poslední aktualizace: březen 2026",
 
     // Cookie consent
-    cookie_message: "Tento web používá nezbytné cookies pro základní funkčnost (jazykové preference, souhlas s cookies). Volitelná analytika se načte jen po souhlasu a respektujeme signály soukromí prohlížeče, například Do Not Track.",
-    cookie_accept: "Rozumím",
-    cookie_decline: "Odmítnout",
+    cookie_message: "V prohlížeči ukládáme volbu jazyka a soukromí. Analytika webu a dema vyžaduje váš souhlas. Volbu můžete změnit přes Nastavení cookies v patičce. Signály Do Not Track a Global Privacy Control mají přednost před souhlasem.",
+    cookie_accept: "Povolit analytiku",
+    cookie_decline: "Odmítnout analytiku",
+    cookie_settings: "Nastavení cookies",
     cookie_privacy: "Ochrana osobních údajů",
     cookie_essential_label: "Pouze nezbytné",
   }

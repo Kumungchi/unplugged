@@ -20,6 +20,7 @@ import StaffManager from './components/StaffManager';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
+import { COOKIE_SETTINGS_EVENT } from './privacy';
 
 const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
 
@@ -198,6 +199,7 @@ const App: React.FC = () => {
           <Link to="/join" className="hover:text-stone-900">{labels.contact}</Link>
           <Link to="/initiative" className="hover:text-stone-900">{labels.initiative}</Link>
           <Link to="/privacy" className="hover:text-stone-900">{t.nav_privacy}</Link>
+          <button type="button" onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))} className="hover:text-stone-900 underline underline-offset-4">{t.cookie_settings}</button>
         </div>
       </footer>
 

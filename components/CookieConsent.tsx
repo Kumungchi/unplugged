@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Language, translations } from '../translations';
 import {
   COOKIE_CONSENT_STORAGE_KEY,
+  COOKIE_SETTINGS_EVENT,
   getStoredCookieConsent,
   hasPrivacyOptOutSignal,
   setStoredCookieConsent,
@@ -31,6 +32,12 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ lang }) => {
     }
   }, []);
 
+  useEffect(() => {
+    const openSettings = () => setVisible(true);
+    window.addEventListener(COOKIE_SETTINGS_EVENT, openSettings);
+    return () => window.removeEventListener(COOKIE_SETTINGS_EVENT, openSettings);
+  }, []);
+
   const handleAccept = () => {
     setStoredCookieConsent('accepted');
     setVisible(false);
@@ -53,11 +60,6 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ lang }) => {
             </svg>
           </div>
           <div className="space-y-2 flex-grow">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-green-600/20 text-green-400 text-[9px] font-black uppercase tracking-widest rounded-full">
-                {t.cookie_essential_label}
-              </span>
-            </div>
             <p className="text-sm font-light leading-relaxed text-stone-300">
               {t.cookie_message}{' '}
               <Link to="/privacy" className="underline text-stone-100 hover:text-white">
@@ -66,16 +68,16 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ lang }) => {
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-3 justify-end">
+        <div className="flex flex-wrap items-center gap-3 justify-end">
           <button
             onClick={handleDecline}
-            className="px-5 py-2 text-stone-400 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors"
+            className="px-5 py-3 bg-white text-stone-900 rounded-full text-sm font-bold hover:bg-stone-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             {t.cookie_decline}
           </button>
           <button
             onClick={handleAccept}
-            className="px-6 py-2 bg-white text-stone-900 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-stone-100 transition-colors"
+            className="px-5 py-3 bg-white text-stone-900 rounded-full text-sm font-bold hover:bg-stone-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             {t.cookie_accept}
           </button>

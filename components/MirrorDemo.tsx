@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
+import { COOKIE_CONSENT_EVENT, DEMO_SESSION_STORAGE_KEY, shouldEnableAnalytics } from '../privacy';
 import * as DemoContent from './mirrorDemo/content';
 import * as DemoEngine from './mirrorDemo/engine';
 import DebugPanel from './mirrorDemo/DebugPanel';
@@ -51,14 +52,22 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const chatViewportRef = useRef<HTMLDivElement | null>(null);
   const trackDemoEvent = useMutation(api.submissions.trackDemoEvent);
-  const [sessionId] = useState(() => {
-    const storageKey = 'unplugged_demo_session_id';
-    const existing = window.localStorage.getItem(storageKey);
-    if (existing) return existing;
-    const next = window.crypto.randomUUID();
-    window.localStorage.setItem(storageKey, next);
-    return next;
-  });
+  const sessionId = useRef<string | null>(null);
+
+  useEffect(() => {
+    const syncConsent = () => {
+      if (shouldEnableAnalytics()) return;
+      sessionId.current = null;
+      try { window.localStorage.removeItem(DEMO_SESSION_STORAGE_KEY); } catch { /* Storage may be disabled. */ }
+    };
+    syncConsent();
+    window.addEventListener(COOKIE_CONSENT_EVENT, syncConsent);
+    window.addEventListener('storage', syncConsent);
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_EVENT, syncConsent);
+      window.removeEventListener('storage', syncConsent);
+    };
+  }, []);
 
   const t = DemoContent.getMirrorDemoCopy(lang);
   const currentScenario = t.scenarios[scenario];
@@ -78,8 +87,14 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     outcome?: string;
     ctaTarget?: string;
   }) => {
+    // Re-check each event so withdrawal and browser privacy signals take effect immediately.
+    if (!shouldEnableAnalytics()) return;
+    if (!sessionId.current) {
+      sessionId.current = window.localStorage.getItem(DEMO_SESSION_STORAGE_KEY) || window.crypto.randomUUID();
+      window.localStorage.setItem(DEMO_SESSION_STORAGE_KEY, sessionId.current);
+    }
     void trackDemoEvent({
-      sessionId,
+      sessionId: sessionId.current,
       eventType: event.eventType,
       scenario,
       audience,
@@ -88,7 +103,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
       step: event.step,
       outcome: event.outcome,
       ctaTarget: event.ctaTarget,
-    });
+    }).catch(() => { /* Optional analytics must not interrupt the demo. */ });
   };
 
   useEffect(() => {
