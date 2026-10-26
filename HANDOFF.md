@@ -135,7 +135,7 @@ Ověřeno vlastníkem 1. 10. 2026. **Před použitím otevři odkaz a zkontroluj
 
 ## 8. Otevřené otázky (nerozhoduj sám)
 
-- **O-1** Kdo je správcem před zápisem (Matias jako fyzická osoba/jiná forma) a jaký kontaktní e-mail? Blokuje U-03/U-04.
+- **O-1 — částečně potvrzeno Matiasem:** Do zápisu je správcem Matias Bunnik jako fyzická osoba; po vzniku právnické osoby má správcovství přejít na Alesvia. Ještě potvrdit kontaktní adresu a e-mail (v kódu je zatím zachovaný stávající `info@unplugged.cz`). Blokuje dokončení U-03/U-04.
 - **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Ještě ověřit skutečný region a právní mechanismus případného předávání dat.
 - **O-3 — ověřeno 26. 10. 2026:** Veřejná produkční query pro 65 klíčů About a sektorových stránek vrátila prázdné publikované přepisy v CS i EN. Znovu ověřit, pokud mezitím někdo publikuje.
 - **O-4** Funguje `VERCEL_DEPLOY_HOOK_URL` v Convexu pro rebuild po CMS publikaci? Matias zatím neví. Ověřit v účtu bez změny nastavení a bez zveřejnění tajné URL.
@@ -202,7 +202,7 @@ alesvia.org řeší jiný agent v jiném repu; tady jen konzistence správce a o
 
 - U-01: opraveno CS i EN, primární report Common Sense Media (2025), grafy A/E/G/I. Ověřeno 25. 10. 2026. Graf E používá celý vzorek n=1 060; G/I podskupinu n=758. Psychologická kontrola před mergem stále nutná. Plný build včetně 13 rout prošel.
 - U-02: stručná verze /psychology odlišuje pozorování, limity a interpretaci. Zdroj Fang a kol. (2025), revize 2. října. Čeká na kontrolu psychologem.
-- U-03/U-04: datové toky a návrh CS/EN v `docs/privacy-review-2026-10.md`. DPA potvrzeny Matiasem; přesná identita správce a kontakt, lhůty a mechanismus předávání nejsou potvrzené. Zásady zatím neoznačovat jako hotové.
+- U-03/U-04: datové toky a návrh CS/EN v `docs/privacy-review-2026-10.md`. DPA a identita správce (Matias Bunnik, fyzická osoba do zápisu) potvrzeny Matiasem; kontakt, lhůty a mechanismus předávání ještě chybí. Placeholder organizace odstraněn v CS/EN, stávající e-mail zatím zachován k potvrzení. Zásady zatím neoznačovat jako hotové.
 - U-05/U-06/U-07/U-08: implementovány. Krizové kontakty ověřeny 26. 10. 2026. Veřejné texty nepředstírají tým, uskutečněné workshopy ani hotovou právní formu; český název Sebereflexe schválil Matias. Podrobná kontrola a postup pro Vercel redirect: `docs/release-checklist-2026-10.md`.
 - U-15/U-16: kromě ID byl bez souhlasu odesílán i `trackDemoEvent`; nyní je podmíněn souhlasem a respektuje DNT/GPC. Odmítnutí smaže uložené demo ID. Prerender vynucuje odmítnutou analytiku. Před opravou mohl build odeslat demo události; staré produkční záznamy nebyly ručně upravovány.
 - Ověření 26. 10. 2026: plný build všech 13 rout, kontrola canonical/og:url/lang a absence demo ID v prerenderu, lokální testy souhlasu/DNT/GPC/odvolání, ruční CS/EN kontrola při 390px a desktopovém viewportu. Formuláře nebyly odesílány do produkce. Samostatné EN URL a širší audit přístupnosti zůstávají v U-10/U-19.

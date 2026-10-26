@@ -9,7 +9,7 @@ PR: https://github.com/Kumungchi/unplugged/pull/2. Merge provádí Matias.
 - `/schools`, `/organizations`, `/about`, `/initiative`: číslování postupuje uvnitř každého seznamu. Ověřit také mobil.
 - `/assessment`: český název Sebereflexe a kontakty na pomoc za výsledkem. Při kontrole neklikat na „Uložit výsledek“, dokud není potvrzen testovací deployment.
 - `/demo`: před souhlasem nevzniká `unplugged_demo_session_id`, neodesílá se `trackDemoEvent`. Po odmítnutí či odvolání souhlasu se staré ID odstraní. Souhlas lze znovu otevřít přes patičku. Test povolené analytiky dělat na izolovaném backendu nebo s blokovaným zápisem, protože preview může používat produkční Convex.
-- `/privacy`: finální právní opravy U-03/U-04 ještě nejsou publikované. Návrh v `docs/privacy-review-2026-10.md` čeká na přesné údaje správce a další potvrzení.
+- `/privacy`: Matias potvrdil, že do zápisu je správcem jako fyzická osoba; placeholder organizace byl odstraněn v CS/EN. Finální U-03/U-04 ještě čekají na kontaktní údaje a další potvrzení z `docs/privacy-review-2026-10.md`. Stávající e-mail `info@unplugged.cz` je zatím zachovaný, jeho správnost má Matias potvrdit.
 - Patička každé veřejné stránky: krizové telefony mají `tel:` odkazy, telefonní dostupnost a odkazy na provozovatele. Ověřeno 26. 10. 2026.
 
 Psychologický obsah: **čeká na kontrolu psychologem**. Právní návrh: **Doporučeno nechat ověřit právníkem (Frank Bold / ANNO MSK). Agent není právník.**
