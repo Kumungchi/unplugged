@@ -1,94 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://unplugged.cz/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/" />
+    <loc>https://www.unplugged.cz/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/schools</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/schools" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/schools" />
+    <loc>https://www.unplugged.cz/schools</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/organizations</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/organizations" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/organizations" />
+    <loc>https://www.unplugged.cz/organizations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/government</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/government" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/government" />
+    <loc>https://www.unplugged.cz/government</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/assessment</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/assessment" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/assessment" />
+    <loc>https://www.unplugged.cz/assessment</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/about</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/about" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/about" />
+    <loc>https://www.unplugged.cz/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/initiative</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/initiative" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/initiative" />
+    <loc>https://www.unplugged.cz/initiative</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/demo</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/demo" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/demo" />
+    <loc>https://www.unplugged.cz/demo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/research</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/research" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/research" />
+    <loc>https://www.unplugged.cz/research</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/approach</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/approach" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/approach" />
+    <loc>https://www.unplugged.cz/approach</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/psychology</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/psychology" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/psychology" />
+    <loc>https://www.unplugged.cz/psychology</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/join</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/join" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/join" />
+    <loc>https://www.unplugged.cz/join</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://unplugged.cz/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://unplugged.cz/privacy" />
-    <xhtml:link rel="alternate" hreflang="cs" href="https://unplugged.cz/privacy" />
+    <loc>https://www.unplugged.cz/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

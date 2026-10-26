@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, type FC } from 'react';
 import { useLocation } from 'react-router';
 import { Language } from '../translations';
 
@@ -118,12 +118,22 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
   },
 };
 
-const SEOHead: React.FC<{ lang: Language }> = ({ lang }) => {
+const SEOHead: FC<{ lang: Language }> = ({ lang }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname;
+    const path = location.pathname.replace(/\/+$/, '') || '/';
     const config = seoData[lang][path] || seoData[lang]['/'];
+
+    const canonicalUrl = `https://www.unplugged.cz${path}`;
+    document.documentElement.lang = lang;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]') || document.createElement('link');
+    canonical.rel = 'canonical';
+    canonical.href = canonicalUrl;
+    if (!canonical.isConnected) document.head.appendChild(canonical);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
+    document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'cs' ? 'cs_CZ' : 'en_US');
+    document.querySelector('meta[http-equiv="content-language"], meta[name="content-language"]')?.setAttribute('content', lang);
 
     document.title = config.title;
 
