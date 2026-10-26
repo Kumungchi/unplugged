@@ -1,6 +1,6 @@
 # Privacy notice — draft for owner and legal review
 
-Stav 26. 10. 2026. Interní podklad pro U-03/U-04, **není text schválený k publikaci**. Matias potvrdil přijaté DPA Vercel, Convex, Beehiiv a Clerk a to, že do zápisu je správcem jako fyzická osoba. Kontaktní údaje, konkrétní mechanismy předávání a lhůty ještě nejsou potvrzené. Alesvia z.ú. není zapsaná; nelze ji uvést jako existujícího správce. Budoucí přechod správcovství na právnickou osobu je úkol fáze 2, ne současný stav.
+Stav 26. 10. 2026. Interní podklad pro U-03/U-04, **není text schválený k publikaci**. Matias potvrdil přijaté DPA Vercel, Convex, Beehiiv a Clerk, správce jako fyzickou osobu do zápisu a kontaktní e-mail info@unplugged.cz. Kontaktní adresa, konkrétní mechanismy předávání a lhůty ještě chybí. Alesvia z.ú. není zapsaná; nelze ji uvést jako existujícího správce. Budoucí přechod správcovství na právnickou osobu je úkol fáze 2, ne současný stav.
 
 **Doporučeno nechat ověřit právníkem (Frank Bold / ANNO MSK). Agent není právník.**
 
@@ -22,9 +22,9 @@ Ve zkontrolovaných mutations není mechanismus automatického výmazu. Zvolenou
 
 **Správce / Controller**
 
-CS: Správcem osobních údajů pro projekt Unplugged je **Matias Bunnik jako fyzická osoba**, kontaktní adresa **[POTVRDIT O-1: adresa správce]**. Pro uplatnění práv nás kontaktujte na **[POTVRDIT O-1: zda zachovat info@unplugged.cz]**. Registraci Alesvia z.ú. připravujeme.
+CS: Správcem osobních údajů pro projekt Unplugged je **Matias Bunnik jako fyzická osoba**, kontaktní adresa **[POTVRDIT O-1: adresa správce]**. Pro uplatnění práv nás kontaktujte na **info@unplugged.cz** (potvrzeno Matiasem). Registraci Alesvia z.ú. připravujeme.
 
-EN: The controller for the Unplugged project is **Matias Bunnik, acting as an individual**, contact address **[CONFIRM O-1: controller contact address]**. To exercise your rights, contact **[CONFIRM O-1: whether to retain info@unplugged.cz]**. We are preparing the registration of Alesvia z.ú.
+EN: The controller for the Unplugged project is **Matias Bunnik, acting as an individual**, contact address **[CONFIRM O-1: controller contact address]**. To exercise your rights, contact **info@unplugged.cz** (confirmed by Matias). We are preparing the registration of Alesvia z.ú.
 
 **Zpracování / Processing**
 

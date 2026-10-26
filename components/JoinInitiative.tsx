@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { useMutation } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import { Language } from '../translations';
+import { localizedPath } from '../routing.mjs';
 
 interface JoinInitiativeProps {
   lang: Language;
@@ -163,7 +164,7 @@ const JoinInitiative: React.FC<JoinInitiativeProps> = ({ lang }) => {
         need: form.focus || undefined,
         urgency: form.availability || undefined,
         message: form.message || undefined,
-        sourcePage: '/initiative',
+        sourcePage: localizedPath('/initiative', lang),
         consent: form.consent,
       });
       setSubmitted(true);

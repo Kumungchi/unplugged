@@ -15,8 +15,9 @@ The project targets individuals, schools, and organizations — with a Czech/Eur
 - `npm run dev` — Start dev server on port 3000 (Vite)
 - `npm run build` — Production build
 - `npm run preview` — Preview production build
+- `npm run test:routes` — Node tests for locale URLs, sitemap pairs and basename links
 
-No test framework is configured.
+No general test framework is configured; the locale routing checks use Node's built-in test runner.
 
 ## Architecture
 
@@ -36,9 +37,9 @@ Single-page React 19 app with Vite, TypeScript, Tailwind CSS v4 (via PostCSS), a
 
 ### Key patterns
 
-- **i18n**: All UI strings live in `translations.ts` with `en` and `cs` locales. Components receive `lang` prop and look up `translations[lang]`.
+- **i18n**: UI strings use `en` and `cs` locales. Components receive `lang` from the URL and look up `translations[lang]` (some existing components have their own localized copy). Czech uses `/…`; English uses `/en/…`, with `/en` as its canonical home. Saved language preferences and browser language do not override the URL.
 - **Styling**: Tailwind v4 via PostCSS (`postcss.config.js`). Inter, Playfair Display, and Caveat are self-hosted WOFF2 files in `public/fonts/`, with Latin and Latin Extended subsets, licenses and a source manifest. Their `@font-face` rules in `styles/global.css` use `font-display: swap`; only the hero display face is preloaded. Custom CSS classes (`notebook-lines`, `fade-in`, `scroll-fade`, `font-handwritten`) also live in that stylesheet. Uses a warm stone/cream color palette with red accents.
-- **Routing**: React Router with `<BrowserRouter>` in `index.tsx`. SPA fallback routing handled by `vercel.json`'s rewrite (`/(.*) → /index.html`) for any route not covered by a prerendered static file.
+- **Routing**: React Router with `<BrowserRouter basename>` in `index.tsx`: `/` for Czech and `/en` for English. Internal `Link` destinations stay relative to that basename. Language switching uses a regular document link and preserves the current path, query and hash. Shared public routes and locale helpers are in `routing.mjs`; `scripts/generate-sitemap.mjs` emits matching CS/EN sitemap pairs before the build, and `scripts/prerender.mjs` renders all 26 public language URLs. SPA fallback remains the existing `vercel.json` rewrite for paths without a static file.
 - **Mobile**: Hamburger menu in `App.tsx` with full-screen overlay for mobile navigation.
 - **Editable content**: Sector page and About copy can be overridden from `/admin/content` (`components/ContentEditor.tsx`, staff-gated like `/facilitator`) without a code deploy. Overrides live in the Convex `siteContent` table (`convex/siteContent.ts`) and are merged over the hardcoded defaults in `SectorPage.tsx`/`About.tsx` at render time (see `components/siteContentHelpers.ts`). Because the public site is prerendered at build time (see above), a published edit only reaches crawlable HTML after a rebuild — `publishContent` schedules `convex/siteContentActions.ts`'s `triggerRebuild` action, which POSTs to a Vercel Deploy Hook. **One-time manual setup required**: create a Deploy Hook in the Vercel dashboard (Project Settings → Git → Deploy Hooks) and run `npx convex env set VERCEL_DEPLOY_HOOK_URL <hook-url>`. Without it, publishing still works (content shows up via the live Convex query immediately) but the static prerendered HTML won't update until the next manual deploy.
 

@@ -1,6 +1,7 @@
 import { useEffect, type FC } from 'react';
 import { useLocation } from 'react-router';
 import { Language } from '../translations';
+import { SITE_ORIGIN, PUBLIC_ROUTES, languageAlternates, localizedPath, normalizePathname } from '../routing.mjs';
 
 interface SEOConfig {
   title: string;
@@ -122,10 +123,11 @@ const SEOHead: FC<{ lang: Language }> = ({ lang }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname.replace(/\/+$/, '') || '/';
+    const path = normalizePathname(location.pathname).toLowerCase();
     const config = seoData[lang][path] || seoData[lang]['/'];
+    const indexable = PUBLIC_ROUTES.includes(path);
 
-    const canonicalUrl = `https://www.unplugged.cz${path}`;
+    const canonicalUrl = SITE_ORIGIN + localizedPath(path, lang);
     document.documentElement.lang = lang;
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]') || document.createElement('link');
     canonical.rel = 'canonical';
@@ -134,6 +136,26 @@ const SEOHead: FC<{ lang: Language }> = ({ lang }) => {
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
     document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'cs' ? 'cs_CZ' : 'en_US');
     document.querySelector('meta[http-equiv="content-language"], meta[name="content-language"]')?.setAttribute('content', lang);
+    const alternateLocale = document.querySelector<HTMLMetaElement>('meta[property="og:locale:alternate"]') || document.createElement('meta');
+    alternateLocale.setAttribute('property', 'og:locale:alternate');
+    alternateLocale.content = lang === 'cs' ? 'en_US' : 'cs_CZ';
+    if (!alternateLocale.isConnected) document.head.appendChild(alternateLocale);
+
+    const robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]') || document.createElement('meta');
+    robots.name = 'robots';
+    robots.content = indexable ? 'index, follow' : 'noindex, nofollow';
+    if (!robots.isConnected) document.head.appendChild(robots);
+
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => link.remove());
+    if (indexable) {
+      for (const [language, href] of Object.entries(languageAlternates(path))) {
+        const link = document.createElement('link');
+        link.rel = 'alternate';
+        link.hreflang = language;
+        link.href = href;
+        document.head.appendChild(link);
+      }
+    }
 
     document.title = config.title;
 

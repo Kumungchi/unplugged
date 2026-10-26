@@ -15,6 +15,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import net from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { LANGUAGES, PUBLIC_ROUTES, SITE_ORIGIN, languageAlternates, languageFromPathname, localizedPath, routeFromPathname } from '../routing.mjs';
 
 const viteBin = fileURLToPath(new URL('../node_modules/vite/bin/vite.js', import.meta.url));
 
@@ -72,21 +73,7 @@ async function findFreePort() {
 // Public, indexable routes only. Deliberately excludes /admin/*, /facilitator,
 // and /staff-access — those are Clerk-gated staff tools and must stay
 // client-only and unindexed.
-const ROUTES = [
-  '/',
-  '/schools',
-  '/organizations',
-  '/government',
-  '/assessment',
-  '/about',
-  '/initiative',
-  '/approach',
-  '/research',
-  '/psychology',
-  '/demo',
-  '/join',
-  '/privacy',
-];
+const ROUTES = LANGUAGES.flatMap((lang) => PUBLIC_ROUTES.map((route) => localizedPath(route, lang)));
 
 const LOADING_MARKERS = ['Loading demo', 'Načítání dema'];
 
@@ -112,13 +99,13 @@ function outputPathFor(route) {
 async function prerenderRoute(browser, base, route) {
   const page = await browser.newPage();
   try {
-    // Force Czech snapshots until separate language URLs are approved in U-10.
-    // This matches <html lang="cs"> in the built index.html. Real visitors still
-    // get their own language via the client-side toggle after hydration.
-    await page.evaluateOnNewDocument(() => {
-      window.localStorage.setItem('unplugged_lang', 'cs');
+    const lang = languageFromPathname(route);
+    // Deliberately conflicting old preference: the URL must determine language.
+    // Declining analytics prevents prerender from writing optional demo events.
+    await page.evaluateOnNewDocument((savedLanguage) => {
+      window.localStorage.setItem('unplugged_lang', savedLanguage);
       window.localStorage.setItem('unplugged_cookie_consent', 'declined');
-    });
+    }, lang === 'cs' ? 'en' : 'cs');
 
     // 'load' rather than 'networkidle*' — Convex keeps a persistent websocket
     // open, so network-idle conditions would never resolve.
@@ -132,14 +119,17 @@ async function prerenderRoute(browser, base, route) {
     // Small settle buffer for the SEOHead title/meta effect to commit.
     await delay(300);
 
-    const expectedCanonical = `https://www.unplugged.cz${route}`;
+    const expectedCanonical = SITE_ORIGIN + route;
+    const expectedAlternates = languageAlternates(routeFromPathname(route));
     const metadata = await page.evaluate(() => ({
       canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href'),
       ogUrl: document.querySelector('meta[property="og:url"]')?.getAttribute('content'),
       lang: document.documentElement.lang,
+      locale: document.querySelector('meta[property="og:locale"]')?.getAttribute('content'),
+      alternates: Object.fromEntries([...document.querySelectorAll('link[rel="alternate"][hreflang]')].map((link) => [link.getAttribute('hreflang'), link.getAttribute('href')])),
       demoSessionId: window.localStorage.getItem('unplugged_demo_session_id'),
     }));
-    if (metadata.canonical !== expectedCanonical || metadata.ogUrl !== expectedCanonical || metadata.lang !== 'cs' || metadata.demoSessionId !== null) {
+    if (metadata.canonical !== expectedCanonical || metadata.ogUrl !== expectedCanonical || metadata.lang !== lang || metadata.locale !== (lang === 'cs' ? 'cs_CZ' : 'en_US') || metadata.demoSessionId !== null || JSON.stringify(metadata.alternates) !== JSON.stringify(expectedAlternates)) {
       throw new Error(`Incorrect prerender metadata for ${route}: ${JSON.stringify(metadata)}`);
     }
 

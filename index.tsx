@@ -6,6 +6,7 @@ import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import { ClerkProvider, useAuth } from '@clerk/react';
 import { Analytics } from '@vercel/analytics/react';
 import App from './App';
+import { languageFromPathname, localizedPath } from './routing.mjs';
 import { isClerkConfigured } from './auth';
 import {
   COOKIE_CONSENT_EVENT,
@@ -15,6 +16,8 @@ import {
 import './styles/global.css';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+const lang = languageFromPathname(window.location.pathname);
+const basename = lang === 'en' ? '/en' : '/';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -51,17 +54,17 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     {isClerkConfigured ? (
-      <ClerkProvider afterSignOutUrl="/">
+      <ClerkProvider afterSignOutUrl={localizedPath('/', lang)}>
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-          <BrowserRouter>
-            <App />
+          <BrowserRouter basename={basename}>
+            <App lang={lang} />
           </BrowserRouter>
         </ConvexProviderWithClerk>
       </ClerkProvider>
     ) : (
       <ConvexProvider client={convex}>
-        <BrowserRouter>
-          <App />
+        <BrowserRouter basename={basename}>
+          <App lang={lang} />
         </BrowserRouter>
       </ConvexProvider>
     )}

@@ -33,8 +33,10 @@ Názvy položek se mohou v aktuálním Vercel UI lišit; rozhodující je výsle
 
 Podklad: [Vercel — Deploying and Redirecting Domains](https://vercel.com/docs/domains/working-with-domains/deploying-and-redirecting).
 
-Do schválení U-10 mají CS a EN stále společnou URL a přepínač jazyka. Prerender je český; chybné hreflang na téže URL byly odstraněny. EN samostatné indexování přinese až U-10.
+Navazující U-10 byl schválen: v jeho větvi mají CS a EN vlastní URL (`/schools` a `/en/schools`), párový prerender a reciproční hreflang s českým x-default. Přepínač zachovává query a fragment. Samotné rodičovské PR #2 ještě používá společnou URL; vlastní jazykové URL přicházejí až v navazujícím PR pro U-10.
 
 ## Verification limits
 
 Plný `npm run build` zahrnuje všech 13 veřejných rout a kontroluje jejich canonical, `og:url`, český `lang` a nepřítomnost demo session ID. Nezahrnuje odesílání formulářů, kontrolu doručení e-mailů ani právní či psychologické schválení.
+
+V navazujícím U-10 build generuje všech **26 jazykových URL** a kontroluje také jazyk, locale a všechny alternativy každé stránky. Testy `npm run test:routes` ověřují rozpoznání prefixu, přepínač s parametry/fragmentem, sitemap a skutečné chování React Router Link s basename. Ručně ověřit také `/en`, `/en/`, mobilní menu, anglickou 404 a `noindex` staff stránek.

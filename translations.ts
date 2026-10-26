@@ -201,7 +201,7 @@ export const translations = {
     privacy_last_updated: "Last updated: March 2026",
 
     // Cookie consent
-    cookie_message: "We store your language and privacy choices in this browser. Website and demo analytics require your consent. You can change your choice using Cookie settings in the footer. Do Not Track and Global Privacy Control take precedence over consent.",
+    cookie_message: "We store your privacy choice in this browser. Website and demo analytics require your consent. You can change your choice using Cookie settings in the footer. Do Not Track and Global Privacy Control take precedence over consent.",
     cookie_accept: "Allow analytics",
     cookie_decline: "Decline analytics",
     cookie_settings: "Cookie settings",
@@ -410,7 +410,7 @@ export const translations = {
     privacy_last_updated: "Poslední aktualizace: březen 2026",
 
     // Cookie consent
-    cookie_message: "V prohlížeči ukládáme volbu jazyka a soukromí. Analytika webu a dema vyžaduje váš souhlas. Volbu můžete změnit přes Nastavení cookies v patičce. Signály Do Not Track a Global Privacy Control mají přednost před souhlasem.",
+    cookie_message: "V prohlížeči ukládáme volbu soukromí. Analytika webu a dema vyžaduje váš souhlas. Volbu můžete změnit přes Nastavení cookies v patičce. Signály Do Not Track a Global Privacy Control mají přednost před souhlasem.",
     cookie_accept: "Povolit analytiku",
     cookie_decline: "Odmítnout analytiku",
     cookie_settings: "Nastavení cookies",
