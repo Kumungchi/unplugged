@@ -63,7 +63,7 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
       <SiteHeader lang={lang} />
 
       <SEOHead lang={lang} />
-      <main className="flex-grow pb-20 fade-in">
+      <main className="flex-grow pb-20">
         <ErrorBoundary lang={lang} key={location.pathname}>
           <Routes>
             <Route path="/" element={<Landing lang={lang} />} />

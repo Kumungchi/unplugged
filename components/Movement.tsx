@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import { Language, translations } from '../translations';
 
@@ -6,27 +6,11 @@ interface MovementProps { lang: Language; }
 
 const Movement: React.FC<MovementProps> = ({ lang }) => {
   const t = translations[lang];
-  const sectionsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    const elements = sectionsRef.current?.querySelectorAll('.scroll-fade');
-    elements?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <div ref={sectionsRef} className="max-w-4xl mx-auto py-8 md:py-12 space-y-16 md:space-y-24">
-      <section className="scroll-fade text-center space-y-6 md:space-y-10 pb-8 border-b border-stone-200">
+    <div className="max-w-4xl mx-auto py-8 md:py-12 space-y-16 md:space-y-24">
+      <section className="text-center space-y-6 md:space-y-10 pb-8 border-b border-stone-200">
         <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif italic text-stone-900 font-black tracking-tighter">
           {t.manifesto_title}<span className="text-red-600">.</span>
         </h2>
@@ -37,7 +21,7 @@ const Movement: React.FC<MovementProps> = ({ lang }) => {
         </div>
       </section>
 
-      <section className="scroll-fade grid md:grid-cols-5 gap-6 md:gap-8 items-start">
+      <section className="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
         <div className="md:col-span-3 bg-white p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-[2.5rem] border border-stone-200">
           <span className="font-handwritten text-2xl text-red-600 block mb-6">{t.integrity_lab_label}</span>
           <ul className="space-y-8">

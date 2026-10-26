@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Language, translations } from '../translations';
 
 interface BoundariesProps {
@@ -64,34 +64,18 @@ const content = {
 const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
   const c = content[lang];
   const t = translations[lang];
-  const sectionsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    const elements = sectionsRef.current?.querySelectorAll('.scroll-fade');
-    elements?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <div ref={sectionsRef} className="max-w-5xl mx-auto py-8 md:py-12 space-y-12 md:space-y-20">
-      <section className="scroll-fade space-y-4 md:space-y-6 text-center">
+    <div className="max-w-5xl mx-auto py-8 md:py-12 space-y-12 md:space-y-20">
+      <section className="space-y-4 md:space-y-6 text-center">
         <h2 className="text-4xl sm:text-5xl md:text-7xl italic text-stone-900 font-serif font-black tracking-tighter">{c.heroTitle}</h2>
         <p className="text-stone-500 text-xl font-light leading-relaxed max-w-2xl mx-auto italic">
           "{c.heroSub}"
         </p>
       </section>
 
-      <section className="scroll-fade">
+      <section className="space-y-4">
         <div className="bg-stone-50 border border-stone-200 p-6 md:p-8 rounded-3xl md:rounded-[2rem] text-center max-w-3xl mx-auto shadow-sm">
           <p className="text-stone-600 font-light leading-relaxed text-sm md:text-base">
             {c.umbrellaNotice}
@@ -99,11 +83,11 @@ const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
         </div>
       </section>
 
-      <section className="scroll-fade space-y-8 md:space-y-10">
+      <section className="space-y-8 md:space-y-10">
         <h3 className="text-xs font-black uppercase tracking-[0.4em] text-red-600 text-center">{c.findingsLabel}</h3>
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {c.studies.map((study, idx) => (
-            <div key={idx} className="bg-white border border-stone-200 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] space-y-5 md:space-y-6 shadow-sm hover:shadow-lg transition-all flex flex-col">
+            <div key={idx} className="bg-white border border-stone-200 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] space-y-5 md:space-y-6 flex flex-col">
               <div className="flex items-center space-x-3 text-red-600 font-black text-2xl tracking-tighter">
                 <span className="opacity-50 font-sans">0{idx + 1}.</span>
               </div>

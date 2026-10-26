@@ -123,16 +123,6 @@ h3 {
   }
 }
 
-.scroll-fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.scroll-fade.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* ── Analog / Manifesto design utilities ── */
 
@@ -237,3 +227,15 @@ h3 {
   mask-repeat: no-repeat;
   padding-bottom: 8px;
 }
+
+/* Motion is optional; content and focus remain immediately available. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection { background: #fecaca; color: #1c1917; }
+input, textarea { caret-color: #dc2626; }
