@@ -80,11 +80,11 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
     <div ref={sectionsRef} className="space-y-16 md:space-y-32 py-6 md:py-12 scroll-smooth">
       {/* Hero */}
       <section className="text-center max-w-4xl mx-auto space-y-8">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl leading-[1.05] text-stone-900 font-serif font-black tracking-tighter">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl leading-[1.05] text-stone-900 font-serif font-black tracking-tighter whitespace-pre-line">
           {t.hero_title}
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-stone-600 leading-relaxed font-normal max-w-2xl mx-auto">
-          {t.hero_sub}
+          {t.mission_desc}
         </p>
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
@@ -100,6 +100,11 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             {lang === 'en' ? 'For institutions' : 'Pro instituce'}
           </Link>
         </div>
+      </section>
+
+      {/* Newsletter */}
+      <section id="newsletter" aria-label={t.newsletter_title}>
+        <Newsletter lang={lang} />
       </section>
 
       {/* Stats */}
@@ -234,11 +239,6 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="scroll-fade">
-        <Newsletter lang={lang} />
       </section>
 
       {/* Join CTA */}

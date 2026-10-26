@@ -2,7 +2,7 @@ export const translations = {
   en: {
     brand: "Unplugged",
     tagline: "Clarity in the age of AI.",
-    hero_title: "Technology that supports human life.",
+    hero_title: "AI is a tool.\nNot a relationship.",
     hero_sub: "We help schools, organizations, and individuals understand conversational AI through education, pilot workshops, and training. AI is a tool. Not a relationship.",
     start_btn: "See the Demo",
     nav_boundaries: "Research",
@@ -211,7 +211,7 @@ export const translations = {
   cs: {
     brand: "Unplugged",
     tagline: "Jasnost ve věku AI.",
-    hero_title: "Technologie, která podporuje lidský život.",
+    hero_title: "AI je nástroj.\nNe vztah.",
     hero_sub: "Pomáháme školám, organizacím a jednotlivcům porozumět konverzační AI prostřednictvím vzdělávání, pilotních workshopů a školení. AI je nástroj. Ne vztah.",
     start_btn: "Zobrazit demo",
     nav_boundaries: "Výzkum",
