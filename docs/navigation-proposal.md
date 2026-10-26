@@ -1,4 +1,4 @@
-# U-12 — navigation and action priorities, awaiting approval
+# U-12 — navigation and action priorities, approved
 
 ## Agreed visual direction
 
@@ -39,4 +39,6 @@ Neither variant settles O-8 (the primary analytics metric). That remains a separ
 
 ## Approval and acceptance
 
-This is a proposal. U-12 remains unchecked until Matias selects a variant and implementation is verified on desktop/mobile, CS/EN, keyboard, and cross-page newsletter anchors. No navigation items or destinations are changed by the U-11 hero update.
+Matias approved the demo-first variant on 26 October 2026. Implemented in U-12 with the current visual identity preserved. The hero institution link targets the existing offer section; duplicate sector buttons at the bottom are replaced by contextual workshop/contributor links. About links to contribution; research links to psychology and approach.
+
+Verified locally in CS/EN at 320, 390, 1280 and 1440 CSS pixels, including native disclosure keyboard behavior, mobile dialog Escape/focus restoration, resizing to desktop, and same-page/cross-page newsletter focus. All 26 language URLs pass the full build/prerender and the five existing route tests. Production forms were not submitted. TypeScript still reports the same pre-existing errors in auth.ts, Assessment.tsx, index.tsx and privacy.ts; no new error is attributed to this change.

@@ -94,16 +94,16 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             {t.start_btn}
           </Link>
           <Link
-            to="/schools"
+            to="/#institutions"
             className="w-full sm:w-auto px-10 py-4 border-2 border-stone-300 text-stone-700 rounded-full text-sm font-bold uppercase tracking-widest hover:border-stone-900 transition-all text-center"
           >
-            {lang === 'en' ? 'For institutions' : 'Pro instituce'}
+            {t.nav_institutions}
           </Link>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section id="newsletter" aria-label={t.newsletter_title}>
+      <section id="newsletter" tabIndex={-1} aria-label={t.newsletter_title} className="scroll-mt-8 rounded-3xl focus-visible:outline-2 focus-visible:outline-red-700 focus-visible:outline-offset-4">
         <Newsletter lang={lang} />
       </section>
 
@@ -138,7 +138,7 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
       </section>
 
       {/* Audience cards */}
-      <section className="scroll-fade space-y-8 md:space-y-10">
+      <section id="institutions" tabIndex={-1} aria-label={t.nav_institutions} className="scroll-fade scroll-mt-8 space-y-8 md:space-y-10 focus-visible:outline-2 focus-visible:outline-red-700 focus-visible:outline-offset-4">
         <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-serif italic text-stone-900 font-black tracking-tighter">
           {lang === 'en' ? 'Three tracks. One trust platform.' : 'Tři cesty. Jedna důvěryhodná platforma.'}
         </h2>
@@ -241,76 +241,12 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
         </div>
       </section>
 
-      {/* Join CTA */}
-      <section className="scroll-fade text-center space-y-6">
-        <h3 className="text-2xl md:text-3xl font-serif italic text-stone-900 font-bold">
-          {lang === 'en' ? 'Choose your path.' : 'Vyberte si svou cestu.'}
-        </h3>
-        <p className="text-stone-500 font-light max-w-2xl mx-auto">
-          {lang === 'en'
-            ? 'Whether you need a school pilot, an organizational training session, or a public-sector briefing, start with the path that matches your institution.'
-            : 'Ať potřebujete pilot pro školu, školení pro organizaci nebo briefing pro veřejný sektor, začněte cestou, která odpovídá vaší instituci.'}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/schools"
-            className="inline-block px-8 py-4 bg-stone-900 text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-stone-800 transition-all shadow-lg hover:-translate-y-0.5"
-          >
-            {lang === 'en' ? 'For schools' : 'Pro školy'}
-          </Link>
-          <Link
-            to="/organizations"
-            className="inline-block px-8 py-4 border-2 border-stone-300 text-stone-700 rounded-full text-sm font-bold uppercase tracking-widest hover:border-stone-900 transition-all"
-          >
-            {lang === 'en' ? 'For organizations' : 'Pro organizace'}
-          </Link>
-          <Link
-            to="/government"
-            className="inline-block px-8 py-4 border-2 border-stone-300 text-stone-700 rounded-full text-sm font-bold uppercase tracking-widest hover:border-stone-900 transition-all"
-          >
-            {lang === 'en' ? 'For government' : 'Pro veřejný sektor'}
-          </Link>
-        </div>
-        <div className="max-w-4xl mx-auto mt-8 grid md:grid-cols-2 gap-4 text-left">
-          <div className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">
-              {lang === 'en' ? 'Institutional work' : 'Institucionální spolupráce'}
-            </span>
-            <h4 className="text-2xl font-serif italic font-bold text-stone-900">
-              {lang === 'en' ? 'Workshops, briefings, and advisory support' : 'Workshopy, briefingy a advisory podpora'}
-            </h4>
-            <p className="text-stone-600 leading-relaxed">
-              {lang === 'en'
-                ? 'Workshops, briefings, and advisory work for schools, organizations, and public institutions.'
-                : 'Workshopy, briefingy a advisory spolupráce pro školy, organizace a veřejné instituce.'}
-            </p>
-            <Link to="/join" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-600 hover:text-red-700">
-              {lang === 'en' ? 'Work with us' : 'Spolupracovat s námi'}
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-          <div className="bg-stone-900 text-white rounded-[2rem] p-6 md:p-8 space-y-4 paper-texture relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
-            <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.25em] text-red-400">
-              {lang === 'en' ? 'Mission engine' : 'Mise a kapacita'}
-            </span>
-            <h4 className="relative z-10 text-2xl font-serif italic font-bold text-white">
-              {lang === 'en' ? 'Volunteers, experts, and future team' : 'Dobrovolníci, experti a budoucí tým'}
-            </h4>
-            <p className="relative z-10 text-stone-300 leading-relaxed">
-              {lang === 'en'
-                ? 'Join if you want to contribute expertise, facilitation, research, strategic guidance, or future operating capacity.'
-                : 'Přidejte se, pokud chcete přinést expertizu, facilitaci, výzkum, strategické vedení nebo budoucí realizační kapacitu.'}
-            </p>
-            <Link to="/initiative" className="relative z-10 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-300">
-              {lang === 'en' ? 'Join the initiative' : 'Připojit se k iniciativě'}
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
+      <section className="border-t border-stone-300 pt-10 text-center space-y-5">
+        <h2 className="text-3xl md:text-4xl font-serif italic font-bold text-stone-900">{t.home_contact_title}</h2>
+        <p className="text-stone-600 max-w-2xl mx-auto leading-relaxed">{t.home_contact_desc}</p>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+          <Link to="/join" className="inline-flex items-center min-h-11 font-bold underline underline-offset-4 text-stone-900 hover:text-red-700 focus-visible:outline-2 focus-visible:outline-red-700">{t.nav_contact}</Link>
+          <Link to="/initiative" className="inline-flex items-center min-h-11 font-bold underline underline-offset-4 text-stone-900 hover:text-red-700 focus-visible:outline-2 focus-visible:outline-red-700">{t.nav_get_involved}</Link>
         </div>
       </section>
     </div>

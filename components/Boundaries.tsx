@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import React, { useEffect, useRef } from 'react';
 import { Language, translations } from '../translations';
 
@@ -62,6 +63,7 @@ const content = {
 
 const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
   const c = content[lang];
+  const t = translations[lang];
   const sectionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -121,6 +123,13 @@ const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+      <section className="border-t border-stone-300 pt-8 space-y-4">
+        <h2 className="text-2xl font-serif font-bold text-stone-900">{t.read_further_title}</h2>
+        <div className="flex flex-wrap gap-x-8 gap-y-2">
+          <Link to="/psychology" className="inline-flex items-center min-h-11 font-bold underline underline-offset-4 text-stone-700 hover:text-red-700 focus-visible:outline-2 focus-visible:outline-red-700">{t.read_psychology}</Link>
+          <Link to="/approach" className="inline-flex items-center min-h-11 font-bold underline underline-offset-4 text-stone-700 hover:text-red-700 focus-visible:outline-2 focus-visible:outline-red-700">{t.read_approach}</Link>
         </div>
       </section>
     </div>
