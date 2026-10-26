@@ -101,9 +101,9 @@ const About: React.FC<AboutProps> = ({ lang }) => {
         <div className="bg-white border border-stone-200 rounded-[2rem] p-8 space-y-5">
           <h2 className="text-2xl font-serif italic font-bold text-stone-900">{c.whatTitle}</h2>
           <ul className="space-y-3">
-            {c.whatItems.map((item) => (
+            {c.whatItems.map((item, index) => (
               <li key={item} className="flex items-start gap-3 text-stone-600">
-                <span className="text-red-600 font-black text-sm mt-0.5">01</span>
+                <span className="text-red-600 font-black text-sm mt-0.5">{String(index + 1).padStart(2, '0')}</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -112,9 +112,9 @@ const About: React.FC<AboutProps> = ({ lang }) => {
         <div className="bg-white border border-stone-200 rounded-[2rem] p-8 space-y-5">
           <h2 className="text-2xl font-serif italic font-bold text-stone-900">{c.principlesTitle}</h2>
           <ul className="space-y-3">
-            {c.principles.map((item) => (
+            {c.principles.map((item, index) => (
               <li key={item} className="flex items-start gap-3 text-stone-600">
-                <span className="text-red-600 font-black text-sm mt-0.5">02</span>
+                <span className="text-red-600 font-black text-sm mt-0.5">{String(index + 1).padStart(2, '0')}</span>
                 <span>{item}</span>
               </li>
             ))}

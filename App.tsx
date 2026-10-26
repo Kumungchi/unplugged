@@ -19,8 +19,8 @@ import ContentEditor from './components/ContentEditor';
 import StaffManager from './components/StaffManager';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
-import CrisisSupport from './components/CrisisSupport';
 import SEOHead from './components/SEOHead';
+import CrisisSupport from './components/CrisisSupport';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
 
 const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
@@ -57,7 +57,7 @@ const App: React.FC = () => {
     schools: lang === 'en' ? 'Schools' : 'Školy',
     organizations: lang === 'en' ? 'Organizations' : 'Organizace',
     government: lang === 'en' ? 'Government' : 'Veřejný',
-    assessment: lang === 'en' ? 'Assessment' : 'Assessment',
+    assessment: lang === 'en' ? 'Assessment' : 'Sebereflexe',
     about: lang === 'en' ? 'About' : 'O nás',
     contact: lang === 'en' ? 'Work With Us' : 'Spolupráce',
     initiative: lang === 'en' ? 'Join the Initiative' : 'Přidejte se',

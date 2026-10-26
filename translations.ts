@@ -116,7 +116,7 @@ export const translations = {
     newsletter_desc: "Every two weeks: one deep topic on AI & psychology, one statistic that will stop you, and the best research we found.",
     newsletter_placeholder: "Your email address",
     newsletter_btn: "Subscribe",
-    newsletter_lang_cs: "Cesky",
+    newsletter_lang_cs: "Česky",
     newsletter_lang_en: "English",
     newsletter_lang_label: "I prefer to read in",
     newsletter_what_1: "AI & psychology deep dives",

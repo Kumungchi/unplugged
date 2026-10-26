@@ -28,7 +28,7 @@ const content = {
     saved: 'Result saved.',
   },
   cs: {
-    title: 'AI Boundary Readiness Assessment',
+    title: 'Sebereflexe připravenosti na AI',
     subtitle:
       'Lehká diagnostika pro školy, organizace a veřejné instituce. Jde o vzdělávací nástroj připravenosti, ne o klinické nebo regulatorní hodnocení.',
     description:
@@ -218,6 +218,7 @@ const Assessment: React.FC<AssessmentProps> = ({ lang }) => {
           </div>
         </div>
       </section>
+      <CrisisSupport lang={lang} />
     </div>
   );
 };

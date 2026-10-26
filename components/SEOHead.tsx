@@ -80,8 +80,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Public-interest briefingy, advisory mema a institucionální guidance pro vládu, samosprávy a veřejné instituce.',
     },
     '/assessment': {
-      title: 'AI Boundary Readiness Assessment | Unplugged',
-      description: 'Lehký readiness assessment pro školy, organizace a veřejné instituce, které reagují na emocionálně významné používání AI.',
+      title: 'Sebereflexe připravenosti na AI | Unplugged',
+      description: 'Orientační sebereflexe pro školy, organizace a veřejné instituce. Zhodnoťte připravenost na používání konverzační AI.',
     },
     '/about': {
       title: 'O projektu Unplugged | Iniciativa pro AI gramotnost ve veřejném zájmu',
