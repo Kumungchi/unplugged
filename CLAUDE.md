@@ -25,12 +25,17 @@ Single-page React 19 app with Vite, TypeScript, Tailwind CSS v4 (via PostCSS), a
 
 `vercel.json`'s `buildCommand` runs `npx convex deploy --cmd 'npm run build'` on production builds only (checked via the `VERCEL_ENV` system env var; preview builds just run `npm run build` directly). This pushes the current `convex/` schema and functions to the production Convex deployment (`acoustic-pony-467`) before every production build, so the frontend and backend can no longer drift apart the way they did before this was added — previously, Convex changes only ever reached the dev deployment via `npx convex dev`, and production silently fell behind until a manual `npx convex deploy`. **Requires** `CONVEX_DEPLOY_KEY` (a **production** deploy key from the Convex dashboard, Production deployment → Settings → Deploy Key) set as a Vercel environment variable scoped to Production. Without it, production builds will fail at the `npx convex deploy` step.
 
-`npm run build` runs `vite build` followed by `scripts/prerender.mjs`, which drives the built app in a headless browser and snapshots each public route's fully-rendered HTML into `dist/<route>/index.html`. This exists because the app itself is CSR-only (no SSR/hydration entry) — without this step, crawlers and AI tools that don't execute JavaScript only see an empty `<div id="root">`. Admin/staff routes (`/admin/*`, `/facilitator`, `/staff-access`) are deliberately excluded from prerendering and the sitemap. Use `npm run build:client-only` to skip the prerender step during local debugging.
+`npm run build` runs `vite build` followed by `scripts/prerender.mjs`, which drives the built app in a headless browser and snapshots each public route's fully-rendered HTML into `dist/<route>/index.html`. Demo output is also loaded with scripting disabled to verify its introduction, localized fallback link and hidden inactive controls. This exists because the app itself is CSR-only (no SSR/hydration entry) — without this step, crawlers and AI tools that don't execute JavaScript only see an empty `<div id="root">`. Admin/staff routes (`/admin/*`, `/facilitator`, `/staff-access`) are deliberately excluded from prerendering and the sitemap. Use `npm run build:client-only` to skip the prerender step during local debugging.
 
 ### Routes (managed by React Router in App.tsx)
 
+<<<<<<< HEAD
 - `/` — Landing page with mission/problem framing and scroll animations
 - `/demo` — MirrorDemo: scripted fake chatbot demonstrating manipulative AI conversation patterns with a side panel exposing psychological mechanisms
+=======
+- `/` — Landing page with mission/problem framing and immediately visible content
+- `/demo` — DemoPage provides the static introduction and noscript fallback before lazy-loading MirrorDemo: scripted fake chatbot demonstrating manipulative AI conversation patterns with a side panel exposing psychological mechanisms
+>>>>>>> 9051514 (Keep the demo introduction readable without JavaScript)
 - `/approach` — Movement: manifesto/approach page
 - `/research` — Boundaries: educational content about psychological risks of AI companionship
 - `*` — 404 catch-all

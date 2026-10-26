@@ -250,7 +250,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
           <div className="inline-flex px-4 py-1.5 bg-red-50 text-red-700 rounded-full text-[10px] font-black uppercase tracking-[0.25em]">
             {t.flagship}
           </div>
-          <h1 className="text-3xl lg:text-5xl font-serif italic text-stone-900 font-black tracking-tighter">{t.title}</h1>
+          <h2 className="text-3xl lg:text-5xl font-serif italic text-stone-900 font-black tracking-tighter">{t.title}</h2>
           <p className="text-stone-500 font-light text-sm lg:text-lg max-w-3xl mx-auto leading-relaxed">{ending.subtitle}</p>
         </div>
 
@@ -338,15 +338,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto py-4 sm:py-6 lg:py-12 space-y-4 sm:space-y-6 lg:space-y-8 relative">
-      <div className="text-center space-y-3 lg:space-y-5">
-        <div className="inline-flex px-4 py-1.5 bg-red-50 text-red-700 rounded-full text-[10px] font-black uppercase tracking-[0.25em]">
-          {t.flagship}
-        </div>
-        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-serif italic text-stone-900 font-black tracking-tighter">{t.title}</h1>
-        <p className="text-stone-500 font-light text-sm lg:text-lg max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">{t.subtitle}</p>
-      </div>
-
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8 relative">
       <section className="lg:hidden bg-white border border-stone-200 rounded-[1.5rem] p-4 shadow-sm space-y-3">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1 min-w-0">
