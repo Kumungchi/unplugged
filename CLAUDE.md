@@ -29,13 +29,8 @@ Single-page React 19 app with Vite, TypeScript, Tailwind CSS v4 (via PostCSS), a
 
 ### Routes (managed by React Router in App.tsx)
 
-<<<<<<< HEAD
 - `/` — Landing page with mission/problem framing and scroll animations
-- `/demo` — MirrorDemo: scripted fake chatbot demonstrating manipulative AI conversation patterns with a side panel exposing psychological mechanisms
-=======
-- `/` — Landing page with mission/problem framing and immediately visible content
 - `/demo` — DemoPage provides the static introduction and noscript fallback before lazy-loading MirrorDemo: scripted fake chatbot demonstrating manipulative AI conversation patterns with a side panel exposing psychological mechanisms
->>>>>>> 9051514 (Keep the demo introduction readable without JavaScript)
 - `/approach` — Movement: manifesto/approach page
 - `/research` — Boundaries: educational content about psychological risks of AI companionship
 - `*` — 404 catch-all
