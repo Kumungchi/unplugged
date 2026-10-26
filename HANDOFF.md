@@ -144,14 +144,14 @@ Ověřeno vlastníkem 1. 10. 2026. **Před použitím otevři odkaz a zkontroluj
 
 ## 8. Otevřené otázky (nerozhoduj sám)
 
-- **O-1 — částečně potvrzeno Matiasem:** Do zápisu je správcem Matias Bunnik jako fyzická osoba; po vzniku právnické osoby má správcovství přejít na Alesvia. Matias potvrdil kontaktní e-mail `info@unplugged.cz`. Ještě doplnit kontaktní adresu správce; blokuje dokončení U-03/U-04.
-- **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Ještě ověřit skutečný region a právní mechanismus případného předávání dat.
+- **O-1 — částečně potvrzeno Matiasem (adresu doplní Matias):** Do zápisu je správcem Matias Bunnik jako fyzická osoba; po vzniku právnické osoby má správcovství přejít na Alesvia. Matias potvrdil kontaktní e-mail `info@unplugged.cz`. Ještě doplnit kontaktní adresu správce; blokuje dokončení U-03/U-04.
+- **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Data jsou uložena v EU (Matias, 26. 10. 2026). V zásadách přesto uvést možný přístup zpracovatelů z USA a mechanismus (DPF/SCC) dle jejich DPA.
 - **O-3 — ověřeno 26. 10. 2026:** Veřejná produkční query pro 65 klíčů About a sektorových stránek vrátila prázdné publikované přepisy v CS i EN. Znovu ověřit, pokud mezitím někdo publikuje.
 - **O-4** Funguje `VERCEL_DEPLOY_HOOK_URL` v Convexu pro rebuild po CMS publikaci? Matias zatím neví. Ověřit v účtu bez změny nastavení a bez zveřejnění tajné URL.
 - **O-5 — rozhodnuto:** Český název Assessment je **Sebereflexe**.
 - **O-6** Smí být Matias na webu jmenován jako zakladatel s fotkou? Hypotéza simulované focus-group: tvář buduje důvěru více než popis.
 - **O-7** Archiv: ruční import nebo Beehiiv?
-- **O-8** Primární metrika první fáze: dokončení dema / newsletter / poptávka workshopu?
+- **O-8 — rozhodnuto Matiasem 26. 10. 2026:** Dvě primární metriky: dokončení dema a přihlášení k newsletteru.
 
 ## 9. Definice plně funkčního webu
 
