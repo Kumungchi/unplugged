@@ -103,7 +103,7 @@ Message house (volně použitelné):
 
 ### Fáze 1 — finální verze
 
-- [ ] **U-09 🔁 Self-hosted fonty** — `index.html` ~125–126 načítá Inter, Playfair Display, Caveat z Google. Motivace: přenos IP bez souhlasu a rozsudek LG München (2022). Woff2 latin + latin-ext pro češtinu do `public/fonts/`, @font-face v `styles/global.css`, font-display: swap, preload jen hero fontu. Upravit zásady U-04.
+- [x] **U-09 🔁 Self-hosted fonty** — `index.html` ~125–126 načítá Inter, Playfair Display, Caveat z Google. Motivace: přenos IP bez souhlasu a rozsudek LG München (2022). Woff2 latin + latin-ext pro češtinu do `public/fonts/`, @font-face v `styles/global.css`, font-display: swap, preload jen hero fontu. Upravit zásady U-04.
 - [ ] **U-10 🔁 Čeština a URL per jazyk** — dnes localStorage/prohlížeč v App.tsx ~27–38, lang=en, og:locale=en_US a EN prerender. Cíl CS `/…`, EN `/en/…`, vlastní lang/canonical/hreflang/x-default. Vzor alesvia.org. ⚠️ Před zásahem navrhnout routing/prerender a trade-offy (prefix React Router vs. dvě sady rout) a počkat na souhlas. Mezikrok při odložení: CS výchozí prerender.
 - [ ] **U-11 🔁 Hero a hierarchie** — obecné „Technologie, která podporuje lidský život.“ → claim „AI je nástroj. Ne vztah.“ a schválená mise ze sekce 1. Newsletter výš jako aktivum odpovídající veřejné misi.
 - [ ] **U-12 CTA a navigace** — ~12 CTA, 7 nav položek, Work With Us/Join the Initiative skoro synonyma. Cíl jedna primární akce pro veřejnost (demo/newsletter), jedna pro instituce. /research, /approach, /psychology po U-02 zařadit/sloučit (např. Proč na tom záleží). ⚠️ Strukturu schválit před implementací.
