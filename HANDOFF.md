@@ -128,8 +128,8 @@ Ověřeno vlastníkem 1. 10. 2026. **Před použitím otevři odkaz a zkontroluj
 | Číslo | Text pro web | Zdroj | Pozor |
 | --- | --- | --- | --- |
 | 72 % | teenagerů v USA vyzkoušelo AI companion | Common Sense Media, 16. 7. 2025, n=1 060, 13–17 let | Americký vzorek uvést |
-| 31 % | teenagerů používajících AI companion hodnotí rozhovor stejně/více uspokojivě než s kamarády | Common Sense Media 2025 (KTVU) | Stejná studie: 80 % stále tráví víc času se skutečnými přáteli; uvést obojí |
-| 1 ze 3 | teenagerů řešil vážnou věc raději s AI než s člověkem | Common Sense Media 2025 (NY1/AP) | Náhrada 1 z 5; ověřit jmenovatel |
+| 31 % | dotázaných teenagerů hodnotilo rozhovor stejně/více uspokojivě než s kamarády | Common Sense Media 2025, primární report, graf E | Graf E: celý vzorek n=1 060. Graf G: 80 % uživatelů trávilo více času s přáteli, podskupina n=758; uvést obojí |
+| 33 % | dospívajících uživatelů AI společníků řešilo alespoň jednou důležitou věc s AI místo s člověkem | Common Sense Media 2025, primární report, graf I | Podskupina n=758, nikoli všichni teenageři. Náhrada 1 z 5 |
 | korelace | Vyšší denní používání souviselo s vyšší osamělostí, závislostí a menším kontaktem s lidmi | MIT Media Lab + OpenAI, březen 2025, RCT n=981 + analýza konverzací (Silicon Canals) | Korelace, ne příčina. Dohledat primární studii |
 | 2,9 % | afektivních konverzací s Claudem; companionship/roleplay pod 0,5 % | Anthropic, červen 2025 | Proti panice: vzácné, ale u některých intenzivní |
 
@@ -137,7 +137,7 @@ Ověřeno vlastníkem 1. 10. 2026. **Před použitím otevři odkaz a zkontroluj
 
 - **O-1** Kdo je správcem před zápisem (Matias jako fyzická osoba/jiná forma) a jaký kontaktní e-mail? Blokuje U-03/U-04.
 - **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Ještě ověřit skutečný region a právní mechanismus případného předávání dat.
-- **O-3** Existují publikované CMS přepisy v /admin/content? Matias zatím neví; před mergem ověřit čtením publikovaných hodnot.
+- **O-3 — ověřeno 26. 10. 2026:** Veřejná produkční query pro 65 klíčů About a sektorových stránek vrátila prázdné publikované přepisy v CS i EN. Znovu ověřit, pokud mezitím někdo publikuje.
 - **O-4** Funguje `VERCEL_DEPLOY_HOOK_URL` v Convexu pro rebuild po CMS publikaci? Matias zatím neví. Ověřit v účtu bez změny nastavení a bez zveřejnění tajné URL.
 - **O-5 — rozhodnuto:** Český název Assessment je **Sebereflexe**.
 - **O-6** Smí být Matias na webu jmenován jako zakladatel s fotkou? Hypotéza simulované focus-group: tvář buduje důvěru více než popis.
@@ -201,3 +201,8 @@ alesvia.org řeší jiný agent v jiném repu; tady jen konzistence správce a o
 ## Průběžný stav implementace
 
 - U-01: opraveno CS i EN, primární report Common Sense Media (2025), grafy A/E/G/I. Ověřeno 25. 10. 2026. Graf E používá celý vzorek n=1 060; G/I podskupinu n=758. Psychologická kontrola před mergem stále nutná. Plný build včetně 13 rout prošel.
+- U-02: stručná verze /psychology odlišuje pozorování, limity a interpretaci. Zdroj Fang a kol. (2025), revize 2. října. Čeká na kontrolu psychologem.
+- U-03/U-04: datové toky a návrh CS/EN v `docs/privacy-review-2026-10.md`. DPA potvrzeny Matiasem; přesná identita správce a kontakt, lhůty a mechanismus předávání nejsou potvrzené. Zásady zatím neoznačovat jako hotové.
+- U-05/U-06/U-07/U-08: implementovány. Krizové kontakty ověřeny 26. 10. 2026. Veřejné texty nepředstírají tým, uskutečněné workshopy ani hotovou právní formu; český název Sebereflexe schválil Matias. Podrobná kontrola a postup pro Vercel redirect: `docs/release-checklist-2026-10.md`.
+- U-15/U-16: kromě ID byl bez souhlasu odesílán i `trackDemoEvent`; nyní je podmíněn souhlasem a respektuje DNT/GPC. Odmítnutí smaže uložené demo ID. Prerender vynucuje odmítnutou analytiku. Před opravou mohl build odeslat demo události; staré produkční záznamy nebyly ručně upravovány.
+- Ověření 26. 10. 2026: plný build všech 13 rout, kontrola canonical/og:url/lang a absence demo ID v prerenderu, lokální testy souhlasu/DNT/GPC/odvolání, ruční CS/EN kontrola při 390px a desktopovém viewportu. Formuláře nebyly odesílány do produkce. Samostatné EN URL a širší audit přístupnosti zůstávají v U-10/U-19.
