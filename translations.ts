@@ -177,9 +177,9 @@ export const translations = {
     // Privacy Policy
     nav_privacy: "Privacy Policy",
     privacy_title: "Privacy Policy",
-    privacy_intro: "Unplugged (an initiative by [Organization Name]) is committed to protecting your personal data. This policy explains how we collect, use, and protect your information in accordance with the General Data Protection Regulation (EU 2016/679) and Act No. 110/2019 Sb. on the processing of personal data (Czech Republic).",
+    privacy_intro: "Unplugged is an educational initiative under Alesvia, whose registration as a Czech registered institute is being prepared. Until registration, Matias Bunnik acts as the data controller as an individual. This policy describes how personal data is processed for Unplugged.",
     privacy_controller_title: "Data Controller",
-    privacy_controller_desc: "Unplugged (an initiative by [Organization Name]), Czech Republic. Contact: info@unplugged.cz",
+    privacy_controller_desc: "Matias Bunnik, acting as an individual before the registration of Alesvia. Contact: info@unplugged.cz",
     privacy_what_title: "What data we collect",
     privacy_what_newsletter: "Newsletter: email address and language preference, processed via Beehiiv.",
     privacy_what_form: "Join/contact form: name, email, organization (optional), role, interest area, and optional message — stored to respond to your inquiry and manage participation in our programs.",
@@ -386,9 +386,9 @@ export const translations = {
     // Privacy Policy
     nav_privacy: "Ochrana osobních údajů",
     privacy_title: "Zásady ochrany osobních údajů",
-    privacy_intro: "Unplugged (iniciativa pod hlavičkou [Organization Name]) se zavazuje chránit vaše osobní údaje. Tyto zásady vysvětlují, jak shromažďujeme, používáme a chráníme vaše informace v souladu s obecným nařízením o ochraně osobních údajů (EU 2016/679) a zákonem č. 110/2019 Sb., o zpracování osobních údajů.",
+    privacy_intro: "Unplugged je vzdělávací iniciativa pod Alesvia, jejíž registraci jako zapsaného ústavu připravujeme. Do zápisu je správcem osobních údajů Matias Bunnik jako fyzická osoba. Tyto zásady popisují zpracování osobních údajů pro projekt Unplugged.",
     privacy_controller_title: "Správce údajů",
-    privacy_controller_desc: "Unplugged (iniciativa pod hlavičkou [Organization Name]), Česká republika. Kontakt: info@unplugged.cz",
+    privacy_controller_desc: "Matias Bunnik, fyzická osoba do zápisu Alesvia. Kontakt: info@unplugged.cz",
     privacy_what_title: "Jaké údaje shromažďujeme",
     privacy_what_newsletter: "Newsletter: emailová adresa a jazyková preference, zpracovávané přes platformu Beehiiv.",
     privacy_what_form: "Formulář pro zapojení/kontakt: jméno, email, organizace (nepovinné), role, oblast zájmu a volitelná zpráva — uloženo za účelem odpovědi na váš dotaz a správy účasti v programech.",
