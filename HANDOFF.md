@@ -97,7 +97,7 @@ Message house (volně použitelné):
 - [ ] **U-03 🔁 Placeholder [Organization Name]** — `privacy_intro`, `privacy_controller_desc` (EN ~200–202, CS ~428–430). ⚠️ Správce před zápisem musí být potvrzen (O-1). Do té doby návrh s jasně označeným místem a otázkou v PR. Sjednotit s alesvia.org.
 - [ ] **U-04 🔁 Zásady čl. 13 GDPR** — `components/PrivacyPolicy.tsx`, `privacy_*`. Zpracovatelé Vercel, Convex, Beehiiv, Clerk, Cloudflare; USA a právní základ předávání; uchování; assessment „Save my result“ (co/kam); demo analytika; stížnost ÚOOÚ. Zvážit u poptávky čl. 6 odst. 1 písm. b/f spíš než souhlas. PR: „Doporučeno nechat ověřit právníkem (Frank Bold / ANNO MSK). Agent není právník.“ Blokováno O-1/O-2.
 - [ ] **U-05 🔁 Canonical, doména, hreflang** — `index.html`, `components/SEOHead.tsx`, `scripts/prerender.mjs`, `public/sitemap.xml`, `public/robots.txt`, `public/llms.txt`. Rozhodnuto: `https://www.unplugged.cz`. Všechna canonical, og:url, sitemap loc, hreflang, absolutní interní URL na www. Vlastní canonical/og:url pro každou stránku; SEOHead doplnit html[lang], og:locale. 301 z apex domény je Vercel nastavení: dát postup Matiasovi, neměnit. Chybné cs/en hreflang na téže URL do U-10 odstranit. Ověřit všechny prerenderované stránky, např. školy canonical `https://www.unplugged.cz/schools`.
-- [ ] **U-06 Krizové kontakty** — malá komponenta, patička (`App.tsx`), /psychology, /demo, assessment výsledek. Linka první psychické pomoci 116 123, Linka bezpečí 116 111 (do 26 let), ohrožení života 155/112. Ověřit aktuální provozní doby na webech linek před mergem, datum do PR. Klidný tón: „Když je toho moc, mluv s člověkem.“
+- [x] **U-06 Krizové kontakty** — malá komponenta, patička (`App.tsx`), /psychology, /demo, assessment výsledek. Linka první psychické pomoci 116 123, Linka bezpečí 116 111 (do 26 let), ohrožení života 155/112. Ověřit aktuální provozní doby na webech linek před mergem, datum do PR. Klidný tón: „Když je toho moc, mluv s člověkem.“
 - [ ] **U-07 🔁 Nepravdivá tvrzení o sobě** — `who_we_are_title` „kolektiv edukátorů, psychologů a technologů“ přepsat dle sekce 2. `quote_text/quote_author` podepsané Unplugged odstranit nebo ⚠️ podepsat Matiasem po souhlasu. Consulting v `footer_text`, `hero_sub`, `mission_desc`, `what_we_do_title`, `healthy_standards_label`, `audience_companies_desc` nahradit vzděláváním/workshopy/školením; komerční consulting chce Alesvia držet odděleně. Title/OG v index.html česky dle positioningu.
 - [ ] **U-08 🔁 Drobné chyby** — `newsletter_lang_cs`: Cesky → Česky; číslování „01 01 01 / 02 02 02“ na About, Schools, Organizations, Initiative (najít příčinu: index sekce/položky nebo CSS counter). Český Assessment v App.tsx → ⚠️ Sebereflexe/Test dle O-5.
 
@@ -136,10 +136,10 @@ Ověřeno vlastníkem 1. 10. 2026. **Před použitím otevři odkaz a zkontroluj
 ## 8. Otevřené otázky (nerozhoduj sám)
 
 - **O-1** Kdo je správcem před zápisem (Matias jako fyzická osoba/jiná forma) a jaký kontaktní e-mail? Blokuje U-03/U-04.
-- **O-2** Mají Vercel, Convex, Beehiiv, Clerk podepsanou/přijatou DPA? Matias ověří v účtech.
-- **O-3** Existují publikované CMS přepisy v /admin/content?
-- **O-4** Funguje `VERCEL_DEPLOY_HOOK_URL` v Convexu pro rebuild po CMS publikaci?
-- **O-5** Český název Assessment v navigaci?
+- **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Ještě ověřit skutečný region a právní mechanismus případného předávání dat.
+- **O-3** Existují publikované CMS přepisy v /admin/content? Matias zatím neví; před mergem ověřit čtením publikovaných hodnot.
+- **O-4** Funguje `VERCEL_DEPLOY_HOOK_URL` v Convexu pro rebuild po CMS publikaci? Matias zatím neví. Ověřit v účtu bez změny nastavení a bez zveřejnění tajné URL.
+- **O-5 — rozhodnuto:** Český název Assessment je **Sebereflexe**.
 - **O-6** Smí být Matias na webu jmenován jako zakladatel s fotkou? Hypotéza simulované focus-group: tvář buduje důvěru více než popis.
 - **O-7** Archiv: ruční import nebo Beehiiv?
 - **O-8** Primární metrika první fáze: dokončení dema / newsletter / poptávka workshopu?

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { useMutation } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import { Language } from '../translations';
+import CrisisSupport from './CrisisSupport';
 
 interface AssessmentProps {
   lang: Language;

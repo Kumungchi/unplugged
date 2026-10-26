@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { Link } from 'react-router';
 import { Language, translations } from '../translations';
+import CrisisSupport from './CrisisSupport';
 
 const Psychology: React.FC<{ lang: Language }> = ({ lang }) => {
   const t = translations[lang];
@@ -25,6 +26,7 @@ const Psychology: React.FC<{ lang: Language }> = ({ lang }) => {
         <p>{t.psych_support_text}</p>
       </section>
       <Link to="/demo" className="inline-block underline underline-offset-4 text-red-700 hover:text-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">{t.psych_cta_demo}</Link>
+      <CrisisSupport lang={lang} />
     </article>
   );
 };

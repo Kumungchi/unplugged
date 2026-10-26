@@ -19,6 +19,7 @@ import ContentEditor from './components/ContentEditor';
 import StaffManager from './components/StaffManager';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
+import CrisisSupport from './components/CrisisSupport';
 import SEOHead from './components/SEOHead';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
 
@@ -189,6 +190,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className="py-8 md:py-12 border-t border-stone-200 text-stone-500 text-[10px] font-bold uppercase tracking-[0.3em] text-center space-y-4">
+        <CrisisSupport lang={lang} />
         <p>{t.footer_text}</p>
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
           <Link to="/schools" className="hover:text-stone-900">{labels.schools}</Link>
