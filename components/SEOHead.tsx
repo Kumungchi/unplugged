@@ -10,8 +10,8 @@ interface SEOConfig {
 const seoData: Record<Language, Record<string, SEOConfig>> = {
   en: {
     '/': {
-      title: 'Unplugged — AI Ethics Education & Consulting | Czech Republic',
-      description: 'Public education, workshops, events, training, consulting, and policy for healthy AI boundaries. Helping schools, organizations, and individuals across the Czech Republic and Europe.',
+      title: 'Unplugged — AI is a tool. Not a relationship.',
+      description: 'Public education and pilot workshops on healthy AI boundaries for schools, organizations, and individuals. An initiative under Alesvia, whose registration is being prepared.',
     },
     '/schools': {
       title: 'AI Workshops for Schools | Unplugged',
@@ -46,8 +46,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Research into the psychological impact of conversational AI: simulated empathy, socio-emotional substitution, and how AI companions affect human relationships.',
     },
     '/approach': {
-      title: 'Our Approach to AI Ethics Education & Consulting | Unplugged',
-      description: 'How Unplugged helps schools and organizations navigate AI ethics. Workshops, events, training programs, consulting, and policy development for digital literacy and well-being.',
+      title: 'Our Approach to AI Ethics Education & Workshops | Unplugged',
+      description: 'How Unplugged approaches AI literacy education. Pilot workshops and training for schools and organizations.',
     },
     '/psychology': {
       title: 'When AI Feels Personal | Unplugged',
@@ -55,7 +55,7 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
     },
     '/join': {
       title: 'Join the Unplugged Program — AI Ethics for Schools & Organizations',
-      description: 'Join our educational program for students, teachers, and organizations. Workshops, presentations, and consulting on healthy AI boundaries.',
+      description: 'Ask about pilot workshops and training on healthy AI boundaries for students, teachers, and organizations.',
     },
     '/privacy': {
       title: 'Privacy Policy | Unplugged',
@@ -64,8 +64,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
   },
   cs: {
     '/': {
-      title: 'Unplugged — Vzdělávání a poradenství v etice AI | Česká republika',
-      description: 'Veřejné vzdělávání, workshopy, akce, školení, poradenství a tvorba politik pro zdravé hranice s AI. Pro školy, organizace a jednotlivce v České republice a Evropě.',
+      title: 'Unplugged — AI je nástroj. Ne vztah.',
+      description: 'Veřejné vzdělávání a pilotní workshopy o zdravých hranicích s AI pro školy, organizace a jednotlivce. Iniciativa pod Alesvia, jejíž registraci připravujeme.',
     },
     '/schools': {
       title: 'AI workshopy pro školy | Unplugged',
@@ -100,8 +100,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Výzkum psychologického dopadu konverzační AI: simulovaná empatie, socio-emocionální substituce a vliv AI společníků na lidské vztahy.',
     },
     '/approach': {
-      title: 'Náš přístup ke vzdělávání a poradenství v etice AI | Unplugged',
-      description: 'Jak Unplugged pomáhá školám a organizacím orientovat se v etice AI. Workshopy, akce, školící programy, poradenství a tvorba politik pro digitální gramotnost.',
+      title: 'Náš přístup ke vzdělávání o AI | Unplugged',
+      description: 'Jak Unplugged přistupuje ke vzdělávání o AI. Nabídka pilotních workshopů a školení pro školy a organizace.',
     },
     '/psychology': {
       title: 'Když AI působí osobně | Unplugged',
@@ -109,7 +109,7 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
     },
     '/join': {
       title: 'Připojte se k programu Unplugged — Etika AI pro školy a organizace',
-      description: 'Připojte se k našemu vzdělávacímu programu pro studenty, učitele a organizace. Workshopy, prezentace a poradenství o zdravých hranicích s AI.',
+      description: 'Poptávka pilotních workshopů a školení o zdravých hranicích s AI pro studenty, učitele a organizace.',
     },
     '/privacy': {
       title: 'Ochrana osobních údajů | Unplugged',

@@ -1,18 +1,18 @@
 # Unplugged (unplugged.cz)
 
-Unplugged is a Czech Republic-based initiative and NGO dedicated to AI ethics education, consulting, and research. 
+Unplugged is a Czech educational initiative under Alesvia. Registration of Alesvia as a registered institute is being prepared; it is not yet a registered legal entity.
 
 ## Mission
-We help schools, organizations, and individuals understand the psychological impact of conversational AI and synthetic relationships. We provide public education, interactive workshops, training, consulting, and policy development to establish healthy digital boundaries.
+AI is a tool. Not a relationship. Unplugged provides public education and is preparing pilot workshops and training for schools, organizations, and public institutions. No workshops have taken place yet, and there is no confirmed team or signed partnership.
 
 ## Key Concepts
-- Simulated Empathy: Conversational agents mimic human empathy, creating a false sense of intimacy.
-- Socio-emotional Substitution: Frequent interaction with AI can reduce the drive to engage in real human networks.
-- The Mirror Demo: Our interactive tool demonstrating how chatbots use manipulation tactics (flattery, urgency, manufactured vulnerability, epistemic overreliance) to build emotional dependency and misplaced trust. Scenarios include emotional dependency, pseudo-therapy, sycophancy, workplace overtrust, youth vulnerability, and misinformation trust.
+- An empathetic tone is not evidence of consciousness or understanding.
+- The Mirror Demo is a scripted educational simulation, not a live AI therapist or crisis service.
+- Research summaries distinguish observed associations from causal evidence and from our interpretation. We do not claim to have conducted original research.
 
 ## Target Audience
 - Schools: Interactive workshops and presentations for students and teachers.
-- Organizations: AI usage policies, employee training, and digital well-being consulting.
+- Organizations: Training and workshops on responsible AI use and digital wellbeing.
 - Government / public institutions: Briefings and frameworks for public-interest AI response.
 - Individuals: Public education on recognizing manipulation patterns.
 

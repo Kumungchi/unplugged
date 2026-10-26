@@ -206,8 +206,9 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             </p>
             <p className="text-sm md:text-base text-stone-400 leading-relaxed">
               {lang === 'en'
-                ? 'Unplugged is part of the umbrella organization Alesvia.org.'
-                : 'Unplugged je součástí zastřešující organizace Alesvia.org.'}
+                ? 'Unplugged is an initiative under Alesvia. We are preparing the registration of Alesvia z.ú.'
+                : 'Unplugged je iniciativa pod Alesvia. Registraci Alesvia z.ú. připravujeme.'}
+              {' '}<a href="https://alesvia.org" className="underline underline-offset-4 hover:text-white">alesvia.org</a>
             </p>
           </div>
           <div className="space-y-6 lg:border-l lg:border-dashed border-stone-700 lg:pl-16 flex flex-col justify-between">
@@ -233,16 +234,6 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Quote */}
-      <section className="scroll-fade py-12 md:py-16 max-w-3xl mx-auto">
-        <blockquote className="margin-line">
-          <p className="italic font-serif text-xl md:text-2xl text-stone-600 leading-relaxed">
-            "{t.quote_text}"
-          </p>
-          <footer className="mt-4 font-handwritten text-lg text-red-600">— Unplugged</footer>
-        </blockquote>
       </section>
 
       {/* Newsletter */}

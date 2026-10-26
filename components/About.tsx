@@ -13,7 +13,7 @@ export const defaultAboutContent = {
   en: {
     title: 'A public-interest initiative in formation.',
     subtitle:
-      'Unplugged exists to help institutions respond to emotionally significant AI use with more clarity, better language, and healthier human boundaries. It operates as part of the umbrella organization Alesvia.org.',
+      'Unplugged exists to help institutions respond to emotionally significant AI use with more clarity, better language, and healthier human boundaries. It is an initiative under Alesvia, whose registration as a Czech registered institute is being prepared.',
     credibilityTitle: 'How we describe ourselves',
     credibilityBody:
       'We do not present ourselves as a mature research institute. We are building an initiative at the intersection of AI literacy, psychology, education, and implementation guidance. Our public materials distinguish between public research, our synthesis, and practical recommendations.',
@@ -38,7 +38,7 @@ export const defaultAboutContent = {
   cs: {
     title: 'Vznikající iniciativa ve veřejném zájmu.',
     subtitle:
-      'Unplugged pomáhá institucím reagovat na emocionálně významné používání AI s větší srozumitelností, lepším jazykem a zdravějšími lidskými hranicemi. Funguje jako součást zastřešující organizace Alesvia.org.',
+      'Unplugged pomáhá institucím reagovat na emocionálně významné používání AI s větší srozumitelností, lepším jazykem a zdravějšími lidskými hranicemi. Je iniciativou pod Alesvia, jejíž registraci jako zapsaného ústavu připravujeme.',
     credibilityTitle: 'Jak o sobě mluvíme',
     credibilityBody:
       'Neprezentujeme se jako hotový výzkumný institut. Budujeme iniciativu na pomezí AI gramotnosti, psychologie, vzdělávání a implementační podpory. Ve veřejných materiálech rozlišujeme mezi veřejným výzkumem, naší syntézou a praktickými doporučeními.',
