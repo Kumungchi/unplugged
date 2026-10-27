@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
-import { ConvexProviderWithClerk } from 'convex/react-clerk';
-import { ClerkProvider, useAuth } from '@clerk/react';
 import { Analytics } from '@vercel/analytics/react';
 import App from './App';
 import { languageFromPathname, localizedPath } from './routing.mjs';
@@ -14,6 +12,9 @@ import {
   shouldEnableAnalytics,
 } from './privacy';
 import './styles/global.css';
+
+const StaffProviders = React.lazy(() => import('./components/StaffProviders'));
+const STAFF_PATH = /^\/(admin(\/|$)|facilitator$|staff-access$)/;
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 const lang = languageFromPathname(window.location.pathname);
@@ -51,22 +52,24 @@ const AnalyticsGate: React.FC = () => {
 };
 
 const root = ReactDOM.createRoot(rootElement);
+const app = (
+  <BrowserRouter basename={basename}>
+    <App lang={lang} />
+  </BrowserRouter>
+);
+const staffPath = window.location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+const isStaffRoute = isClerkConfigured && STAFF_PATH.test(staffPath);
+
 root.render(
   <React.StrictMode>
-    {isClerkConfigured ? (
-      <ClerkProvider afterSignOutUrl={localizedPath('/', lang)}>
-        <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-          <BrowserRouter basename={basename}>
-            <App lang={lang} />
-          </BrowserRouter>
-        </ConvexProviderWithClerk>
-      </ClerkProvider>
+    {isStaffRoute ? (
+      <React.Suspense fallback={null}>
+        <StaffProviders client={convex} afterSignOutUrl={localizedPath('/', lang)}>
+          {app}
+        </StaffProviders>
+      </React.Suspense>
     ) : (
-      <ConvexProvider client={convex}>
-        <BrowserRouter basename={basename}>
-          <App lang={lang} />
-        </BrowserRouter>
-      </ConvexProvider>
+      <ConvexProvider client={convex}>{app}</ConvexProvider>
     )}
     <AnalyticsGate />
   </React.StrictMode>

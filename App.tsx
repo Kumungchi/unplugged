@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router';
 import Landing from './components/Landing';
 import Movement from './components/Movement';
@@ -11,12 +11,6 @@ import CookieConsent from './components/CookieConsent';
 import SectorPage from './components/SectorPage';
 import About from './components/About';
 import Assessment from './components/Assessment';
-import DemoInsights from './components/DemoInsights';
-import Facilitator from './components/Facilitator';
-import SubmissionsOverview from './components/SubmissionsOverview';
-import StaffAccess from './components/StaffAccess';
-import ContentEditor from './components/ContentEditor';
-import StaffManager from './components/StaffManager';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
@@ -24,6 +18,14 @@ import CrisisSupport from './components/CrisisSupport';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
 import SiteHeader from './components/SiteHeader';
 import DemoPage from './components/DemoPage';
+
+// Staff pages pull in Clerk; keep it out of the public bundle.
+const DemoInsights = lazy(() => import('./components/DemoInsights'));
+const Facilitator = lazy(() => import('./components/Facilitator'));
+const SubmissionsOverview = lazy(() => import('./components/SubmissionsOverview'));
+const StaffAccess = lazy(() => import('./components/StaffAccess'));
+const ContentEditor = lazy(() => import('./components/ContentEditor'));
+const StaffManager = lazy(() => import('./components/StaffManager'));
 
 const App: React.FC<{ lang: Language }> = ({ lang }) => {
   const location = useLocation();
@@ -64,6 +66,7 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
       <SEOHead lang={lang} />
       <main className="flex-grow pb-20 fade-in">
         <ErrorBoundary lang={lang} key={location.pathname}>
+          <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Landing lang={lang} />} />
             <Route path="/schools" element={<SectorPage lang={lang} sector="schools" />} />
@@ -86,6 +89,7 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
             <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />
             <Route path="*" element={<NotFound lang={lang} />} />
           </Routes>
+          </Suspense>
         </ErrorBoundary>
       </main>
 
