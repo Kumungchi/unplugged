@@ -7,7 +7,7 @@ interface NewsletterProps {
   lang: Language;
 }
 
-const BEEHIIV_SUBSCRIBE_URL = 'https://magic.beehiiv.com/v1/b5370fa1-6bac-4b86-bf45-f3c12022d264';
+const BEEHIIV_SUBSCRIBE_URL = 'https://unplugged-newsletter.beehiiv.com/subscribe';
 
 const Newsletter: React.FC<NewsletterProps> = ({ lang }) => {
   const t = translations[lang];
@@ -28,7 +28,7 @@ const Newsletter: React.FC<NewsletterProps> = ({ lang }) => {
       // Non-blocking
     }
 
-    // 2. Redirect to Beehiiv's Magic Link to officially subscribe them and trigger the Automation Email
+    // 2. Continue to the Beehiiv subscribe page with the email prefilled; Beehiiv completes the signup and sends its confirmation/welcome email
     window.location.href = `${BEEHIIV_SUBSCRIBE_URL}?email=${encodeURIComponent(email)}`;
   };
 
