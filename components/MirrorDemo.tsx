@@ -442,7 +442,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
         <button
           onClick={() => setShowAnalysis(!showAnalysis)}
           className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest border rounded-full transition-colors ${
-            showAnalysis ? 'border-red-400 bg-red-50 text-red-600' : 'border-red-200 text-red-600 hover:bg-red-50 animate-pulse'
+            showAnalysis ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-200 text-red-700 hover:bg-red-50 animate-pulse'
           }`}
         >
           {showAnalysis ? t.hideAnalysis : t.showAnalysis}
@@ -478,7 +478,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
               <span className="w-2.5 h-2.5 bg-red-600 rounded-full animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-widest text-stone-500">{currentScenario.shortLabel}</span>
             </span>
-            <span className="text-[10px] font-mono text-stone-400">
+            <span className="text-[10px] font-mono text-stone-600">
               {userCount}/{totalSteps}
             </span>
           </div>
@@ -533,7 +533,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
               <button
                 type="button"
                 onClick={() => setShowQuickMoves((current) => !current)}
-                className="text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-stone-600 transition-colors"
+                className="text-[10px] font-bold uppercase tracking-widest text-stone-600 hover:text-stone-800 transition-colors"
               >
                 {showQuickMoves ? t.hideQuickMoves : t.quickMovesTitle}
               </button>

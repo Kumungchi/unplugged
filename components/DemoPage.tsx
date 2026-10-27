@@ -24,7 +24,7 @@ const DemoPage: React.FC<{ lang: Language }> = ({ lang }) => {
       </section>
       <noscript dangerouslySetInnerHTML={{ __html: noScriptHtml }} />
       <div className="demo-interactive">
-        <Suspense fallback={<p role="status" className="text-center py-8 text-stone-600">{t.demo_loading}</p>}>
+        <Suspense fallback={<p role="status" className="text-center py-8 min-h-[100vh] text-stone-600">{t.demo_loading}</p>}>
           <MirrorDemo lang={lang} />
         </Suspense>
       </div>
