@@ -9,7 +9,7 @@ Stav 26. 10. 2026. Interní podklad pro U-03/U-04, **není text schválený k pu
 | Účel | Data a tok | Co ještě potvrdit |
 | --- | --- | --- |
 | Poptávka / zapojení | JoinForm / JoinInitiative → `submissions.create` → Convex `leads`: jméno, e-mail, údaje o organizaci/roli/potřebě, zpráva, zdrojová stránka, případné označení scénáře dema, consent, čas a stav | Schránka/obsluha poptávek, právní titul, doba uchování. Mutation sama neposílá e-mail. |
-| Newsletter | Newsletter → Convex `newsletter`: e-mail, jazyk, čas; poté přesměrování na Beehiiv magic link s e-mailem v URL | Preference jazyka se v tomto přesměrování neposílá. Potvrdit double opt-in, uvítací e-mail a rušení záložních záznamů v Convexu po odhlášení. |
+| Newsletter | Newsletter → Convex `newsletter`: e-mail, jazyk, čas; poté přesměrování na stránku přihlášení Beehiiv (unplugged-newsletter.beehiiv.com/subscribe) s e-mailem v URL | Preference jazyka se v tomto přesměrování neposílá. Potvrdit double opt-in, uvítací e-mail a rušení záložních záznamů v Convexu po odhlášení. |
 | Assessment | Výpočet lokálně; až „Uložit výsledek“ → Convex `assessmentRuns`: segment, pět odpovědí, skóre, doporučená nabídka, čas | Bez jména/e-mailu v payloadu, ale neslibovat úplnou anonymitu síťových logů. Potvrdit účel ukládání, právní titul a lhůtu. |
 | Demo | `trackDemoEvent` → Convex `demoEvents`: session ID, typ události, scénář, publikum, jazyk, větev, krok, výsledek, cíl CTA a čas | Zprávy uživatele nejsou součástí tohoto payloadu. Původně bez souhlasu; U-15 v této větvi přidává kontrolu souhlasu. Potvrdit uchování existujících záznamů. |
 | Analytika webu | Vercel Analytics až po souhlasu (`AnalyticsGate`), respektuje DNT/GPC | Účet, přesná konfigurace a uchování. |
