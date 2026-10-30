@@ -121,7 +121,7 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
               <p className="text-base leading-relaxed text-stone-700">
                 {stat.label}
               </p>
-              <a href={`${surveyUrl}#page=${stat.page}`} className="block text-sm leading-relaxed text-stone-600 underline underline-offset-4 hover:text-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">
+              <a href={`${surveyUrl}#page=${stat.page}`} className="block text-xs leading-relaxed text-stone-600 underline decoration-stone-300 underline-offset-4 hover:decoration-red-700 hover:text-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">
                 {stat.source}
               </a>
             </div>
@@ -129,8 +129,8 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
         </div>
         <div className="max-w-3xl mx-auto mt-8 space-y-3 text-center">
           <p className="text-base text-stone-700 leading-relaxed">{t.stats_context}</p>
-          <a href={`${surveyUrl}#page=11`} className="block text-sm text-stone-600 underline underline-offset-4 hover:text-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">{t.stats_context_source}</a>
-          <p className="text-sm text-stone-600 leading-relaxed">{t.stats_limits}</p>
+          <a href={`${surveyUrl}#page=11`} className="block text-xs text-stone-600 underline decoration-stone-300 underline-offset-4 hover:decoration-red-700 hover:text-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">{t.stats_context_source}</a>
+          <p className="text-xs text-stone-600 leading-relaxed">{t.stats_limits}</p>
         </div>
         <p className="max-w-3xl mx-auto text-center text-xl md:text-2xl font-serif text-red-700 mt-8">
           {t.stats_interpretation}
