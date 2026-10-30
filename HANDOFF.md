@@ -16,6 +16,10 @@ Značení: [x] hotovo · [ ] čeká · ⚠️ vyžaduje rozhodnutí Matiase · �
 
 Česky. Technické termíny, kód, názvy souborů a commit messages anglicky. Studuje psychologii a informatiku a chce se učit: u každé netriviální volby vysvětli proč a trade-offy. Jedna jasná další akce je lepší než dlouhý seznam paralelních úkolů. Píše často diktováním; pokud foneticky zkomolená zpráva nedává smysl, zeptej se. Když se spleteš, řekni to rovnou a oprav to.
 
+### Upřesnění směru UI — schváleno 26. 10. 2026
+
+Matiasovi se současný styl UI líbí. Zachovat teplé pozadí, Inter/Playfair/Caveat, červené detaily a základní charakter webu. U-11 až U-13 mají zpřesnit sdělení, hierarchii a opakující se šablonové prvky cílenými úpravami. Nechápat je jako zadání ke kompletnímu redesignu nebo výměně vizuální identity. Novou strukturu navigace U-12 stále nejdřív předložit ke schválení.
+
 ## 1. Kontext projektu
 
 Alesvia je česká nezisková organizace v přípravě (právní forma zapsaný ústav, z.ú., sídlo Ostrava) na průsečíku psychologie a AI. Řeší psychologická rizika konverzační AI: pseudo-intimitu, emoční závislost, AI-asociovanou psychózu a erozi lidské autonomie.
@@ -105,7 +109,7 @@ Message house (volně použitelné):
 
 - [x] **U-09 🔁 Self-hosted fonty** — `index.html` ~125–126 načítá Inter, Playfair Display, Caveat z Google. Motivace: přenos IP bez souhlasu a rozsudek LG München (2022). Woff2 latin + latin-ext pro češtinu do `public/fonts/`, @font-face v `styles/global.css`, font-display: swap, preload jen hero fontu. Upravit zásady U-04.
 - [x] **U-10 🔁 Čeština a URL per jazyk** — dnes localStorage/prohlížeč v App.tsx ~27–38, lang=en, og:locale=en_US a EN prerender. Cíl CS `/…`, EN `/en/…`, vlastní lang/canonical/hreflang/x-default. Vzor alesvia.org. ⚠️ Před zásahem navrhnout routing/prerender a trade-offy (prefix React Router vs. dvě sady rout) a počkat na souhlas. Mezikrok při odložení: CS výchozí prerender.
-- [ ] **U-11 🔁 Hero a hierarchie** — obecné „Technologie, která podporuje lidský život.“ → claim „AI je nástroj. Ne vztah.“ a schválená mise ze sekce 1. Newsletter výš jako aktivum odpovídající veřejné misi.
+- [x] **U-11 🔁 Hero a hierarchie** — obecné „Technologie, která podporuje lidský život.“ → claim „AI je nástroj. Ne vztah.“ a schválená mise ze sekce 1. Newsletter výš jako aktivum odpovídající veřejné misi.
 - [ ] **U-12 CTA a navigace** — ~12 CTA, 7 nav položek, Work With Us/Join the Initiative skoro synonyma. Cíl jedna primární akce pro veřejnost (demo/newsletter), jedna pro instituce. /research, /approach, /psychology po U-02 zařadit/sloučit (např. Proč na tom záleží). ⚠️ Strukturu schválit před implementací.
 - [ ] **U-13 🔁 Méně AI-generovaný vzhled** — směr „červená tužka anotuje AI“, editorial/magazín, typografie a anotace, méně scroll fade-inů/glow. Simulovaná focus-group vnímala Playfair + Inter + teplé neutrály jako generické; Caveat anotace, červená tečka a claim jsou rozlišující. Žádný kompletní rebrand před registrací. Načíst skill frontend-design před prací.
 - [ ] **U-14 Demo bez JS** — /demo jen Loading demo… Preparing the simulation engine. Přidat statický úvod a popis do HTML (prerender/noscript) pro vyhledávače a náhledy.
@@ -209,3 +213,5 @@ alesvia.org řeší jiný agent v jiném repu; tady jen konzistence správce a o
 - U-09: lokální variabilní WOFF2 Inter, Playfair Display (normal/italic) a Caveat, Latin + Latin Extended. Licence a zdroje v `public/fonts/`. Plný build prošel; prohlížeč ověřil načtení všech osmi souborů na českém pangramu a EN textu, bez vzdálených fontových požadavků. Samostatné navazující PR: https://github.com/Kumungchi/unplugged/pull/3 (base: větev PR #2). Nejprve vyřešit rodičovské PR.
 - U-10: Matias schválil jednu sadu stránek s jazykovým basename a úplným přechodem při přepnutí jazyka. Rozhodnutí a alternativy jsou v `docs/language-routing-proposal.md`.
 - U-10 implementován 26. 10. 2026: jazyk určuje URL, CS na stávajících cestách a EN pod `/en` (home canonical `/en`). `routing.mjs` sdílí routy pro frontend, metadata, sitemap a 26 prerenderovaných URL. Přepnutí zachovává stránku, query a fragment. Opraveno také ztrácení fragmentu v parametrech dema a přetékání EN navigace. Ověřeno pěti Node testy, plným buildem, kontrolou statického HTML a ručně při 390/1024/1280/1536 px. Ověřeny také konfliktní staré jazykové preference, `/en/`, anglická 404 a noindex staff rout. Formuláře do produkce nebyly odeslány. Větve/PR navazují: fakta → fonty → jazykové URL.
+- U-11 implementován: homepage CS/EN nese hlavní claim a již schválenou misi; newsletter je první sekce pod hero, před statistikami a institucionální nabídkou. Zachován dosavadní vizuální styl. Formulář má trvalý popisek e-mailu, focus a čitelnější pomocný text. Ověřeno plným buildem všech 26 URL, kontrolou statického pořadí a ručně v CS/EN při 390 a 1440 px. Odběr nebyl testově odesílán do produkce.
+- U-12: v docs/navigation-proposal.md je připraven konkrétní návrh menu se dvěma variantami hlavní akce (demo / newsletter). Návrh zachovává všechny institucionální nabídky. Otázka byla předložena Matiasovi; dokud nevybere variantu, strukturu menu neimplementovat.
