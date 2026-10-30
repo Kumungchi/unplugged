@@ -14,7 +14,7 @@ Stav 26. 10. 2026. Interní podklad pro U-03/U-04, **není text schválený k pu
 | Demo | `trackDemoEvent` → Convex `demoEvents`: session ID, typ události, scénář, publikum, jazyk, větev, krok, výsledek, cíl CTA a čas | Zprávy uživatele nejsou součástí tohoto payloadu. Původně bez souhlasu; U-15 v této větvi přidává kontrolu souhlasu. Potvrdit uchování existujících záznamů. |
 | Analytika webu | Vercel Analytics až po souhlasu (`AnalyticsGate`), respektuje DNT/GPC | Účet, přesná konfigurace a uchování. |
 | Staff | Clerk autentizace a Convex role | Právní titul, životní cyklus účtů, oprávněné osoby. |
-| Provoz webu | Vercel hosting, Convex backend, nyní vzdálené Google Fonts | Hosting regiony, logy, subprocesory. U-09 fonty dosud nepřesunul. Cloudflare je v handoffu, ale v aplikačním kódu nebylo nalezeno zapojení: potvrdit infrastrukturu, nevymýšlet roli. |
+| Provoz webu | Vercel hosting, Convex backend. U-09 přesouvá fonty na vlastní doménu. | Hosting regiony, logy, subprocesory. Po mergi U-09 web kvůli fontům nekontaktuje Google; zdrojové fonty byly staženy při vývoji. Cloudflare je v handoffu, ale v aplikačním kódu nebylo nalezeno zapojení: potvrdit infrastrukturu, nevymýšlet roli. |
 
 Ve zkontrolovaných mutations není mechanismus automatického výmazu. Zvolenou dobu uchování je nutné také provozně zajistit, nestačí ji napsat do zásad. Žádná produkční data nebyla ručně upravena ani formuláře odeslány jako test.
 
