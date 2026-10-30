@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router';
 import { useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
-import { Language } from '../translations';
+import { Language, translations } from '../translations';
 import { contentKeysFor, mergeContentOverrides } from './siteContentHelpers';
 
 interface AboutProps {
@@ -122,13 +122,14 @@ const About: React.FC<AboutProps> = ({ lang }) => {
         </div>
       </section>
 
-      <section className="text-center">
+      <section className="text-center flex flex-col items-center gap-5">
         <Link
           to="/join"
           className="inline-block px-10 py-4 bg-stone-900 text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-stone-800 transition-all shadow-lg hover:-translate-y-0.5"
         >
           {c.cta}
         </Link>
+        <Link to="/initiative" className="inline-flex items-center min-h-11 font-bold text-stone-700 underline underline-offset-4 hover:text-red-700 focus-visible:outline-2 focus-visible:outline-red-700">{translations[lang].nav_get_involved}</Link>
       </section>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router';
 import Landing from './components/Landing';
 import Movement from './components/Movement';
@@ -22,12 +22,11 @@ import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
 import CrisisSupport from './components/CrisisSupport';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
-import { languageSwitchHref } from './routing.mjs';
+import SiteHeader from './components/SiteHeader';
 
 const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
 
 const App: React.FC<{ lang: Language }> = ({ lang }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -35,102 +34,33 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
   }, [lang]);
 
   useEffect(() => {
-    setMenuOpen(false);
-    window.scrollTo(0, 0);
+    if (!location.hash) window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      let id = location.hash.slice(1);
+      try { id = decodeURIComponent(id); } catch { /* Keep malformed fragments harmless. */ }
+      const target = id ? document.getElementById(id) : null;
+      if (target) {
+        target.scrollIntoView({ block: 'start', behavior: 'instant' });
+        target.focus({ preventScroll: true });
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash, location.key]);
+
   const t = translations[lang];
-  const switchLanguageHref = languageSwitchHref(window.location, lang === 'en' ? 'cs' : 'en');
   const labels = {
-    schools: lang === 'en' ? 'Schools' : 'Školy',
-    organizations: lang === 'en' ? 'Organizations' : 'Organizace',
-    government: lang === 'en' ? 'Government' : 'Veřejný',
-    assessment: lang === 'en' ? 'Assessment' : 'Sebereflexe',
-    about: lang === 'en' ? 'About' : 'O nás',
-    contact: lang === 'en' ? 'Work With Us' : 'Spolupráce',
-    initiative: lang === 'en' ? 'Join the Initiative' : 'Přidejte se',
+    schools: t.nav_schools, organizations: t.nav_organizations,
+    government: t.nav_government, assessment: t.nav_assessment,
+    about: t.nav_about, contact: t.nav_contact, initiative: t.nav_get_involved,
   };
-
-  const mobileLabels = {
-    schools: labels.schools,
-    organizations: labels.organizations,
-    government: lang === 'en' ? 'Government' : 'Veřejný sektor',
-    assessment: labels.assessment,
-    about: lang === 'en' ? 'About' : 'O projektu',
-    contact: labels.contact,
-    initiative: labels.initiative,
-  };
-
-  const navClasses = `px-2.5 xl:px-3.5 py-2 text-[10px] ${lang === 'cs' ? 'xl:text-[11px]' : '2xl:text-xs'} leading-none whitespace-nowrap font-bold uppercase ${lang === 'cs' ? 'tracking-[0.1em] xl:tracking-[0.12em]' : 'tracking-[0.1em]'} transition-colors hover:text-stone-900 text-stone-500`;
-
-  const navLinks = (
-    <>
-      <Link to="/schools" className={navClasses}>{labels.schools}</Link>
-      <Link to="/organizations" className={navClasses}>{labels.organizations}</Link>
-      <Link to="/government" className={navClasses}>{labels.government}</Link>
-      <Link to="/assessment" className={navClasses}>{labels.assessment}</Link>
-      <Link to="/about" className={navClasses}>{labels.about}</Link>
-      <Link to="/join" className={navClasses}>{labels.contact}</Link>
-      <Link to="/initiative" className={`${navClasses} !text-red-600 hover:!text-red-700`}>{labels.initiative}</Link>
-    </>
-  );
+  const mobileLabels = labels;
 
   return (
     <div className="min-h-screen flex flex-col max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
-      <header className="py-6 md:py-9 xl:py-10 flex justify-between items-center border-b border-stone-200 mb-6 md:mb-8">
-        <Link to="/" className="text-[2rem] md:text-[2.35rem] xl:text-[2.6rem] font-black tracking-[-0.04em] text-stone-900 uppercase font-serif leading-none shrink-0">
-          {t.brand}<span className="text-red-600">.</span>
-        </Link>
-
-        <nav className={`hidden xl:flex items-center ${lang === 'cs' ? 'gap-1 xl:gap-2 2xl:gap-4' : 'gap-1'}`}>
-          {navLinks}
-          <a
-            href={switchLanguageHref}
-            hrefLang={lang === 'en' ? 'cs' : 'en'}
-            className="ml-3 xl:ml-5 w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-[10px] font-bold hover:bg-stone-900 hover:text-white transition-all shadow-sm shrink-0"
-            aria-label={lang === 'en' ? 'Switch to Czech' : 'Přepnout na angličtinu'}
-          >
-            {t.lang_toggle}
-          </a>
-        </nav>
-
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="xl:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5"
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-0.5 bg-stone-900 transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-stone-900 transition-all ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-stone-900 transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-        </button>
-      </header>
-
-      {menuOpen && (
-        <div className="xl:hidden fixed inset-0 z-50 bg-[#F9F7F2] flex flex-col items-center justify-center space-y-8">
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="absolute top-10 right-6 w-10 h-10 flex items-center justify-center text-2xl text-stone-900"
-            aria-label="Close menu"
-          >
-            ✕
-          </button>
-          <Link to="/schools" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.schools}</Link>
-          <Link to="/organizations" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.organizations}</Link>
-          <Link to="/government" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.government}</Link>
-          <Link to="/assessment" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.assessment}</Link>
-          <Link to="/about" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.about}</Link>
-          <Link to="/join" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.contact}</Link>
-          <Link to="/initiative" className="text-2xl font-bold uppercase tracking-widest text-red-600">{mobileLabels.initiative}</Link>
-          <a
-            href={switchLanguageHref}
-            hrefLang={lang === 'en' ? 'cs' : 'en'}
-            aria-label={lang === 'en' ? 'Switch to Czech' : 'Přepnout na angličtinu'}
-            className="w-14 h-14 rounded-full border-2 border-stone-300 flex items-center justify-center text-sm font-bold hover:bg-stone-900 hover:text-white transition-all"
-          >
-            {t.lang_toggle}
-          </a>
-        </div>
-      )}
+      <SiteHeader lang={lang} />
 
       <SEOHead lang={lang} />
       <main className="flex-grow pb-20 fade-in">
