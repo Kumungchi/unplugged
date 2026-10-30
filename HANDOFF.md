@@ -111,8 +111,8 @@ Message house (volně použitelné):
 - [x] **U-10 🔁 Čeština a URL per jazyk** — dnes localStorage/prohlížeč v App.tsx ~27–38, lang=en, og:locale=en_US a EN prerender. Cíl CS `/…`, EN `/en/…`, vlastní lang/canonical/hreflang/x-default. Vzor alesvia.org. ⚠️ Před zásahem navrhnout routing/prerender a trade-offy (prefix React Router vs. dvě sady rout) a počkat na souhlas. Mezikrok při odložení: CS výchozí prerender.
 - [x] **U-11 🔁 Hero a hierarchie** — obecné „Technologie, která podporuje lidský život.“ → claim „AI je nástroj. Ne vztah.“ a schválená mise ze sekce 1. Newsletter výš jako aktivum odpovídající veřejné misi.
 - [x] **U-12 CTA a navigace** — ~12 CTA, 7 nav položek, Work With Us/Join the Initiative skoro synonyma. Cíl jedna primární akce pro veřejnost (demo/newsletter), jedna pro instituce. /research, /approach, /psychology po U-02 zařadit/sloučit (např. Proč na tom záleží). ⚠️ Strukturu schválit před implementací.
-- [ ] **U-13 🔁 Méně AI-generovaný vzhled** — směr „červená tužka anotuje AI“, editorial/magazín, typografie a anotace, méně scroll fade-inů/glow. Simulovaná focus-group vnímala Playfair + Inter + teplé neutrály jako generické; Caveat anotace, červená tečka a claim jsou rozlišující. Žádný kompletní rebrand před registrací. Načíst skill frontend-design před prací.
-- [ ] **U-14 Demo bez JS** — /demo jen Loading demo… Preparing the simulation engine. Přidat statický úvod a popis do HTML (prerender/noscript) pro vyhledávače a náhledy.
+- [ ] **U-13 🔁 Méně AI-generovaný vzhled** — směr „červená tužka anotuje AI“, editorial/magazín, typografie a anotace, méně scroll fade-inů/glow. Simulovaná focus-group vnímala Playfair + Inter + teplé neutrály jako generické; Caveat anotace, červená tečka a claim jsou rozlišující. Žádný kompletní rebrand před registrací. Načíst skill frontend-design před prací. ⛔ Zamítnuto Matiasem 26. 10. 2026: plošší řešení bez boxů působilo chaoticky a nevkusně (PR #7 zavřen). Zachovat původní design a jen ho dolaďovat (boxy/karty zůstávají). Žádný redesign bez schválení náhledu.
+- [x] **U-14 Demo bez JS** — /demo jen Loading demo… Preparing the simulation engine. Přidat statický úvod a popis do HTML (prerender/noscript) pro vyhledávače a náhledy.
 - [x] **U-15 🔁 Demo session ID až po souhlasu** — `MirrorDemo.tsx` ~54–61 ukládá `unplugged_demo_session_id` hned. Ukládat jen po analytickém souhlasu (`privacy.ts`, `shouldEnableAnalytics`), jinak ID v paměti návštěvy. Ověřit payload `trackDemoEvent` do Convexu a zahrnout v U-04.
 - [x] **U-16 Cookie lišta** — `CookieConsent.tsx`: jednoznačný souhlas/odmítnutí stejně výrazné; patička s Nastavením cookies ke změně volby (🔁).
 - [ ] **U-17 OG obrázky per stránka** — dnes sdílený og-image.png; vlastní aspoň /demo, /schools, newsletter.
@@ -139,14 +139,14 @@ Ověřeno vlastníkem 1. 10. 2026. **Před použitím otevři odkaz a zkontroluj
 
 ## 8. Otevřené otázky (nerozhoduj sám)
 
-- **O-1 — částečně potvrzeno Matiasem:** Do zápisu je správcem Matias Bunnik jako fyzická osoba; po vzniku právnické osoby má správcovství přejít na Alesvia. Matias potvrdil kontaktní e-mail `info@unplugged.cz`. Ještě doplnit kontaktní adresu správce; blokuje dokončení U-03/U-04.
-- **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Ještě ověřit skutečný region a právní mechanismus případného předávání dat.
+- **O-1 — částečně potvrzeno Matiasem (adresu doplní Matias):** Do zápisu je správcem Matias Bunnik jako fyzická osoba; po vzniku právnické osoby má správcovství přejít na Alesvia. Matias potvrdil kontaktní e-mail `info@unplugged.cz`. Ještě doplnit kontaktní adresu správce; blokuje dokončení U-03/U-04.
+- **O-2 — potvrzeno Matiasem:** Vercel, Convex, Beehiiv a Clerk mají přijaté DPA. Data jsou uložena v EU (Matias, 26. 10. 2026). V zásadách přesto uvést možný přístup zpracovatelů z USA a mechanismus (DPF/SCC) dle jejich DPA.
 - **O-3 — ověřeno 26. 10. 2026:** Veřejná produkční query pro 65 klíčů About a sektorových stránek vrátila prázdné publikované přepisy v CS i EN. Znovu ověřit, pokud mezitím někdo publikuje.
 - **O-4** Funguje `VERCEL_DEPLOY_HOOK_URL` v Convexu pro rebuild po CMS publikaci? Matias zatím neví. Ověřit v účtu bez změny nastavení a bez zveřejnění tajné URL.
 - **O-5 — rozhodnuto:** Český název Assessment je **Sebereflexe**.
 - **O-6** Smí být Matias na webu jmenován jako zakladatel s fotkou? Hypotéza simulované focus-group: tvář buduje důvěru více než popis.
 - **O-7** Archiv: ruční import nebo Beehiiv?
-- **O-8** Primární metrika první fáze: dokončení dema / newsletter / poptávka workshopu?
+- **O-8 — rozhodnuto Matiasem 26. 10. 2026:** Dvě primární metriky: dokončení dema a přihlášení k newsletteru.
 
 ## 9. Definice plně funkčního webu
 
@@ -215,3 +215,6 @@ alesvia.org řeší jiný agent v jiném repu; tady jen konzistence správce a o
 - U-10 implementován 26. 10. 2026: jazyk určuje URL, CS na stávajících cestách a EN pod `/en` (home canonical `/en`). `routing.mjs` sdílí routy pro frontend, metadata, sitemap a 26 prerenderovaných URL. Přepnutí zachovává stránku, query a fragment. Opraveno také ztrácení fragmentu v parametrech dema a přetékání EN navigace. Ověřeno pěti Node testy, plným buildem, kontrolou statického HTML a ručně při 390/1024/1280/1536 px. Ověřeny také konfliktní staré jazykové preference, `/en/`, anglická 404 a noindex staff rout. Formuláře do produkce nebyly odeslány. Větve/PR navazují: fakta → fonty → jazykové URL.
 - U-11 implementován: homepage CS/EN nese hlavní claim a již schválenou misi; newsletter je první sekce pod hero, před statistikami a institucionální nabídkou. Zachován dosavadní vizuální styl. Formulář má trvalý popisek e-mailu, focus a čitelnější pomocný text. Ověřeno plným buildem všech 26 URL, kontrolou statického pořadí a ručně v CS/EN při 390 a 1440 px. Odběr nebyl testově odesílán do produkce.
 - U-12: Matias schválil demo jako hlavní akci 26. 10. 2026. Menu: Proč na tom záleží, Newsletter, rozbalovací Pro instituce (4 stávající cesty), O projektu a výrazné demo. Mobil používá nativní dialog se zavřením přes Escape a návratem focusu; přechod na newsletter zavře dialog před přesunem focusu do sekce. Institucionální CTA v hero vede na všechny nabídky; odstraněna opakovaná sada sektorových CTA dole. /research odkazuje na /psychology a /approach, About na zapojení. Ověřeno CS/EN, klávesnicí, při 320/390/1280/1440 px, pěti route testy a plným buildem 26 URL. O-8 (primární analytická metrika) zůstává otevřené.
+
+
+- U-14: `DemoPage.tsx` vykresluje CS/EN nadpis a stručný popis před lazy-loaded simulací. Prerender ukládá také noscript vysvětlení s lokalizovaným odkazem na /research; bez JavaScriptu skryje nefunkční ovládání. Build znovu načte skutečně zapsané HTML v Chromium s vypnutým JavaScriptem a kontroluje úvod, odkaz, skrytí simulace a absenci Loading demo. Ověření prošlo pro /demo i /en/demo v plném buildu 26 URL. S JavaScriptem ověřen úvod během načítání a následné zobrazení ovládání (CS/EN, desktop a 390 px). Backend ani odesílání nezměněny; formuláře nebyly odesílány.

@@ -11,7 +11,7 @@
 // normally for interactivity.
 import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import net from 'node:net';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -137,6 +137,32 @@ async function prerenderRoute(browser, base, route) {
     const outPath = outputPathFor(route);
     await mkdir(path.dirname(outPath), { recursive: true });
     await writeFile(outPath, html, 'utf8');
+    if (routeFromPathname(route) === '/demo') {
+      // Read the actual generated document with scripting disabled. This also
+      // catches React dropping noscript content or exposing inert controls.
+      const staticPage = await browser.newPage();
+      try {
+        await staticPage.setJavaScriptEnabled(false);
+        await staticPage.goto(`${base}${route}`, { waitUntil: 'load' });
+        // Vite preview caches its initial directory listing. Load the newly
+        // written file explicitly, retaining the origin for CSS/font URLs.
+        await staticPage.setContent(await readFile(outPath, 'utf8'), { waitUntil: 'load' });
+        const result = await staticPage.evaluate(() => ({
+          title: document.querySelector('#demo-intro-title')?.textContent,
+          description: document.querySelector('#demo-intro-description')?.textContent,
+          notice: document.querySelector('[data-demo-noscript]')?.textContent,
+          link: document.querySelector('[data-demo-noscript] a')?.getAttribute('href'),
+          interactiveHidden: getComputedStyle(document.querySelector('.demo-interactive')).display === 'none',
+          loading: /Loading demo|Načítání dema/.test(document.body.innerText),
+        }));
+        if (result.title !== 'Mirror Demo' || !result.description || !result.notice?.includes('JavaScript') || result.link !== localizedPath('/research', lang) || !result.interactiveHidden || result.loading) {
+          throw new Error(`Incorrect no-JS demo for ${route}: ${JSON.stringify(result)}`);
+        }
+        console.log(`verified no-JS demo ${route}`);
+      } finally {
+        await staticPage.close();
+      }
+    }
     console.log(`prerendered ${route} -> ${outPath}`);
   } finally {
     await page.close();

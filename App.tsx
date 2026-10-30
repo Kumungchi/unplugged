@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router';
 import Landing from './components/Landing';
 import Movement from './components/Movement';
@@ -23,8 +23,7 @@ import SEOHead from './components/SEOHead';
 import CrisisSupport from './components/CrisisSupport';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
 import SiteHeader from './components/SiteHeader';
-
-const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
+import DemoPage from './components/DemoPage';
 
 const App: React.FC<{ lang: Language }> = ({ lang }) => {
   const location = useLocation();
@@ -81,27 +80,7 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
             <Route path="/initiative" element={<JoinInitiative lang={lang} />} />
             <Route path="/approach" element={<Movement lang={lang} />} />
             <Route path="/research" element={<Boundaries lang={lang} />} />
-            <Route
-              path="/demo"
-              element={
-                <Suspense
-                  fallback={
-                    <div className="py-24 text-center space-y-3">
-                      <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">
-                        {lang === 'en' ? 'Loading demo' : 'Načítání dema'}
-                      </p>
-                      <p className="text-stone-500">
-                        {lang === 'en'
-                          ? 'Preparing the simulation engine...'
-                          : 'Připravuji simulační engine...'}
-                      </p>
-                    </div>
-                  }
-                >
-                  <MirrorDemo lang={lang} />
-                </Suspense>
-              }
-            />
+            <Route path="/demo" element={<DemoPage lang={lang} />} />
             <Route path="/psychology" element={<Psychology lang={lang} />} />
             <Route path="/join" element={<JoinForm lang={lang} />} />
             <Route path="/privacy" element={<PrivacyPolicy lang={lang} />} />

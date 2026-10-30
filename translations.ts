@@ -1,5 +1,8 @@
 export const translations = {
   en: {
+    demo_intro_description: "Choose a scenario and follow an example conversation alongside an explanation of the techniques used. The simulated replies are prepared in advance; this is not a conversation with a live AI model or professional support.",
+    demo_nojs: "The interactive simulation requires JavaScript. Without it, you can read this introduction and continue to Why it matters.",
+    demo_loading: "Loading demo…",
     nav_why: "Why it matters",
     nav_newsletter: "Newsletter",
     nav_institutions: "For institutions",
@@ -228,6 +231,9 @@ export const translations = {
     cookie_essential_label: "Essential only",
   },
   cs: {
+    demo_intro_description: "Vyberte scénář a sledujte ukázkovou konverzaci spolu s vysvětlením použitých postupů. Odpovědi simulace jsou připravené předem; nejde o rozhovor se skutečným AI modelem ani o odbornou pomoc.",
+    demo_nojs: "Interaktivní simulace vyžaduje JavaScript. Bez něj si můžete přečíst úvod a pokračovat na stránku Proč na tom záleží.",
+    demo_loading: "Načítání dema…",
     nav_why: "Proč na tom záleží",
     nav_newsletter: "Newsletter",
     nav_institutions: "Pro instituce",
