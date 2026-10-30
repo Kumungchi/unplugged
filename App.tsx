@@ -89,19 +89,19 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
         </ErrorBoundary>
       </main>
 
-      <footer className="py-8 md:py-12 border-t border-stone-200 text-stone-500 text-[10px] font-bold uppercase tracking-[0.3em] text-center space-y-4">
+      <footer className="py-8 md:py-12 border-t border-stone-200 text-stone-600 text-[10px] font-bold uppercase tracking-[0.3em] text-center space-y-4">
         <CrisisSupport lang={lang} />
         <p>{t.footer_text}</p>
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
-          <Link to="/schools" className="hover:text-stone-900">{labels.schools}</Link>
-          <Link to="/organizations" className="hover:text-stone-900">{labels.organizations}</Link>
-          <Link to="/government" className="hover:text-stone-900">{mobileLabels.government}</Link>
-          <Link to="/assessment" className="hover:text-stone-900">{labels.assessment}</Link>
-          <Link to="/about" className="hover:text-stone-900">{mobileLabels.about}</Link>
-          <Link to="/join" className="hover:text-stone-900">{labels.contact}</Link>
-          <Link to="/initiative" className="hover:text-stone-900">{labels.initiative}</Link>
-          <Link to="/privacy" className="hover:text-stone-900">{t.nav_privacy}</Link>
-          <button type="button" onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))} className="hover:text-stone-900 underline underline-offset-4">{t.cookie_settings}</button>
+        <div className="flex flex-wrap justify-center gap-x-8">
+          <Link to="/schools" className="hover:text-stone-900 inline-block py-1.5">{labels.schools}</Link>
+          <Link to="/organizations" className="hover:text-stone-900 inline-block py-1.5">{labels.organizations}</Link>
+          <Link to="/government" className="hover:text-stone-900 inline-block py-1.5">{mobileLabels.government}</Link>
+          <Link to="/assessment" className="hover:text-stone-900 inline-block py-1.5">{labels.assessment}</Link>
+          <Link to="/about" className="hover:text-stone-900 inline-block py-1.5">{mobileLabels.about}</Link>
+          <Link to="/join" className="hover:text-stone-900 inline-block py-1.5">{labels.contact}</Link>
+          <Link to="/initiative" className="hover:text-stone-900 inline-block py-1.5">{labels.initiative}</Link>
+          <Link to="/privacy" className="hover:text-stone-900 inline-block py-1.5">{t.nav_privacy}</Link>
+          <button type="button" onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))} className="hover:text-stone-900 underline underline-offset-4 py-1.5">{t.cookie_settings}</button>
         </div>
       </footer>
 

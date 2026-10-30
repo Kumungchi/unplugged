@@ -86,7 +86,7 @@ const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
     <div ref={sectionsRef} className="max-w-5xl mx-auto py-8 md:py-12 space-y-12 md:space-y-20">
       <section className="scroll-fade space-y-4 md:space-y-6 text-center">
         <h2 className="text-4xl sm:text-5xl md:text-7xl italic text-stone-900 font-serif font-black tracking-tighter">{c.heroTitle}</h2>
-        <p className="text-stone-500 text-xl font-light leading-relaxed max-w-2xl mx-auto italic">
+        <p className="text-stone-600 text-xl font-light leading-relaxed max-w-2xl mx-auto italic">
           "{c.heroSub}"
         </p>
       </section>
@@ -100,12 +100,12 @@ const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
       </section>
 
       <section className="scroll-fade space-y-8 md:space-y-10">
-        <h3 className="text-xs font-black uppercase tracking-[0.4em] text-red-600 text-center">{c.findingsLabel}</h3>
+        <h3 className="text-xs font-black uppercase tracking-[0.4em] text-red-700 text-center">{c.findingsLabel}</h3>
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {c.studies.map((study, idx) => (
             <div key={idx} className="bg-white border border-stone-200 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] space-y-5 md:space-y-6 shadow-sm hover:shadow-lg transition-all flex flex-col">
               <div className="flex items-center space-x-3 text-red-600 font-black text-2xl tracking-tighter">
-                <span className="opacity-50 font-sans">0{idx + 1}.</span>
+                <span className="opacity-70 font-sans">0{idx + 1}.</span>
               </div>
               <h4 className="text-2xl font-serif italic text-stone-900 font-bold leading-tight">{study.title}</h4>
               <p className="text-stone-500 font-light text-sm leading-relaxed flex-grow">
@@ -113,11 +113,11 @@ const Boundaries: React.FC<BoundariesProps> = ({ lang }) => {
               </p>
               <div className="pt-6 border-t border-stone-100 space-y-4">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Impact</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-stone-600 block mb-1">Impact</span>
                   <p className="text-stone-700 text-xs font-medium leading-relaxed">{study.impact}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Citation</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-stone-600 block mb-1">Citation</span>
                   <p className="text-stone-500 text-xs italic font-light">{study.citation}</p>
                 </div>
               </div>

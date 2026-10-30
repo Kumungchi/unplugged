@@ -117,7 +117,7 @@ Message house (volně použitelné):
 - [x] **U-16 Cookie lišta** — `CookieConsent.tsx`: jednoznačný souhlas/odmítnutí stejně výrazné; patička s Nastavením cookies ke změně volby (🔁).
 - [ ] **U-17 OG obrázky per stránka** — dnes sdílený og-image.png; vlastní aspoň /demo, /schools, newsletter.
 - [ ] **U-18 Archiv newsletteru** — Beehiiv po dvou týdnech CZ + EN adaptace, zdroje `newsletters/`. Archiv jako čerstvý obsah, SEO, důkaz aktivity. ⚠️ Ruční markdown nebo Beehiiv RSS/API (free plán), zeptat se.
-- [ ] **U-19 Lighthouse + přístupnost** — mobil výkon, přístupnost, SEO ≥90. Kontrast, klávesnice, focus, prefers-reduced-motion.
+- [ ] **U-19 Lighthouse + přístupnost** — mobil výkon, přístupnost, SEO ≥90. Kontrast, klávesnice, focus, prefers-reduced-motion. ▶ Rozpracováno 27. 10. 2026 (viz stavy níže).
 
 ### Fáze 2 — po zápisu (teď nedělat)
 
@@ -218,3 +218,5 @@ alesvia.org řeší jiný agent v jiném repu; tady jen konzistence správce a o
 
 
 - U-14: `DemoPage.tsx` vykresluje CS/EN nadpis a stručný popis před lazy-loaded simulací. Prerender ukládá také noscript vysvětlení s lokalizovaným odkazem na /research; bez JavaScriptu skryje nefunkční ovládání. Build znovu načte skutečně zapsané HTML v Chromium s vypnutým JavaScriptem a kontroluje úvod, odkaz, skrytí simulace a absenci Loading demo. Ověření prošlo pro /demo i /en/demo v plném buildu 26 URL. S JavaScriptem ověřen úvod během načítání a následné zobrazení ovládání (CS/EN, desktop a 390 px). Backend ani odesílání nezměněny; formuláře nebyly odesílány.
+
+- U-19 (1. krok): Lighthouse mobil (lokální preview, simulované zpomalení) před/po: přístupnost home 92→100, demo 91→96, research 91→95→bez chyb kontrastu; SEO 100. Opraven kontrast (patička, demo, /research), velikost cílů odkazů v patičce, posun layoutu dema při načtení (CLS 0,34→0) a přidáno prefers-reduced-motion; vzhled beze změny. Zjištění: Clerk se načítá na všech veřejných stránkách, nastavuje cookies třetí strany před souhlasem a váží ~300 KiB; v lokálním .env je vývojový klíč. Čeká na schválení: načítat Clerk jen na staff trasách. Výkon mobil 53–60 (zbytek je hlavně Clerk a velký JS bundle).
