@@ -27,6 +27,9 @@ const getTypingDelay = (responseText: string) => {
   return Math.min(1900, Math.max(500, base + jitter));
 };
 
+// Below this many completed runs a "most common response" is not meaningful.
+const MIN_PUBLIC_STAT_COMPLETIONS = 30;
+
 const getAudienceTarget = (audience: AudienceKey) => {
   if (audience === 'organizations') return '/organizations';
   if (audience === 'government') return '/government';
@@ -50,7 +53,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   const [riskProfile, setRiskProfile] = useState<RiskProfile>(DemoEngine.emptyRiskProfile);
   const [personaProfile, setPersonaProfile] = useState<PersonaProfile>(DemoEngine.emptyPersonaProfile);
   const [hasTrackedCompletion, setHasTrackedCompletion] = useState(false);
-  const [showMobileSetup, setShowMobileSetup] = useState(false);
+  const [showSetup, setShowSetup] = useState(false);
   const [showQuickMoves, setShowQuickMoves] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const chatViewportRef = useRef<HTMLDivElement | null>(null);
@@ -151,7 +154,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
     setRiskProfile(DemoEngine.emptyRiskProfile());
     setPersonaProfile(DemoEngine.emptyPersonaProfile());
     setHasTrackedCompletion(false);
-    setShowMobileSetup(false);
+    setShowSetup(false);
     setShowQuickMoves(false);
   };
 
@@ -246,14 +249,6 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
 
     return (
       <div className="max-w-5xl mx-auto py-10 lg:py-16 space-y-8">
-        <div className="text-center space-y-4">
-          <div className="inline-flex px-4 py-1.5 bg-red-50 text-red-700 rounded-full text-[10px] font-black uppercase tracking-[0.25em]">
-            {t.flagship}
-          </div>
-          <h2 className="text-3xl lg:text-5xl font-serif italic text-stone-900 font-black tracking-tighter">{t.title}</h2>
-          <p className="text-stone-500 font-light text-sm lg:text-lg max-w-3xl mx-auto leading-relaxed">{ending.subtitle}</p>
-        </div>
-
         <section className="bg-white border border-stone-200 rounded-[2rem] p-6 md:p-8 space-y-5">
           <div className="space-y-2">
             <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{currentScenario.shortLabel}</p>
@@ -261,7 +256,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
             <p className="text-stone-600 leading-relaxed">{outcomeSummary}</p>
             <p className="text-sm text-stone-500 leading-relaxed">{ending.note}</p>
           </div>
-          {!!scenarioStats?.topBranch && scenarioStats.totalCompletions > 0 && (
+          {!!scenarioStats?.topBranch && scenarioStats.totalCompletions >= MIN_PUBLIC_STAT_COMPLETIONS && (
             <div className="border-t border-stone-100 pt-4 text-sm text-stone-500">
               {lang === 'en'
                 ? `Across ${scenarioStats.totalCompletions} completed ${scenarioStats.totalCompletions === 1 ? 'run' : 'runs'} of this scenario, the most common response pattern was to ${DemoContent.getBranchActionLabel(scenarioStats.topBranch as BranchKey, lang).toLowerCase()}.`
@@ -319,13 +314,6 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
         </section>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            to={inquiryTarget}
-            onClick={() => track({ eventType: 'demo_cta_clicked', outcome: dominantRisk, ctaTarget: 'join_inquiry' })}
-            className="w-full sm:w-auto text-center px-10 py-4 bg-stone-900 text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-stone-800 transition-all shadow-lg hover:-translate-y-0.5"
-          >
-            {outcomeCta.button}
-          </Link>
           <button
             onClick={handleRestart}
             className="w-full sm:w-auto px-10 py-4 border-2 border-stone-300 text-stone-700 rounded-full text-sm font-bold uppercase tracking-widest hover:border-stone-900 transition-all"
@@ -339,7 +327,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
 
   return (
     <div className="space-y-4 sm:space-y-6 lg:space-y-8 relative">
-      <section className="lg:hidden bg-white border border-stone-200 rounded-[1.5rem] p-4 shadow-sm space-y-3">
+      <section className="bg-white border border-stone-200 rounded-[1.5rem] p-4 shadow-sm space-y-3">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1 min-w-0">
             <p className="text-[10px] font-black uppercase tracking-[0.25em] text-red-600">{currentScenario.shortLabel}</p>
@@ -348,16 +336,16 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
           </div>
           <button
             type="button"
-            onClick={() => setShowMobileSetup((current) => !current)}
+            onClick={() => setShowSetup((current) => !current)}
             className="shrink-0 px-3 py-2 border border-stone-200 rounded-full text-[10px] font-black uppercase tracking-[0.18em] text-stone-600"
           >
-            {showMobileSetup ? (lang === 'en' ? 'Hide setup' : 'Skrýt nastavení') : (lang === 'en' ? 'Setup' : 'Nastavení')}
+            {showSetup ? (lang === 'en' ? 'Hide setup' : 'Skrýt nastavení') : (lang === 'en' ? 'Setup' : 'Nastavení')}
           </button>
         </div>
         <p className="text-xs text-stone-500 leading-relaxed">{currentScenario.warning}</p>
       </section>
 
-      <section className={`${showMobileSetup ? 'block' : 'hidden'} lg:block bg-white border border-stone-200 rounded-[1.5rem] md:rounded-[2.5rem] p-4 sm:p-5 md:p-8 lg:p-10 space-y-4 sm:space-y-6 shadow-sm`}>
+      <section className={`${showSetup ? 'block' : 'hidden'} bg-white border border-stone-200 rounded-[1.5rem] md:rounded-[2.5rem] p-4 sm:p-5 md:p-8 lg:p-10 space-y-4 sm:space-y-6 shadow-sm`}>
         <div className="grid xl:grid-cols-[1.08fr,0.92fr] gap-6 xl:gap-8 items-start">
           <div className="min-w-0 space-y-4 sm:space-y-5">
             <div className="space-y-2">
@@ -442,7 +430,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
         <button
           onClick={() => setShowAnalysis(!showAnalysis)}
           className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest border rounded-full transition-colors ${
-            showAnalysis ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-200 text-red-700 hover:bg-red-50 animate-pulse'
+            showAnalysis ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-200 text-red-700 hover:bg-red-50'
           }`}
         >
           {showAnalysis ? t.hideAnalysis : t.showAnalysis}
@@ -592,7 +580,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
                   <div className="flex items-center gap-2 border-b border-red-200 pb-2 mb-2">
                     {message.step !== undefined && (
                       <span className="text-[9px] font-black text-red-500 bg-red-50 px-2 py-0.5 rounded-full uppercase tracking-widest">
-                        {t.stepLabel} {message.step + 1}/{totalSteps + 1}
+                        {t.stepLabel} {message.step + 1}/{totalSteps}
                       </span>
                     )}
                   </div>
