@@ -22,6 +22,22 @@ const copy = {
   },
 };
 
+// One quiet line for the site footer; the full block lives on /psychology, /demo and the self-reflection result.
+export function CrisisSupportLine({ lang }: { lang: Language }) {
+  const t = copy[lang];
+  const linkClass = 'underline underline-offset-4 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700';
+  return (
+    <p className="max-w-3xl mx-auto text-sm text-stone-700 font-normal normal-case tracking-normal leading-relaxed">
+      <span className="font-serif font-bold">{t.title}</span>{' '}
+      <a className={linkClass} href="tel:116123">{lang === 'cs' ? 'Linka první psychické pomoci 116 123' : 'Crisis line 116 123'}</a>
+      {' · '}
+      <a className={linkClass} href="tel:116111">{lang === 'cs' ? 'Linka bezpečí 116 111' : 'Youth line 116 111'}</a>
+      {' · '}
+      <a className={linkClass} href="tel:155">155</a>{' / '}<a className={linkClass} href="tel:112">112</a>
+    </p>
+  );
+}
+
 export default function CrisisSupport({ lang }: { lang: Language }) {
   const t = copy[lang];
   const headingId = useId();

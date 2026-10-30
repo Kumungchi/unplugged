@@ -51,16 +51,11 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ lang }) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6">
-      <div className="max-w-2xl mx-auto bg-stone-900 text-white rounded-2xl p-5 md:p-6 space-y-4 shadow-2xl">
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-full bg-stone-700 flex items-center justify-center shrink-0 mt-0.5">
-            <svg className="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <div className="space-y-2 flex-grow">
-            <p className="text-sm font-light leading-relaxed text-stone-300">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4">
+      <div className="max-w-4xl mx-auto bg-stone-900 text-white rounded-xl p-3 sm:p-4 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 shadow-2xl">
+        <div className="flex-grow">
+          <div>
+            <p className="text-xs sm:text-sm font-light leading-snug text-stone-300">
               {t.cookie_message}{' '}
               <Link to="/privacy" className="underline text-stone-100 hover:text-white">
                 {t.cookie_privacy}
@@ -68,16 +63,16 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ lang }) => {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-3 justify-end">
+        <div className="flex items-center gap-2 sm:gap-3 justify-end shrink-0">
           <button
             onClick={handleDecline}
-            className="px-5 py-3 bg-white text-stone-900 rounded-full text-sm font-bold hover:bg-stone-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="px-4 py-2.5 bg-white text-stone-900 rounded-full text-sm font-bold hover:bg-stone-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             {t.cookie_decline}
           </button>
           <button
             onClick={handleAccept}
-            className="px-5 py-3 bg-white text-stone-900 rounded-full text-sm font-bold hover:bg-stone-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="px-4 py-2.5 bg-white text-stone-900 rounded-full text-sm font-bold hover:bg-stone-100 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             {t.cookie_accept}
           </button>

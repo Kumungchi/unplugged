@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Language, translations } from '../translations';
 import { localizedPath } from '../routing.mjs';
+import CrisisSupport from './CrisisSupport';
 
 const MirrorDemo = lazy(() => import('./MirrorDemo'));
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, character => ({
@@ -28,6 +29,7 @@ const DemoPage: React.FC<{ lang: Language }> = ({ lang }) => {
           <MirrorDemo lang={lang} />
         </Suspense>
       </div>
+      <CrisisSupport lang={lang} />
     </div>
   );
 };
