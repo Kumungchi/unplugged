@@ -14,7 +14,7 @@ import Assessment from './components/Assessment';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
-import CrisisSupport from './components/CrisisSupport';
+import { CrisisSupportLine } from './components/CrisisSupport';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
 import SiteHeader from './components/SiteHeader';
 import DemoPage from './components/DemoPage';
@@ -94,7 +94,7 @@ const App: React.FC<{ lang: Language }> = ({ lang }) => {
       </main>
 
       <footer className="py-8 md:py-12 border-t border-stone-200 text-stone-600 text-[10px] font-bold uppercase tracking-[0.3em] text-center space-y-4">
-        <CrisisSupport lang={lang} />
+        <CrisisSupportLine lang={lang} />
         <p>{t.footer_text}</p>
         <div className="flex flex-wrap justify-center gap-x-8">
           <Link to="/schools" className="hover:text-stone-900 inline-block py-1.5">{labels.schools}</Link>
