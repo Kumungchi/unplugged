@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router';
 import { useMutation } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import { Language } from '../translations';
+import { localizedPath } from '../routing.mjs';
 
 interface JoinFormProps {
   lang: Language;
@@ -154,8 +155,8 @@ const JoinForm: React.FC<JoinFormProps> = ({ lang }) => {
     if (outcome) params.set('outcome', outcome);
 
     const suffix = params.toString();
-    return suffix ? `/join?${suffix}` : '/join';
-  }, [searchParams]);
+    return localizedPath('/join', lang) + (suffix ? `?${suffix}` : '');
+  }, [searchParams, lang]);
 
   const update = (field: keyof FormState, value: string | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value as never }));

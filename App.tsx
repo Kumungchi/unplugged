@@ -22,29 +22,16 @@ import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
 import CrisisSupport from './components/CrisisSupport';
 import { COOKIE_SETTINGS_EVENT } from './privacy';
+import { languageSwitchHref } from './routing.mjs';
 
 const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
 
-const App: React.FC = () => {
-  const [lang, setLang] = useState<Language>(() => {
-    const saved = localStorage.getItem('unplugged_lang');
-    if (saved === 'en' || saved === 'cs') return saved;
-    
-    // Force Czech default if accessed via .cz domain
-    if (window.location.hostname.endsWith('.cz')) {
-      return 'cs';
-    }
-    
-    // Auto-detect from browser, default to Czech
-    const browserLang = navigator.language.toLowerCase();
-    return browserLang.startsWith('en') ? 'en' : 'cs';
-  });
+const App: React.FC<{ lang: Language }> = ({ lang }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     document.documentElement.lang = lang;
-    localStorage.setItem('unplugged_lang', lang);
   }, [lang]);
 
   useEffect(() => {
@@ -53,6 +40,7 @@ const App: React.FC = () => {
   }, [location.pathname]);
 
   const t = translations[lang];
+  const switchLanguageHref = languageSwitchHref(window.location, lang === 'en' ? 'cs' : 'en');
   const labels = {
     schools: lang === 'en' ? 'Schools' : 'Školy',
     organizations: lang === 'en' ? 'Organizations' : 'Organizace',
@@ -73,7 +61,7 @@ const App: React.FC = () => {
     initiative: labels.initiative,
   };
 
-  const navClasses = `px-2.5 xl:px-3.5 py-2 text-[10px] ${lang === 'cs' ? 'xl:text-[11px]' : 'xl:text-xs'} leading-none whitespace-nowrap font-bold uppercase ${lang === 'cs' ? 'tracking-[0.1em] xl:tracking-[0.12em]' : 'tracking-[0.14em] xl:tracking-[0.16em]'} transition-colors hover:text-stone-900 text-stone-500`;
+  const navClasses = `px-2.5 xl:px-3.5 py-2 text-[10px] ${lang === 'cs' ? 'xl:text-[11px]' : '2xl:text-xs'} leading-none whitespace-nowrap font-bold uppercase ${lang === 'cs' ? 'tracking-[0.1em] xl:tracking-[0.12em]' : 'tracking-[0.1em]'} transition-colors hover:text-stone-900 text-stone-500`;
 
   const navLinks = (
     <>
@@ -94,20 +82,21 @@ const App: React.FC = () => {
           {t.brand}<span className="text-red-600">.</span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 2xl:gap-4">
+        <nav className={`hidden xl:flex items-center ${lang === 'cs' ? 'gap-1 xl:gap-2 2xl:gap-4' : 'gap-1'}`}>
           {navLinks}
-          <button
-            onClick={() => setLang(lang === 'en' ? 'cs' : 'en')}
+          <a
+            href={switchLanguageHref}
+            hrefLang={lang === 'en' ? 'cs' : 'en'}
             className="ml-3 xl:ml-5 w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-[10px] font-bold hover:bg-stone-900 hover:text-white transition-all shadow-sm shrink-0"
             aria-label={lang === 'en' ? 'Switch to Czech' : 'Přepnout na angličtinu'}
           >
             {t.lang_toggle}
-          </button>
+          </a>
         </nav>
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="lg:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5"
+          className="xl:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5"
           aria-label="Toggle menu"
         >
           <span className={`block w-6 h-0.5 bg-stone-900 transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -117,7 +106,7 @@ const App: React.FC = () => {
       </header>
 
       {menuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-[#F9F7F2] flex flex-col items-center justify-center space-y-8">
+        <div className="xl:hidden fixed inset-0 z-50 bg-[#F9F7F2] flex flex-col items-center justify-center space-y-8">
           <button
             onClick={() => setMenuOpen(false)}
             className="absolute top-10 right-6 w-10 h-10 flex items-center justify-center text-2xl text-stone-900"
@@ -132,12 +121,14 @@ const App: React.FC = () => {
           <Link to="/about" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.about}</Link>
           <Link to="/join" className="text-2xl font-bold uppercase tracking-widest text-stone-700">{mobileLabels.contact}</Link>
           <Link to="/initiative" className="text-2xl font-bold uppercase tracking-widest text-red-600">{mobileLabels.initiative}</Link>
-          <button
-            onClick={() => { setLang(lang === 'en' ? 'cs' : 'en'); setMenuOpen(false); }}
+          <a
+            href={switchLanguageHref}
+            hrefLang={lang === 'en' ? 'cs' : 'en'}
+            aria-label={lang === 'en' ? 'Switch to Czech' : 'Přepnout na angličtinu'}
             className="w-14 h-14 rounded-full border-2 border-stone-300 flex items-center justify-center text-sm font-bold hover:bg-stone-900 hover:text-white transition-all"
           >
             {t.lang_toggle}
-          </button>
+          </a>
         </div>
       )}
 

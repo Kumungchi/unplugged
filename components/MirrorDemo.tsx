@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
 import { COOKIE_CONSENT_EVENT, DEMO_SESSION_STORAGE_KEY, shouldEnableAnalytics } from '../privacy';
+import { localizedPath } from '../routing.mjs';
 import * as DemoContent from './mirrorDemo/content';
 import * as DemoEngine from './mirrorDemo/engine';
 import DebugPanel from './mirrorDemo/DebugPanel';
@@ -33,7 +34,9 @@ const getAudienceTarget = (audience: AudienceKey) => {
 };
 
 const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [scenario, setScenario] = useState<ScenarioKey>(() => DemoContent.parseScenario(searchParams.get('demo')));
   const [audience, setAudience] = useState<AudienceKey>(() => DemoContent.parseAudience(searchParams.get('audience')));
   const [messages, setMessages] = useState<DemoMessage[]>([]);
@@ -107,13 +110,13 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   };
 
   useEffect(() => {
-    setSearchParams((previous) => {
-      const next = new URLSearchParams(previous);
-      next.set('demo', scenario);
-      next.set('audience', audience);
-      return next;
-    }, { replace: true });
-  }, [audience, scenario, setSearchParams]);
+    const next = new URLSearchParams(location.search);
+    next.set('demo', scenario);
+    next.set('audience', audience);
+    if (next.toString() !== location.search.slice(1)) {
+      navigate({ pathname: location.pathname, search: `?${next}`, hash: location.hash }, { replace: true });
+    }
+  }, [audience, scenario, navigate, location.pathname, location.search, location.hash]);
 
   useEffect(() => {
     const viewport = chatViewportRef.current;
@@ -163,7 +166,7 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
   }, [messages]);
 
   const handleCopyLink = async () => {
-    const directLink = `${window.location.origin}/demo?demo=${scenario}&audience=${audience}`;
+    const directLink = `${window.location.origin}${localizedPath('/demo', lang)}?demo=${scenario}&audience=${audience}`;
     try {
       await navigator.clipboard.writeText(directLink);
       track({ eventType: 'demo_link_copied' });

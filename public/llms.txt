@@ -17,12 +17,15 @@ AI is a tool. Not a relationship. Unplugged provides public education and is pre
 - Individuals: Public education on recognizing manipulation patterns.
 
 ## Links
+Public pages default to Czech. Each also has an English version under /en; the English homepage is https://www.unplugged.cz/en. Language is determined by the URL.
+
 - Home: https://www.unplugged.cz/
 - Schools: https://www.unplugged.cz/schools
 - Organizations: https://www.unplugged.cz/organizations
 - Government: https://www.unplugged.cz/government
 - Readiness Assessment (interactive): https://www.unplugged.cz/assessment
 - Mirror Demo (interactive chatbot simulation): https://www.unplugged.cz/demo
+- English Mirror Demo: https://www.unplugged.cz/en/demo
 - About: https://www.unplugged.cz/about
 - Psychology Research: https://www.unplugged.cz/psychology
 - Philosophy & Approach: https://www.unplugged.cz/approach

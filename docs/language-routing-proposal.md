@@ -1,4 +1,6 @@
-# U-10 — language URLs, proposal awaiting Matias
+# U-10 — approved language URL design
+
+Matias approved the shared route tree with `BrowserRouter basename` on 26 October 2026. Implementation uses `routing.mjs`, generates 26 public language URLs and switches languages with a document link. The alternatives below are retained as decision context.
 
 ## Intended behavior
 
@@ -31,4 +33,4 @@ Duplicating all page components into two separate apps would make maintenance an
 - Check 404s, `/en` handling, mobile navigation, form source-page attribution, and staff access.
 - Verify hosting fallback serves the app for both prefix forms; preserve existing deploy settings.
 
-This document is a proposal. U-10 remains unchecked until Matias approves an option and the implementation is verified.
+The basename option is approved. Mark U-10 complete after implementation and the acceptance checks above pass.
