@@ -224,9 +224,9 @@ const JoinInitiative: React.FC<JoinInitiativeProps> = ({ lang }) => {
             <div className="relative z-10 border-t border-stone-700 pt-4 space-y-3">
               <p className="text-sm text-stone-300">{lang === 'en' ? 'Who we actively want now:' : 'Koho chceme aktivně zapojit už teď:'}</p>
               <ul className="space-y-2">
-                {c.needsNow.map((item) => (
+                {c.needsNow.map((item, index) => (
                   <li key={item} className="flex items-start gap-3 text-stone-300 text-sm">
-                    <span className="text-red-400 font-black text-[10px] mt-0.5">01</span>
+                    <span className="text-red-400 font-black text-[10px] mt-0.5">{String(index + 1).padStart(2, '0')}</span>
                     <span>{item}</span>
                   </li>
                 ))}

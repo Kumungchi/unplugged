@@ -1,3 +1,5 @@
+> Před začátkem práce si přečti HANDOFF.md — aktuální stav, pravidla a backlog.
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.

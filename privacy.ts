@@ -1,5 +1,7 @@
 export const COOKIE_CONSENT_STORAGE_KEY = 'unplugged_cookie_consent';
 export const COOKIE_CONSENT_EVENT = 'unplugged-cookie-consent-changed';
+export const COOKIE_SETTINGS_EVENT = 'unplugged-cookie-settings-open';
+export const DEMO_SESSION_STORAGE_KEY = 'unplugged_demo_session_id';
 
 export type CookieConsentValue = 'accepted' | 'declined';
 
@@ -27,13 +29,18 @@ export const hasPrivacyOptOutSignal = (): boolean => {
 
 export const getStoredCookieConsent = (): CookieConsentValue | null => {
   if (typeof window === 'undefined') return null;
-  const value = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
-  return value === 'accepted' || value === 'declined' ? value : null;
+  try {
+    const value = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
+    return value === 'accepted' || value === 'declined' ? value : null;
+  } catch {
+    return null;
+  }
 };
 
 export const setStoredCookieConsent = (value: CookieConsentValue) => {
   if (typeof window === 'undefined') return;
   window.localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, value);
+  if (value === 'declined') window.localStorage.removeItem(DEMO_SESSION_STORAGE_KEY);
   window.dispatchEvent(new CustomEvent(COOKIE_CONSENT_EVENT, { detail: value }));
 };
 

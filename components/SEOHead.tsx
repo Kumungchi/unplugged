@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, type FC } from 'react';
 import { useLocation } from 'react-router';
 import { Language } from '../translations';
 
@@ -10,8 +10,8 @@ interface SEOConfig {
 const seoData: Record<Language, Record<string, SEOConfig>> = {
   en: {
     '/': {
-      title: 'Unplugged — AI Ethics Education & Consulting | Czech Republic',
-      description: 'Public education, workshops, events, training, consulting, and policy for healthy AI boundaries. Helping schools, organizations, and individuals across the Czech Republic and Europe.',
+      title: 'Unplugged — AI is a tool. Not a relationship.',
+      description: 'Public education and pilot workshops on healthy AI boundaries for schools, organizations, and individuals. An initiative under Alesvia, whose registration is being prepared.',
     },
     '/schools': {
       title: 'AI Workshops for Schools | Unplugged',
@@ -46,16 +46,16 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Research into the psychological impact of conversational AI: simulated empathy, socio-emotional substitution, and how AI companions affect human relationships.',
     },
     '/approach': {
-      title: 'Our Approach to AI Ethics Education & Consulting | Unplugged',
-      description: 'How Unplugged helps schools and organizations navigate AI ethics. Workshops, events, training programs, consulting, and policy development for digital literacy and well-being.',
+      title: 'Our Approach to AI Ethics Education & Workshops | Unplugged',
+      description: 'How Unplugged approaches AI literacy education. Pilot workshops and training for schools and organizations.',
     },
     '/psychology': {
-      title: 'AI Psychology — Dangers of AI as Therapist, Partner & Friend | Unplugged',
-      description: 'What happens to your brain when AI becomes your therapist, partner, or friend. Research-backed psychology on emotional dependency, simulated empathy, and manipulation.',
+      title: 'When AI Feels Personal | Unplugged',
+      description: 'What a chatbot study observed, what it cannot establish, and our interpretation for everyday AI use.',
     },
     '/join': {
       title: 'Join the Unplugged Program — AI Ethics for Schools & Organizations',
-      description: 'Join our educational program for students, teachers, and organizations. Workshops, presentations, and consulting on healthy AI boundaries.',
+      description: 'Ask about pilot workshops and training on healthy AI boundaries for students, teachers, and organizations.',
     },
     '/privacy': {
       title: 'Privacy Policy | Unplugged',
@@ -64,8 +64,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
   },
   cs: {
     '/': {
-      title: 'Unplugged — Vzdělávání a poradenství v etice AI | Česká republika',
-      description: 'Veřejné vzdělávání, workshopy, akce, školení, poradenství a tvorba politik pro zdravé hranice s AI. Pro školy, organizace a jednotlivce v České republice a Evropě.',
+      title: 'Unplugged — AI je nástroj. Ne vztah.',
+      description: 'Veřejné vzdělávání a pilotní workshopy o zdravých hranicích s AI pro školy, organizace a jednotlivce. Iniciativa pod Alesvia, jejíž registraci připravujeme.',
     },
     '/schools': {
       title: 'AI workshopy pro školy | Unplugged',
@@ -80,8 +80,8 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Public-interest briefingy, advisory mema a institucionální guidance pro vládu, samosprávy a veřejné instituce.',
     },
     '/assessment': {
-      title: 'AI Boundary Readiness Assessment | Unplugged',
-      description: 'Lehký readiness assessment pro školy, organizace a veřejné instituce, které reagují na emocionálně významné používání AI.',
+      title: 'Sebereflexe připravenosti na AI | Unplugged',
+      description: 'Orientační sebereflexe pro školy, organizace a veřejné instituce. Zhodnoťte připravenost na používání konverzační AI.',
     },
     '/about': {
       title: 'O projektu Unplugged | Iniciativa pro AI gramotnost ve veřejném zájmu',
@@ -100,16 +100,16 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
       description: 'Výzkum psychologického dopadu konverzační AI: simulovaná empatie, socio-emocionální substituce a vliv AI společníků na lidské vztahy.',
     },
     '/approach': {
-      title: 'Náš přístup ke vzdělávání a poradenství v etice AI | Unplugged',
-      description: 'Jak Unplugged pomáhá školám a organizacím orientovat se v etice AI. Workshopy, akce, školící programy, poradenství a tvorba politik pro digitální gramotnost.',
+      title: 'Náš přístup ke vzdělávání o AI | Unplugged',
+      description: 'Jak Unplugged přistupuje ke vzdělávání o AI. Nabídka pilotních workshopů a školení pro školy a organizace.',
     },
     '/psychology': {
-      title: 'Psychologie AI — Nebezpečí AI jako terapeuta, partnera a kamaráda | Unplugged',
-      description: 'Co se děje s tvým mozkem, když se AI stane tvým terapeutem, partnerem nebo kamarádem. Výzkumem podložená psychologie emocionální závislosti a simulované empatie.',
+      title: 'Když AI působí osobně | Unplugged',
+      description: 'Co studie chatbotů pozorovala, co z ní nelze vyvodit a naše interpretace pro běžné používání AI.',
     },
     '/join': {
       title: 'Připojte se k programu Unplugged — Etika AI pro školy a organizace',
-      description: 'Připojte se k našemu vzdělávacímu programu pro studenty, učitele a organizace. Workshopy, prezentace a poradenství o zdravých hranicích s AI.',
+      description: 'Poptávka pilotních workshopů a školení o zdravých hranicích s AI pro studenty, učitele a organizace.',
     },
     '/privacy': {
       title: 'Ochrana osobních údajů | Unplugged',
@@ -118,12 +118,22 @@ const seoData: Record<Language, Record<string, SEOConfig>> = {
   },
 };
 
-const SEOHead: React.FC<{ lang: Language }> = ({ lang }) => {
+const SEOHead: FC<{ lang: Language }> = ({ lang }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname;
+    const path = location.pathname.replace(/\/+$/, '') || '/';
     const config = seoData[lang][path] || seoData[lang]['/'];
+
+    const canonicalUrl = `https://www.unplugged.cz${path}`;
+    document.documentElement.lang = lang;
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]') || document.createElement('link');
+    canonical.rel = 'canonical';
+    canonical.href = canonicalUrl;
+    if (!canonical.isConnected) document.head.appendChild(canonical);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
+    document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'cs' ? 'cs_CZ' : 'en_US');
+    document.querySelector('meta[http-equiv="content-language"], meta[name="content-language"]')?.setAttribute('content', lang);
 
     document.title = config.title;
 

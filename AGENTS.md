@@ -1,3 +1,5 @@
+> Před začátkem práce si přečti HANDOFF.md — aktuální stav, pravidla a backlog.
+
 <!-- convex-ai-start -->
 This project uses [Convex](https://convex.dev) as its backend.
 

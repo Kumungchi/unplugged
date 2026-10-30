@@ -13,7 +13,7 @@ export const defaultAboutContent = {
   en: {
     title: 'A public-interest initiative in formation.',
     subtitle:
-      'Unplugged exists to help institutions respond to emotionally significant AI use with more clarity, better language, and healthier human boundaries. It operates as part of the umbrella organization Alesvia.org.',
+      'Unplugged exists to help institutions respond to emotionally significant AI use with more clarity, better language, and healthier human boundaries. It is an initiative under Alesvia, whose registration as a Czech registered institute is being prepared.',
     credibilityTitle: 'How we describe ourselves',
     credibilityBody:
       'We do not present ourselves as a mature research institute. We are building an initiative at the intersection of AI literacy, psychology, education, and implementation guidance. Our public materials distinguish between public research, our synthesis, and practical recommendations.',
@@ -38,7 +38,7 @@ export const defaultAboutContent = {
   cs: {
     title: 'Vznikající iniciativa ve veřejném zájmu.',
     subtitle:
-      'Unplugged pomáhá institucím reagovat na emocionálně významné používání AI s větší srozumitelností, lepším jazykem a zdravějšími lidskými hranicemi. Funguje jako součást zastřešující organizace Alesvia.org.',
+      'Unplugged pomáhá institucím reagovat na emocionálně významné používání AI s větší srozumitelností, lepším jazykem a zdravějšími lidskými hranicemi. Je iniciativou pod Alesvia, jejíž registraci jako zapsaného ústavu připravujeme.',
     credibilityTitle: 'Jak o sobě mluvíme',
     credibilityBody:
       'Neprezentujeme se jako hotový výzkumný institut. Budujeme iniciativu na pomezí AI gramotnosti, psychologie, vzdělávání a implementační podpory. Ve veřejných materiálech rozlišujeme mezi veřejným výzkumem, naší syntézou a praktickými doporučeními.',
@@ -101,9 +101,9 @@ const About: React.FC<AboutProps> = ({ lang }) => {
         <div className="bg-white border border-stone-200 rounded-[2rem] p-8 space-y-5">
           <h2 className="text-2xl font-serif italic font-bold text-stone-900">{c.whatTitle}</h2>
           <ul className="space-y-3">
-            {c.whatItems.map((item) => (
+            {c.whatItems.map((item, index) => (
               <li key={item} className="flex items-start gap-3 text-stone-600">
-                <span className="text-red-600 font-black text-sm mt-0.5">01</span>
+                <span className="text-red-600 font-black text-sm mt-0.5">{String(index + 1).padStart(2, '0')}</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -112,9 +112,9 @@ const About: React.FC<AboutProps> = ({ lang }) => {
         <div className="bg-white border border-stone-200 rounded-[2rem] p-8 space-y-5">
           <h2 className="text-2xl font-serif italic font-bold text-stone-900">{c.principlesTitle}</h2>
           <ul className="space-y-3">
-            {c.principles.map((item) => (
+            {c.principles.map((item, index) => (
               <li key={item} className="flex items-start gap-3 text-stone-600">
-                <span className="text-red-600 font-black text-sm mt-0.5">02</span>
+                <span className="text-red-600 font-black text-sm mt-0.5">{String(index + 1).padStart(2, '0')}</span>
                 <span>{item}</span>
               </li>
             ))}

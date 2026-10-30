@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://unplugged.cz/sitemap.xml
+Sitemap: https://www.unplugged.cz/sitemap.xml

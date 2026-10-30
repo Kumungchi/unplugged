@@ -20,6 +20,8 @@ import StaffManager from './components/StaffManager';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Language, translations } from './translations';
 import SEOHead from './components/SEOHead';
+import CrisisSupport from './components/CrisisSupport';
+import { COOKIE_SETTINGS_EVENT } from './privacy';
 
 const MirrorDemo = lazy(() => import('./components/MirrorDemo'));
 
@@ -55,7 +57,7 @@ const App: React.FC = () => {
     schools: lang === 'en' ? 'Schools' : 'Školy',
     organizations: lang === 'en' ? 'Organizations' : 'Organizace',
     government: lang === 'en' ? 'Government' : 'Veřejný',
-    assessment: lang === 'en' ? 'Assessment' : 'Assessment',
+    assessment: lang === 'en' ? 'Assessment' : 'Sebereflexe',
     about: lang === 'en' ? 'About' : 'O nás',
     contact: lang === 'en' ? 'Work With Us' : 'Spolupráce',
     initiative: lang === 'en' ? 'Join the Initiative' : 'Přidejte se',
@@ -188,6 +190,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className="py-8 md:py-12 border-t border-stone-200 text-stone-500 text-[10px] font-bold uppercase tracking-[0.3em] text-center space-y-4">
+        <CrisisSupport lang={lang} />
         <p>{t.footer_text}</p>
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
           <Link to="/schools" className="hover:text-stone-900">{labels.schools}</Link>
@@ -198,6 +201,7 @@ const App: React.FC = () => {
           <Link to="/join" className="hover:text-stone-900">{labels.contact}</Link>
           <Link to="/initiative" className="hover:text-stone-900">{labels.initiative}</Link>
           <Link to="/privacy" className="hover:text-stone-900">{t.nav_privacy}</Link>
+          <button type="button" onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))} className="hover:text-stone-900 underline underline-offset-4">{t.cookie_settings}</button>
         </div>
       </footer>
 

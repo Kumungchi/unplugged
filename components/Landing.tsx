@@ -28,11 +28,11 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
   }, []);
 
   const stats = [
-    { number: t.stat_1_number, label: t.stat_1_label },
-    { number: t.stat_2_number, label: t.stat_2_label },
-    { number: t.stat_3_number, label: t.stat_3_label },
-    { number: t.stat_4_number, label: t.stat_4_label },
+    { number: t.stat_1_number, label: t.stat_1_label, source: t.stat_1_source, page: 6 },
+    { number: t.stat_2_number, label: t.stat_2_label, source: t.stat_2_source, page: 12 },
+    { number: t.stat_3_number, label: t.stat_3_label, source: t.stat_3_source, page: 9 },
   ];
+  const surveyUrl = 'https://www.commonsensemedia.org/sites/default/files/research/report/talk-trust-and-trade-offs_2025_web.pdf';
 
   const audiences = [
     {
@@ -103,30 +103,32 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
       </section>
 
       {/* Stats */}
-      <section className="scroll-fade">
+      <section>
         <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-serif italic text-stone-900 font-black tracking-tighter mb-8 md:mb-10">
           {t.stats_title}
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {stats.map((stat, i) => (
-            <div key={i} className={`p-5 md:p-8 rounded-2xl md:rounded-[2rem] text-center space-y-2 md:space-y-3 ${
-              i === 3 ? 'bg-red-600 text-white' : 'bg-white border border-stone-200'
-            }`}>
-              <div className={`text-3xl md:text-5xl font-black tracking-tighter ${
-                i === 3 ? 'text-white' : 'text-stone-900'
-              }`}>
+            <div key={i} className="p-5 md:p-8 rounded-2xl text-center space-y-4 bg-white border border-stone-200">
+              <div className="text-3xl md:text-5xl font-black tracking-tight text-stone-900">
                 {stat.number}
               </div>
-              <p className={`text-[11px] md:text-sm font-light leading-relaxed ${
-                i === 3 ? 'text-red-100' : 'text-stone-500'
-              }`}>
+              <p className="text-base leading-relaxed text-stone-700">
                 {stat.label}
               </p>
+              <a href={`${surveyUrl}#page=${stat.page}`} className="block text-sm leading-relaxed text-stone-600 underline underline-offset-4 hover:text-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">
+                {stat.source}
+              </a>
             </div>
           ))}
         </div>
-        <p className="text-center text-[9px] font-mono text-stone-400 mt-4 uppercase tracking-wider">
-          {t.stats_source}
+        <div className="max-w-3xl mx-auto mt-8 space-y-3 text-center">
+          <p className="text-base text-stone-700 leading-relaxed">{t.stats_context}</p>
+          <a href={`${surveyUrl}#page=11`} className="block text-sm text-stone-600 underline underline-offset-4 hover:text-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700">{t.stats_context_source}</a>
+          <p className="text-sm text-stone-600 leading-relaxed">{t.stats_limits}</p>
+        </div>
+        <p className="max-w-3xl mx-auto text-center text-xl md:text-2xl font-serif text-red-700 mt-8">
+          {t.stats_interpretation}
         </p>
       </section>
 
@@ -204,8 +206,9 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             </p>
             <p className="text-sm md:text-base text-stone-400 leading-relaxed">
               {lang === 'en'
-                ? 'Unplugged is part of the umbrella organization Alesvia.org.'
-                : 'Unplugged je součástí zastřešující organizace Alesvia.org.'}
+                ? 'Unplugged is an initiative under Alesvia. We are preparing the registration of Alesvia z.ú.'
+                : 'Unplugged je iniciativa pod Alesvia. Registraci Alesvia z.ú. připravujeme.'}
+              {' '}<a href="https://alesvia.org" className="underline underline-offset-4 hover:text-white">alesvia.org</a>
             </p>
           </div>
           <div className="space-y-6 lg:border-l lg:border-dashed border-stone-700 lg:pl-16 flex flex-col justify-between">
@@ -231,16 +234,6 @@ const Landing: React.FC<LandingProps> = ({ lang }) => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Quote */}
-      <section className="scroll-fade py-12 md:py-16 max-w-3xl mx-auto">
-        <blockquote className="margin-line">
-          <p className="italic font-serif text-xl md:text-2xl text-stone-600 leading-relaxed">
-            "{t.quote_text}"
-          </p>
-          <footer className="mt-4 font-handwritten text-lg text-red-600">— Unplugged</footer>
-        </blockquote>
       </section>
 
       {/* Newsletter */}

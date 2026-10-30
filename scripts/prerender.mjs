@@ -112,11 +112,12 @@ function outputPathFor(route) {
 async function prerenderRoute(browser, base, route) {
   const page = await browser.newPage();
   try {
-    // Force a deterministic language for the snapshot (matches the default
-    // <html lang="en"> already in the built index.html). Real visitors still
+    // Force Czech snapshots until separate language URLs are approved in U-10.
+    // This matches <html lang="cs"> in the built index.html. Real visitors still
     // get their own language via the client-side toggle after hydration.
     await page.evaluateOnNewDocument(() => {
-      window.localStorage.setItem('unplugged_lang', 'en');
+      window.localStorage.setItem('unplugged_lang', 'cs');
+      window.localStorage.setItem('unplugged_cookie_consent', 'declined');
     });
 
     // 'load' rather than 'networkidle*' — Convex keeps a persistent websocket
@@ -130,6 +131,17 @@ async function prerenderRoute(browser, base, route) {
     );
     // Small settle buffer for the SEOHead title/meta effect to commit.
     await delay(300);
+
+    const expectedCanonical = `https://www.unplugged.cz${route}`;
+    const metadata = await page.evaluate(() => ({
+      canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href'),
+      ogUrl: document.querySelector('meta[property="og:url"]')?.getAttribute('content'),
+      lang: document.documentElement.lang,
+      demoSessionId: window.localStorage.getItem('unplugged_demo_session_id'),
+    }));
+    if (metadata.canonical !== expectedCanonical || metadata.ogUrl !== expectedCanonical || metadata.lang !== 'cs' || metadata.demoSessionId !== null) {
+      throw new Error(`Incorrect prerender metadata for ${route}: ${JSON.stringify(metadata)}`);
+    }
 
     const html = await page.content();
     const outPath = outputPathFor(route);
