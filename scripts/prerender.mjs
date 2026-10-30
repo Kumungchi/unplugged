@@ -155,7 +155,7 @@ async function prerenderRoute(browser, base, route) {
           interactiveHidden: getComputedStyle(document.querySelector('.demo-interactive')).display === 'none',
           loading: /Loading demo|Načítání dema/.test(document.body.innerText),
         }));
-        if (result.title !== 'Mirror Demo' || !result.description || !result.notice?.includes('JavaScript') || result.link !== localizedPath('/research', lang) || !result.interactiveHidden || result.loading) {
+        if (result.title !== (lang === 'cs' ? 'Zrcadlo' : 'Mirror Demo') || !result.description || !result.notice?.includes('JavaScript') || result.link !== localizedPath('/research', lang) || !result.interactiveHidden || result.loading) {
           throw new Error(`Incorrect no-JS demo for ${route}: ${JSON.stringify(result)}`);
         }
         console.log(`verified no-JS demo ${route}`);

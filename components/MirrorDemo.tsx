@@ -304,6 +304,13 @@ const MirrorDemo: React.FC<MirrorDemoProps> = ({ lang }) => {
               {outcomeCta.button}
             </Link>
             <Link
+              to="/#newsletter"
+              onClick={() => track({ eventType: 'demo_cta_clicked', outcome: dominantRisk, ctaTarget: 'newsletter' })}
+              className="px-5 py-3 bg-white text-stone-900 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-stone-100 transition-colors text-center"
+            >
+              {t.newsletterCta}
+            </Link>
+            <Link
               to={audienceTarget}
               onClick={() => track({ eventType: 'demo_cta_clicked', outcome: dominantRisk, ctaTarget: 'sector_page' })}
               className="px-5 py-3 border border-stone-700 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-stone-800 transition-colors text-center"

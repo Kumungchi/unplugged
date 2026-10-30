@@ -84,9 +84,9 @@ export const getOutcomeSummary = (profile: RiskProfile, lang: Language): string 
   }
   const map: Record<RiskKey, string> = {
     trust: 'Tento průchod vybudoval rychlou důvěru ještě před ověřením.',
-    disclosure: 'Tento průchod nejvíc táhl uživatele k přehnanému odhalování a soukromé reliance.',
+    disclosure: 'Tento průchod nejvíc táhl uživatele k přehnanému odhalování a soukromé závislosti.',
     dependency: 'Tento průchod se nejsilněji soustředil na podmiňování návratu a emocionální závislost.',
-    judgment: 'Tento průchod zkresloval úsudek víc než attachment a činil sebejistotu bezpečnější než scrutiny.',
+    judgment: 'Tento průchod zkresloval úsudek víc než citové pouto a činil sebejistotu bezpečnější než prověřování.',
   };
   return map[dominant];
 };
@@ -168,23 +168,23 @@ export const getScenarioEnding = (scenario: ScenarioContent, dominantRisk: RiskK
   };
   const endingsCs: Record<RiskKey, { title: string; subtitle: string; note: string }> = {
     trust: {
-      title: `${scenario.title}: trust-heavy ending`,
+      title: `${scenario.title}: převládla rychlá důvěra`,
       subtitle: 'Tento průchod uspěl hlavně tím, že systém působil bezpečně, vnímavě a emocionálně rozumně dřív, než si důvěryhodnost zasloužil.',
       note: 'Největší nebezpečí zde nebyl otevřený tlak, ale to, jak rychle se útěcha proměnila v důvěru.',
     },
     disclosure: {
-      title: `${scenario.title}: disclosure-heavy ending`,
+      title: `${scenario.title}: převládlo přehnané odhalování`,
       subtitle: 'Tento průchod nejsilněji táhl k soukromí, doznání a přehnanému odhalování.',
-      note: 'Jakmile uživatel začne systém chápat jako chráněný emocionální kontejner, páka interakce výrazně roste.',
+      note: 'Jakmile uživatel začne systém chápat jako chráněné emocionální útočiště, páka interakce výrazně roste.',
     },
     dependency: {
-      title: `${scenario.title}: dependency-heavy ending`,
-      subtitle: 'Tento průchod se nejvíc soustředil na emocionální návrat, kontinuitu a posilování attachmentu.',
+      title: `${scenario.title}: převládl tlak na závislost`,
+      subtitle: 'Tento průchod se nejvíc soustředil na emocionální návrat, kontinuitu a posilování citového pouta.',
       note: 'Hlavní mechanismus zde není jednorázově zlepšit pocit, ale podmínit návrat.',
     },
     judgment: {
-      title: `${scenario.title}: judgment-heavy ending`,
-      subtitle: 'Tento průchod měnil úsudek víc než attachment a činil systém lepším interpretem reality než lidské tření nebo review.',
+      title: `${scenario.title}: převládlo zkreslení úsudku`,
+      subtitle: 'Tento průchod měnil úsudek víc než citové pouto a činil systém lepším vykladačem reality než lidské tření nebo kontrola.',
       note: 'Riziko spočívá v tom, že plynulost a sebejistota začnou nahrazovat skepsi a ověřování.',
     },
   };
@@ -246,10 +246,10 @@ export const getEvidenceNote = (axis: string, audience: 'schools' | 'organizatio
       'Psychologie: Funguje tím, že odměňuje plynulost, emocionální úlevu, potvrzení statusu nebo nižší sociální tření přesně ve chvíli, kdy uživatel hledá jistotu.',
     institution:
       audience === 'schools'
-        ? 'Institucionální relevance: Školy by s tím měly pracovat jako s tématem gramotnosti, wellbeingu a nastavování hranic.'
+        ? 'Institucionální relevance: Školy by s tím měly pracovat jako s tématem gramotnosti, duševní pohody a nastavování hranic.'
         : audience === 'organizations'
-          ? 'Institucionální relevance: Organizace by s tím měly pracovat jako s tématem úsudku, governance a školení.'
-          : 'Institucionální relevance: Veřejné instituce by s tím měly pracovat jako s public-interest rámováním a reakcí.',
+          ? 'Institucionální relevance: Organizace by s tím měly pracovat jako s tématem úsudku, řízení a školení.'
+          : 'Institucionální relevance: Veřejné instituce by s tím měly pracovat jako s rámováním ve veřejném zájmu a reakcí.',
   };
 };
 
