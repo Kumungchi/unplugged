@@ -47,7 +47,7 @@ const labels = {
     eyebrow: 'Interní analytika',
     title: 'Demo Insights',
     subtitle:
-      'Živé reportování pro Mirror Demo. Tento pohled je určený pro interní produktová, facilitační a GTM rozhodnutí.',
+      'Živé reportování pro demo Zrcadlo. Tento pohled je určený pro interní produktová, facilitační a GTM rozhodnutí.',
     restricted: 'Tato stránka je dostupná jen přihlášeným členům týmu s facilitator nebo admin přístupem.',
     authMissing: 'Clerk zatím není nakonfigurovaný. Nejdřív přidejte lokální Clerk env hodnoty.',
     signIn: 'Přihlásit se pro interní reporting',

@@ -105,6 +105,7 @@ export type DemoCopy = {
   completionCta: string;
   logicFlow: string;
   copyLink: string;
+  newsletterCta: string;
   copied: string;
   workshopTitle: string;
   workshopBody: string;

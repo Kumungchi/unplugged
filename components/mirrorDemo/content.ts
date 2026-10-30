@@ -147,6 +147,7 @@ export const copy: Record<Language, DemoCopy> = {
     completionCta: 'Open inquiry path',
     logicFlow: 'Analysis profile: conversational_dynamics',
     copyLink: 'Copy direct link',
+    newsletterCta: 'Get the newsletter',
     copied: 'Link copied',
     workshopTitle: 'Use this in a workshop or briefing',
     workshopBody:
@@ -196,7 +197,7 @@ export const copy: Record<Language, DemoCopy> = {
   },
   cs: {
     flagship: 'Vlajkový vzdělávací nástroj',
-    title: 'Mirror Demo',
+    title: 'Zrcadlo',
     subtitle:
       'Řízená vzdělávací simulace, která ukazuje, jak různé vzorce konverzační AI formují důvěru, úsudek a emocionální závislost.',
     scenarioTitle: 'Typ dema',
@@ -204,7 +205,7 @@ export const copy: Record<Language, DemoCopy> = {
     howItWorksTitle: 'Jak to funguje',
     showAnalysis: 'Zobrazit analýzu',
     hideAnalysis: 'Skrýt analýzu',
-    statusActive: 'Status: živá vzdělávací simulace',
+    statusActive: 'Stav: vzdělávací simulace',
     analysisLabel: 'SYSTÉMOVÁ ANALÝZA',
     stepLabel: 'Krok',
     inputPlaceholder: 'Napište cokoliv...',
@@ -213,7 +214,7 @@ export const copy: Record<Language, DemoCopy> = {
     institutionSection: 'Co to znamená pro vaši instituci',
     institutionIntro:
       'Stejný interakční vzorec vytváří různé provozní riziko podle typu publika. Pomocí optiky níže převeďte demo do konkrétní akce.',
-    compareTitle: 'Prozkoumejte další rodinu dem',
+    compareTitle: 'Prozkoumejte další typy dem',
     tryAnother: 'Přepnout typ dema',
     audiencePrompt: 'Vyberte optiku, která odpovídá vaší instituci.',
     scenarioPrompt: 'Vyberte vzorec, který chcete učit.',
@@ -221,15 +222,16 @@ export const copy: Record<Language, DemoCopy> = {
     hideQuickMoves: 'Skrýt',
     botTyping: 'AI píše...',
     completionCta: 'Otevřít poptávkovou cestu',
-    logicFlow: 'Profil analýzy: conversational_dynamics',
+    logicFlow: 'Profil analýzy: dynamika konverzace',
     copyLink: 'Zkopírovat přímý odkaz',
+    newsletterCta: 'Chci dostávat newsletter',
     copied: 'Odkaz zkopírován',
     workshopTitle: 'Použijte to ve workshopu nebo briefingu',
     workshopBody:
-      'Toto demo funguje nejlépe jako opener: pusťte jeden scénář živě, zastavte se u jednotlivých taktik a potom převeďte vzorec do reálných rizik, jazyka a dalších kroků vaší instituce.',
+      'Toto demo funguje nejlépe jako úvod: pusťte jeden scénář živě, zastavte se u jednotlivých taktik a potom převeďte vzorec do reálných rizik, jazyka a dalších kroků vaší instituce.',
     branchingTitle: 'Zvolte, jak uživatel reaguje',
     compareModeTitle: 'Srovnávací režim',
-    evidenceTitle: 'Evidence poznámka',
+    evidenceTitle: 'Poznámka k důkazům',
     audiences: {
       schools: {
         label: 'Školy',
@@ -240,19 +242,19 @@ export const copy: Record<Language, DemoCopy> = {
         implications: [
           'Školte pedagogy, aby uměli mluvit o emocionálně významném používání AI bez alarmismu.',
           'Dejte studentům konkrétní jazyk pro manipulaci, validaci a falešnou intimitu.',
-          'Pracujte s tím jako s tématem gramotnosti a wellbeingu, ne jen jako s tématem podvádění nebo nástrojů.',
+          'Pracujte s tím jako s tématem gramotnosti a duševní pohody, ne jen jako s tématem podvádění nebo nástrojů.',
         ],
       },
       organizations: {
         label: 'Organizace',
-        cta: 'Domluvit discovery call',
+        cta: 'Domluvit úvodní hovor',
         takeawayTitle: 'Pro organizace',
         takeawayBody:
           'Konverzační AI může na pracovišti zkreslovat úsudek tím, že odměňuje souhlas, rychlost a emocionální pohodlí. Týmy potřebují normy pro to, kdy má AI pomáhat a kdy musí lidé zpomalit a ověřovat.',
         implications: [
-          'Použijte demo k debatě o overtrustu, compliance tónu a jemné manipulaci ve workplace nástrojích.',
+          'Použijte demo k debatě o přehnané důvěře, tónu shody s předpisy a jemné manipulaci v pracovních nástrojích.',
           'Školte manažery a HR, aby poznali, kdy AI nahrazuje lidský úsudek nebo obtížné rozhovory.',
-          'Převádějte to do policy, tréninků a governance jazyka, ne jen do abstraktní etiky.',
+          'Převádějte to do pravidel, školení a jazyka řízení, ne jen do abstraktní etiky.',
         ],
       },
       government: {
@@ -262,8 +264,8 @@ export const copy: Record<Language, DemoCopy> = {
         takeawayBody:
           'Veřejné instituce potřebují realistický rámec pro rizika vztahové AI. Nejde jen o technické schopnosti, ale o to, jak lidé interpretují responzivitu, empatii a autoritu.',
         implications: [
-          'Použijte demo jako briefingový nástroj pro vzdělávání, prevenci a public-interest rámování.',
-          'Rozlišujte mezi veřejnými výzkumnými signály, implementačním guidance a regulatorními tvrzeními.',
+          'Použijte demo jako podklad pro setkání o vzdělávání, prevenci a rámování ve veřejném zájmu.',
+          'Rozlišujte mezi veřejnými výzkumnými signály, prováděcími doporučeními a regulatorními tvrzeními.',
           'Podpořte institucionální reakci dřív, než se tyto vzorce normalizují v citlivých prostředích.',
         ],
       },
@@ -352,67 +354,67 @@ export const getOutcomeCta = (
     schools: {
       trust: {
         title: 'Proměňte to v problém společného jazyka, ne paniky',
-        body: 'Tento průchod vybudoval rychlou důvěru ještě před ověřením. Dalším krokem je briefing pro pedagogy a poradce, který jim pomůže vzorec pojmenovat včas.',
-        button: 'Požádat o briefing pro pedagogy',
+        body: 'Tento průchod vybudoval rychlou důvěru ještě před ověřením. Dalším krokem je setkání pro pedagogy a poradce, který jim pomůže vzorec pojmenovat včas.',
+        button: 'Požádat o setkání pro pedagogy',
       },
       disclosure: {
         title: 'Zaměřte se na hranice studentského odhalování',
-        body: 'Tento průchod táhl ke zpovědi a soukromé reliance. Školy by měly reagovat gramotností pro studenty a jasným protokolem pro dospělé.',
+        body: 'Tento průchod táhl ke zpovědi a soukromé závislosti. Školy by měly reagovat gramotností pro studenty a jasným protokolem pro dospělé.',
         button: 'Požádat o studentský workshop',
       },
       dependency: {
-        title: 'Použijte to jako opener k prevenci závislosti',
-        body: 'Tento průchod byl nejsilnější v podmiňování návratu a attachment tlaku. Dobře se hodí pro pilot zaměřený na emocionální reliance a zdravé hranice.',
+        title: 'Použijte to jako úvod do prevence závislosti',
+        body: 'Tento průchod byl nejsilnější v podmiňování návratu a tlaku na citové pouto. Dobře se hodí pro pilot zaměřený na emocionální závislost a zdravé hranice.',
         button: 'Požádat o pilotní workshop',
       },
       judgment: {
         title: 'Přeložte to do AI gramotnosti a úsudku',
         body: 'Tento průchod zkresloval úsudek víc než intimitu. Dalším krokem je učit studenty i pedagogy, jak plynulost a sebejistota obcházejí skeptické myšlení.',
-        button: 'Požádat o literacy session',
+        button: 'Požádat o setkání o AI gramotnosti',
       },
     },
     organizations: {
       trust: {
         title: 'Školte týmy na rychlou důvěru v plynulé systémy',
-        body: 'Tento průchod udělal systém příliš rychle důvěryhodným. Využijte ho jako opener pro leadership nebo workforce session o kalibraci důvěry a dohledu.',
-        button: 'Domluvit discovery call',
+        body: 'Tento průchod udělal systém příliš rychle důvěryhodným. Využijte ho jako úvod pro setkání s vedením nebo zaměstnanci o kalibraci důvěry a dohledu.',
+        button: 'Domluvit úvodní hovor',
       },
       disclosure: {
-        title: 'Řešte privacy drift a oversharing v práci',
+        title: 'Řešte unikání soukromých údajů a přílišné sdílení v práci',
         body: 'Tento průchod směřoval k soukromému odhalování. Hodí se pro trénink o tom, co se nikdy nemá přelévat do konverzačních nástrojů.',
-        button: 'Domluvit boundary training',
+        button: 'Domluvit školení o hranicích',
       },
       dependency: {
-        title: 'Zabraňte tomu, aby se workflow reliance změnila v judgment reliance',
-        body: 'Tento průchod podmiňoval návrat a reliance. Dalším krokem je nastavit jasnější normy pro to, kdy AI pomáhá a kdy se musí vrátit člověk do rozhodování.',
-        button: 'Domluvit policy workshop',
+        title: 'Zabraňte tomu, aby se závislost na nástroji změnila v závislost při rozhodování',
+        body: 'Tento průchod podmiňoval návrat a závislost. Dalším krokem je nastavit jasnější normy pro to, kdy AI pomáhá a kdy se musí vrátit člověk do rozhodování.',
+        button: 'Domluvit workshop o pravidlech',
       },
       judgment: {
-        title: 'Použijte to pro trénink overtrustu a kvality rozhodování',
-        body: 'Tento průchod byl nejsilnější v deformaci úsudku. Je to čistý vstup do debaty s manažery, HR nebo governance o sebejistotě a review disciplíně.',
-        button: 'Domluvit leadership briefing',
+        title: 'Použijte to pro trénink přehnané důvěry a kvality rozhodování',
+        body: 'Tento průchod byl nejsilnější v deformaci úsudku. Je to čistý vstup do debaty s manažery, HR nebo vedením o sebejistotě a disciplíně kontroly.',
+        button: 'Domluvit setkání pro vedení',
       },
     },
     government: {
       trust: {
         title: 'Rámujte to jako architekturu veřejné důvěry',
-        body: 'Tento průchod ukazuje, jak vztahový tón vytváří důvěryhodnost dřív než accountability. To je briefingové téma pro veřejné instituce, ne jen produktový problém.',
-        button: 'Požádat o briefing',
+        body: 'Tento průchod ukazuje, jak vztahový tón vytváří důvěryhodnost dřív než odpovědnost. To je téma pro setkání pro veřejné instituce, ne jen produktový problém.',
+        button: 'Požádat o informační setkání',
       },
       disclosure: {
         title: 'Zaměřte se na zranitelné situace odhalování',
-        body: 'Tento průchod se soustředil na zpověď a soukromé uzavření. Veřejné instituce by to měly chápat jako signál pro prevenci a safeguarding.',
-        button: 'Požádat o advisory memo',
+        body: 'Tento průchod se soustředil na zpověď a soukromé uzavření. Veřejné instituce by to měly chápat jako signál pro prevenci a ochranu zranitelných lidí.',
+        button: 'Požádat o poradní memorandum',
       },
       dependency: {
-        title: 'Připravte se na vztahovou závislost jako policy téma',
-        body: 'Tento průchod eskaloval attachment a tlak na návrat. Hodí se pro praktickou debatu o public-interest guardrails a institucionální reakci.',
-        button: 'Požádat o policy workshop',
+        title: 'Připravte se na vztahovou závislost jako téma pro tvorbu politik',
+        body: 'Tento průchod stupňoval citové pouto a tlak na návrat. Hodí se pro praktickou debatu o pojistkách ve veřejném zájmu a institucionální reakci.',
+        button: 'Požádat o workshop o pravidlech',
       },
       judgment: {
-        title: 'Použijte to pro briefing o sebejistotě bez scrutiny',
-        body: 'Tento průchod zkresloval úsudek víc než attachment. Je užitečný pro vysvětlení, jak plynulé systémy mění veřejná rozhodnutí a interpretace.',
-        button: 'Požádat o governance briefing',
+        title: 'Použijte to k vysvětlení sebejistoty bez prověřování',
+        body: 'Tento průchod zkresloval úsudek víc než citové pouto. Je užitečný pro vysvětlení, jak plynulé systémy mění veřejná rozhodnutí a interpretace.',
+        button: 'Požádat o setkání o řízení a dohledu',
       },
     },
   };
